@@ -46,6 +46,9 @@ filename = str(sys.argv[1])
 
 architectureName = str(sys.argv[2])
 
+if (architectureName == str("x86-64")):
+    architectureName = "x86"
+
 raw_options = open(filename, 'r')
 
 raw_lines = raw_options.readlines()
