@@ -17,11 +17,12 @@ Once this is done, follow the steps below to successfully run cornucopia
 
 1.) Make the post-gres database, run all the command below sequentially to create the database.
 
-    a.) su postgres
-    b.) psql
-    c.) create database db;
-    d.) create user anon with encrypted password 'admin';
-    e.) grant all privileges on database db to anon;
+    a.) service postgresql start
+    b.) su postgres
+    c.) psql
+    d.) create database db;
+    e.) create user anon with encrypted password 'admin';
+    f.) grant all privileges on database db to anon;
     
 to quit psql use \q and to quit postgres use exit.
 
