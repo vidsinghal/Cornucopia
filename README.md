@@ -2,7 +2,7 @@
 
 This is a docker image that will build Cornucopia with all the correct dependencies installed. 
 
-To build the image execute the following command in the main directory ("docker")
+To build the image execute the following command in the main directory
 
     docker image build -t cornucopia .
 
@@ -11,7 +11,7 @@ To run the docker image we just built, run the following command
 
     docker run -p 5001:5001 -t -i cornucopia
 
-Once we have run this command we will enter a bashg terminal where all the files and folders will reside in /root. 
+Once we have run this command we will enter a bash terminal where all the files and folders will reside in /root. 
 
 Once this is done, follow the steps below to successfully run cornucopia
 
