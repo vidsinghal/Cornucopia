@@ -2,7 +2,8 @@
 
 This is a docker image that will build Cornucopia with all the correct dependencies installed. 
 
-To build the image execute the following command in the main directory
+To build the image execute the following command in the main directory ("docker")
+```
     docker image build -t cornucopia .
 ```
 The above command will build the cornucopia docker image. We can then access it and play around inside the environment. 
@@ -12,26 +13,22 @@ To run the docker image we just built, run the following command
 ```
 Once we have run this command we will enter a `bash` terminal where all the files and folders will reside in `/root`. Now follow the steps below to successfully run cornucopia.
 
-Once we have run this command we will enter a bash terminal where all the files and folders will reside in /root. 
+1.) Make the `post-gres database`, run all the command below sequentially to create the database.
+```
+    service postgresql start
+    su postgres
+    psql
+    create database db;
+    create user anon with encrypted password 'admin';
+    grant all privileges on database db to anon;
+```  
+To quit `psql` use `\q` and to quit `postgres` use `exit`.
 
-Once this is done, follow the steps below to successfully run cornucopia
-
-1.) Make the post-gres database, run all the command below sequentially to create the database.
-
-    a.) service postgresql start
-    b.) su postgres
-    c.) psql
-    d.) create database db;
-    e.) create user anon with encrypted password 'admin';
-    f.) grant all privileges on database db to anon;
-    
-to quit psql use \q and to quit postgres use exit.
-
-1.) Run the server
-Open a new screen to run the server in by typing "screen". This will take you to a new screen. 
-Go the the fitness_wrapper directory and type the following command in order to deply the server.
+2.) Run the server
+Open a new screen to run the server in by typing `screen`. This will take you to a new screen. 
+Go the `fitness_wrapper` directory and type the following command in order to deploy the server.
 Note that we are using port 5001 here because that is the one that was exposed in the docker file.
-Also note that we are using the function hash uniform weight server but to use another server out of the many that run different fitness functions just replace the server `.py` file and run it instead.
+Also note that we are using the function hash uniform weight server but to use another server out of the many that run different fitness function just replace the server `.py` file and run it instead.
 ```
     python3 server_function_hash_uniform_weight.py /root/fitness_wrapper/uploaded_files/ 5001
 ```  
@@ -67,7 +64,7 @@ If you choose `mips` for example run the following command in the `/root` direct
 change `mips` in the command above with the architecture of choice
 
 5.) Modify `randollvm.config` file in `automation_scripts` as per need.
-Modify this file in the folder automation_scripts to fine tune the options, for instance the iterations to fuzz, threads to use, fuzzing time if you need to use time instead of iterations. Change the architecture from the ones mentioned above as well. Depending on which server you deployed enter the name of the server file name. Also, if you just want to fuzz a single bitcode file from the multiple ones that are available in `afl_sources` then change the name to that file for the option `SOURCE` in this file. 
+Modify this file in the folder automation_scripts to fine tune of the options, for instance the iterations to fuzz, threads to use, fuzzing time if you need to use time instead of iterations. Change the architecture from the ones mentioned above as well. Depending on which server you deployed enter the name of the server file name. Also, if you just want to fuzz a single bitcode file from the multiple ones that are available in `afl_source` then change the name to that file for the option `SOURCE` in this file. 
 
 
 6.) Sometimes AFL++ complains about CPU governor, so it would a good idea to run the following command on your host machine outside docker.
@@ -83,7 +80,7 @@ Go to the `automation_scripts` folder and run the following command for help on 
 You need to provide the fuzz mode (1 for a single file in parallel and 0 for all files in `afl_sources` in parallel)
 you also need to provide the config file.
 
-For example, you can run the following command to run cornucopia for all files in parallel where each source is fuzzed on a single core, make sure that you run this command in another screen (Run this command in a separate screen using the `screen` command so that you can go back to the server screen and check the progress).
+For example, you can run the following command to run cornucopia for all files in parallel where each source in fuzzed on a single core using the following, make sure that you run this command in another screen (Run this command in a separate screen using the `screen` command so that you can go back to the server screen and check the progress).
 ```
     python3 run_fuzz.py -m 0 randollvm.config
 ```
