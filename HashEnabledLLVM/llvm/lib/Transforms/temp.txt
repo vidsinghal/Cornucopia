@@ -1,0 +1,2136 @@
+InstCombine/InstructionCombining.cpp:    DIB.reset(new DIBuilder(*MI.getModule(), /*AllowUnresolved=*/false));
+InstCombine/InstructionCombining.cpp:      Module *M = II->getModule();
+InstCombine/InstructionCombining.cpp:  auto &MAMProxy = AM.getResult<ModuleAnalysisManagerFunctionProxy>(F);
+InstCombine/InstCombineAndOrXor.cpp:  Function *F = Intrinsic::getDeclaration(I.getModule(), Intrinsic::bswap,
+InstCombine/InstCombineAndOrXor.cpp:  Function *F = Intrinsic::getDeclaration(Or.getModule(), IID, Or.getType());
+InstCombine/InstCombineAndOrXor.cpp:    Function *F = Intrinsic::getDeclaration(Or.getModule(), id, Ty);
+InstCombine/InstCombineCalls.cpp:                               II.getModule()->getDataLayout(), &II, nullptr)) {
+InstCombine/InstCombineCalls.cpp:    Function *F = Intrinsic::getDeclaration(II.getModule(), ID, II.getType());
+InstCombine/InstCombineCalls.cpp:        Intrinsic::getDeclaration(II.getModule(), Intrinsic::cttz, Ty);
+InstCombine/InstCombineCalls.cpp:        Intrinsic::getDeclaration(II.getModule(), Intrinsic::cttz, Ty);
+InstCombine/InstCombineCalls.cpp:          Module *M = CI.getModule();
+InstCombine/InstCombineCalls.cpp:        Module *Mod = II->getModule();
+InstCombine/InstCombineCalls.cpp:        Module *Mod = II->getModule();
+InstCombine/InstCombineCalls.cpp:          II->getModule(), II->getIntrinsicID(), {ExtSrc0->getType()});
+InstCombine/InstCombineSelect.cpp:  Function *F = Intrinsic::getDeclaration(II->getModule(), Intrinsic::cttz,
+InstCombine/InstCombineSelect.cpp:      Intrinsic::getDeclaration(SI.getModule(), NewIntrinsicID, SI.getType());
+InstCombine/InstCombineSelect.cpp:  Function *F = Intrinsic::getDeclaration(MinMax1.getModule(), IntrinsicID, NewTy);
+InstCombine/InstCombineSelect.cpp:  Function *F = Intrinsic::getDeclaration(Sel.getModule(), IID, Sel.getType());
+InstCombine/InstCombineSelect.cpp:  Function *F = Intrinsic::getDeclaration(Sel.getModule(), Intrinsic::copysign,
+InstCombine/InstCombineAddSub.cpp:    return Intrinsic::getDeclaration(I.getModule(), Intrinsic::uadd_sat, Ty);
+InstCombine/InstCombineCompares.cpp:      I.getModule(), Intrinsic::sadd_with_overflow, NewType);
+InstCombine/InstCombineCompares.cpp:      I.getModule(), Intrinsic::umul_with_overflow, X->getType());
+InstCombine/InstCombineCompares.cpp:      I.getModule(), Intrinsic::umul_with_overflow, MulType);
+InstCombine/InstCombineCasts.cpp:  Function *F = Intrinsic::getDeclaration(Trunc.getModule(), IID, DestTy);
+InstCombine/InstCombineCasts.cpp:      Function *Overload = Intrinsic::getDeclaration(FPT.getModule(),
+InstCombine/InstCombineCasts.cpp:          Intrinsic::getDeclaration(CI.getModule(), Intrinsic::bswap, DestTy);
+Instrumentation/ThreadSanitizer.cpp:#include "llvm/IR/Module.h"
+Instrumentation/ThreadSanitizer.cpp:#include "llvm/Transforms/Utils/ModuleUtils.h"
+Instrumentation/ThreadSanitizer.cpp:const char kTsanModuleCtorName[] = "tsan.module_ctor";
+Instrumentation/ThreadSanitizer.cpp:/// ThreadSanitizer: instrument the code in module to find races.
+Instrumentation/ThreadSanitizer.cpp:/// declarations into the module if they don't exist already. Instantiating
+Instrumentation/ThreadSanitizer.cpp:/// the module.
+Instrumentation/ThreadSanitizer.cpp:  void initialize(Module &M);
+Instrumentation/ThreadSanitizer.cpp:  bool doInitialization(Module &M) override;
+Instrumentation/ThreadSanitizer.cpp:void insertModuleCtor(Module &M) {
+Instrumentation/ThreadSanitizer.cpp:      M, kTsanModuleCtorName, kTsanInitName, /*InitArgTypes=*/{},
+Instrumentation/ThreadSanitizer.cpp:PreservedAnalyses ThreadSanitizerPass::run(Module &M,
+Instrumentation/ThreadSanitizer.cpp:                                           ModuleAnalysisManager &MAM) {
+Instrumentation/ThreadSanitizer.cpp:  insertModuleCtor(M);
+Instrumentation/ThreadSanitizer.cpp:bool ThreadSanitizerLegacyPass::doInitialization(Module &M) {
+Instrumentation/ThreadSanitizer.cpp:  insertModuleCtor(M);
+Instrumentation/ThreadSanitizer.cpp:void ThreadSanitizer::initialize(Module &M) {
+Instrumentation/ThreadSanitizer.cpp:static bool shouldInstrumentReadWriteFromAddress(const Module *M, Value *Addr) {
+Instrumentation/ThreadSanitizer.cpp:    if (!shouldInstrumentReadWriteFromAddress(I->getModule(), Addr))
+Instrumentation/ThreadSanitizer.cpp:  // the module constructor.
+Instrumentation/ThreadSanitizer.cpp:  if (F.getName() == kTsanModuleCtorName)
+Instrumentation/IndirectCallPromotion.cpp:// is the pass won't prefix the source module name to the internal linkage
+Instrumentation/IndirectCallPromotion.cpp:class PGOIndirectCallPromotionLegacyPass : public ModulePass {
+Instrumentation/IndirectCallPromotion.cpp:      : ModulePass(ID), InLTO(InLTO), SamplePGO(SamplePGO) {
+Instrumentation/IndirectCallPromotion.cpp:  bool runOnModule(Module &M) override;
+Instrumentation/IndirectCallPromotion.cpp:ModulePass *llvm::createPGOIndirectCallPromotionLegacyPass(bool InLTO,
+Instrumentation/IndirectCallPromotion.cpp:  Module *M;
+Instrumentation/IndirectCallPromotion.cpp:  ICallPromotionFunc(Function &Func, Module *Modu, InstrProfSymtab *Symtab,
+Instrumentation/IndirectCallPromotion.cpp:    // Don't promote if the symbol is not defined in the module. This avoids
+Instrumentation/IndirectCallPromotion.cpp:    // creating a reference to a symbol that doesn't exist in the module
+Instrumentation/IndirectCallPromotion.cpp:static bool promoteIndirectCalls(Module &M, ProfileSummaryInfo *PSI,
+Instrumentation/IndirectCallPromotion.cpp:                                 ModuleAnalysisManager *AM = nullptr) {
+Instrumentation/IndirectCallPromotion.cpp:          AM->getResult<FunctionAnalysisManagerModuleProxy>(M).getManager();
+Instrumentation/IndirectCallPromotion.cpp:bool PGOIndirectCallPromotionLegacyPass::runOnModule(Module &M) {
+Instrumentation/IndirectCallPromotion.cpp:PreservedAnalyses PGOIndirectCallPromotion::run(Module &M,
+Instrumentation/IndirectCallPromotion.cpp:                                                ModuleAnalysisManager &AM) {
+Instrumentation/CGProfile.cpp:addModuleFlags(Module &M,
+Instrumentation/CGProfile.cpp:  M.addModuleFlag(Module::Append, "CG Profile", MDNode::get(Context, Nodes));
+Instrumentation/CGProfile.cpp:    Module &M, function_ref<BlockFrequencyInfo &(Function &)> GetBFI,
+Instrumentation/CGProfile.cpp:  return addModuleFlags(M, Counts);
+Instrumentation/CGProfile.cpp:struct CGProfileLegacyPass final : public ModulePass {
+Instrumentation/CGProfile.cpp:  CGProfileLegacyPass() : ModulePass(ID) {
+Instrumentation/CGProfile.cpp:  bool runOnModule(Module &M) override {
+Instrumentation/CGProfile.cpp:ModulePass *llvm::createCGProfileLegacyPass() {
+Instrumentation/CGProfile.cpp:PreservedAnalyses CGProfilePass::run(Module &M, ModuleAnalysisManager &MAM) {
+Instrumentation/CGProfile.cpp:      MAM.getResult<FunctionAnalysisManagerModuleProxy>(M).getManager();
+Instrumentation/ControlHeightReduction.cpp:static cl::opt<std::string> CHRModuleList(
+Instrumentation/ControlHeightReduction.cpp:    "chr-module-list", cl::init(""), cl::Hidden,
+Instrumentation/ControlHeightReduction.cpp:    cl::desc("Specify file to retrieve the list of modules to apply CHR to"));
+Instrumentation/ControlHeightReduction.cpp:static StringSet<> CHRModules;
+Instrumentation/ControlHeightReduction.cpp:  if (!CHRModuleList.empty()) {
+Instrumentation/ControlHeightReduction.cpp:    auto FileOrErr = MemoryBuffer::getFile(CHRModuleList);
+Instrumentation/ControlHeightReduction.cpp:      errs() << "Error: Couldn't read the chr-module-list file " << CHRModuleList << "\n";
+Instrumentation/ControlHeightReduction.cpp:        CHRModules.insert(Line);
+Instrumentation/ControlHeightReduction.cpp:  if (!CHRModuleList.empty() || !CHRFunctionList.empty()) {
+Instrumentation/ControlHeightReduction.cpp:    if (CHRModules.count(F.getParent()->getName()))
+Instrumentation/ControlHeightReduction.cpp:  StringRef ModuleName = F.getParent()->getName();
+Instrumentation/ControlHeightReduction.cpp:  (void)(ModuleName); // Unused in release build.
+Instrumentation/ControlHeightReduction.cpp:  CHR_DEBUG(dbgs() << "CHR IR dump " << Label << " " << ModuleName << " "
+Instrumentation/ControlHeightReduction.cpp:                       RF_NoModuleLevelChanges | RF_IgnoreMissingLocals);
+Instrumentation/ControlHeightReduction.cpp:  auto &MAMProxy = FAM.getResult<ModuleAnalysisManagerFunctionProxy>(F);
+Instrumentation/DataFlowSanitizer.cpp:#include "llvm/IR/Module.h"
+Instrumentation/DataFlowSanitizer.cpp:  /// Returns whether this module is listed in the given category.
+Instrumentation/DataFlowSanitizer.cpp:  bool isIn(const Module &M, StringRef Category) const {
+Instrumentation/DataFlowSanitizer.cpp:    return SCL->inSection("dataflow", "src", M.getModuleIdentifier(), Category);
+Instrumentation/DataFlowSanitizer.cpp:  Module *Mod;
+Instrumentation/DataFlowSanitizer.cpp:  void initializeCallbackFunctions(Module &M);
+Instrumentation/DataFlowSanitizer.cpp:  void initializeRuntimeFunctions(Module &M);
+Instrumentation/DataFlowSanitizer.cpp:  bool init(Module &M);
+Instrumentation/DataFlowSanitizer.cpp:  bool runImpl(Module &M);
+Instrumentation/DataFlowSanitizer.cpp:bool DataFlowSanitizer::init(Module &M) {
+Instrumentation/DataFlowSanitizer.cpp:  // Try to change the name of the function in module inline asm.  We only do
+Instrumentation/DataFlowSanitizer.cpp:  std::string Asm = GV->getParent()->getModuleInlineAsm();
+Instrumentation/DataFlowSanitizer.cpp:    GV->getParent()->setModuleInlineAsm(Asm);
+Instrumentation/DataFlowSanitizer.cpp:// Initialize DataFlowSanitizer runtime functions and declare them in the module
+Instrumentation/DataFlowSanitizer.cpp:void DataFlowSanitizer::initializeRuntimeFunctions(Module &M) {
+Instrumentation/DataFlowSanitizer.cpp:// Initializes event callback functions and declare them in the module
+Instrumentation/DataFlowSanitizer.cpp:void DataFlowSanitizer::initializeCallbackFunctions(Module &M) {
+Instrumentation/DataFlowSanitizer.cpp:bool DataFlowSanitizer::runImpl(Module &M) {
+Instrumentation/DataFlowSanitizer.cpp:  const unsigned InitialModuleSize = M.size();
+Instrumentation/DataFlowSanitizer.cpp:  for (Module::alias_iterator i = M.alias_begin(), e = M.alias_end(); i != e;) {
+Instrumentation/DataFlowSanitizer.cpp:  // First, change the ABI of every function in the module.  ABI-listed
+Instrumentation/DataFlowSanitizer.cpp:         M.global_size() != InitialGlobalSize || M.size() != InitialModuleSize;
+Instrumentation/DataFlowSanitizer.cpp:  auto &DL = LI.getModule()->getDataLayout();
+Instrumentation/DataFlowSanitizer.cpp:  auto &DL = SI.getModule()->getDataLayout();
+Instrumentation/DataFlowSanitizer.cpp:class DataFlowSanitizerLegacyPass : public ModulePass {
+Instrumentation/DataFlowSanitizer.cpp:      : ModulePass(ID), ABIListFiles(ABIListFiles) {}
+Instrumentation/DataFlowSanitizer.cpp:  bool runOnModule(Module &M) override {
+Instrumentation/DataFlowSanitizer.cpp:ModulePass *llvm::createDataFlowSanitizerLegacyPassPass(
+Instrumentation/DataFlowSanitizer.cpp:PreservedAnalyses DataFlowSanitizerPass::run(Module &M,
+Instrumentation/DataFlowSanitizer.cpp:                                             ModuleAnalysisManager &AM) {
+Instrumentation/HWAddressSanitizer.cpp:#include "llvm/IR/Module.h"
+Instrumentation/HWAddressSanitizer.cpp:#include "llvm/Transforms/Utils/ModuleUtils.h"
+Instrumentation/HWAddressSanitizer.cpp:const char kHwasanModuleCtorName[] = "hwasan.module_ctor";
+Instrumentation/HWAddressSanitizer.cpp:  explicit HWAddressSanitizer(Module &M, bool CompileKernel = false,
+Instrumentation/HWAddressSanitizer.cpp:    initializeModule();
+Instrumentation/HWAddressSanitizer.cpp:  void initializeModule();
+Instrumentation/HWAddressSanitizer.cpp:  void initializeCallbacks(Module &M);
+Instrumentation/HWAddressSanitizer.cpp:  Module &M;
+Instrumentation/HWAddressSanitizer.cpp:  bool doInitialization(Module &M) override {
+Instrumentation/HWAddressSanitizer.cpp:  bool doFinalization(Module &M) override {
+Instrumentation/HWAddressSanitizer.cpp:PreservedAnalyses HWAddressSanitizerPass::run(Module &M,
+Instrumentation/HWAddressSanitizer.cpp:                                              ModuleAnalysisManager &MAM) {
+Instrumentation/HWAddressSanitizer.cpp:          M, kHwasanModuleCtorName, kHwasanInitName,
+Instrumentation/HWAddressSanitizer.cpp:            Comdat *CtorComdat = M.getOrInsertComdat(kHwasanModuleCtorName);
+Instrumentation/HWAddressSanitizer.cpp:  Comdat *NoteComdat = M.getOrInsertComdat(kHwasanModuleCtorName);
+Instrumentation/HWAddressSanitizer.cpp:/// Module-level initialization.
+Instrumentation/HWAddressSanitizer.cpp:/// inserts a call to __hwasan_init to the module's constructor list.
+Instrumentation/HWAddressSanitizer.cpp:void HWAddressSanitizer::initializeModule() {
+Instrumentation/HWAddressSanitizer.cpp:void HWAddressSanitizer::initializeCallbacks(Module &M) {
+Instrumentation/HWAddressSanitizer.cpp:    Module *M = IRB.GetInsertBlock()->getParent()->getParent();
+Instrumentation/HWAddressSanitizer.cpp:  uint64_t SizeInBytes = AI.getModule()->getDataLayout().getTypeAllocSize(Ty);
+Instrumentation/HWAddressSanitizer.cpp:  Module *M = IRB.GetInsertBlock()->getParent()->getParent();
+Instrumentation/HWAddressSanitizer.cpp:  Module *M = IRB.GetInsertBlock()->getParent()->getParent();
+Instrumentation/HWAddressSanitizer.cpp:    Module *M = F->getParent();
+Instrumentation/HWAddressSanitizer.cpp:  Module *M = IRB.GetInsertBlock()->getParent()->getParent();
+Instrumentation/InstrOrderFile.cpp:#include "llvm/IR/Module.h"
+Instrumentation/InstrOrderFile.cpp:  void createOrderFileData(Module &M) {
+Instrumentation/InstrOrderFile.cpp:  void generateCodeSequence(Module &M, Function &F, int FuncId) {
+Instrumentation/InstrOrderFile.cpp:  bool run(Module &M) {
+Instrumentation/InstrOrderFile.cpp:class InstrOrderFileLegacyPass : public ModulePass {
+Instrumentation/InstrOrderFile.cpp:  InstrOrderFileLegacyPass() : ModulePass(ID) {
+Instrumentation/InstrOrderFile.cpp:  bool runOnModule(Module &M) override;
+Instrumentation/InstrOrderFile.cpp:bool InstrOrderFileLegacyPass::runOnModule(Module &M) {
+Instrumentation/InstrOrderFile.cpp:  if (skipModule(M))
+Instrumentation/InstrOrderFile.cpp:InstrOrderFilePass::run(Module &M, ModuleAnalysisManager &AM) {
+Instrumentation/InstrOrderFile.cpp:ModulePass *llvm::createInstrOrderFilePass() {
+Instrumentation/GCOVProfiling.cpp:#include "llvm/IR/Module.h"
+Instrumentation/GCOVProfiling.cpp:#include "llvm/Transforms/Utils/ModuleUtils.h"
+Instrumentation/GCOVProfiling.cpp:  runOnModule(Module &M, function_ref<BlockFrequencyInfo *(Function &F)> GetBFI,
+Instrumentation/GCOVProfiling.cpp:  // Create the .gcno files for the Module based on DebugInfo.
+Instrumentation/GCOVProfiling.cpp:  Module *M = nullptr;
+Instrumentation/GCOVProfiling.cpp:class GCOVProfilerLegacyPass : public ModulePass {
+Instrumentation/GCOVProfiling.cpp:      : ModulePass(ID), Profiler(Opts) {
+Instrumentation/GCOVProfiling.cpp:  bool runOnModule(Module &M) override {
+Instrumentation/GCOVProfiling.cpp:    return Profiler.runOnModule(M, GetBFI, GetBPI, GetTLI);
+Instrumentation/GCOVProfiling.cpp:ModulePass *llvm::createGCOVProfilerPass(const GCOVOptions &Options) {
+Instrumentation/GCOVProfiling.cpp:bool GCOVProfiler::runOnModule(
+Instrumentation/GCOVProfiling.cpp:    Module &M, function_ref<BlockFrequencyInfo *(Function &F)> GetBFI,
+Instrumentation/GCOVProfiling.cpp:PreservedAnalyses GCOVProfilerPass::run(Module &M,
+Instrumentation/GCOVProfiling.cpp:                                        ModuleAnalysisManager &AM) {
+Instrumentation/GCOVProfiling.cpp:      AM.getResult<FunctionAnalysisManagerModuleProxy>(M).getManager();
+Instrumentation/GCOVProfiling.cpp:  if (!Profiler.runOnModule(M, GetBFI, GetBPI, GetTLI))
+Instrumentation/GCOVProfiling.cpp:    // Skip module skeleton (and module) CUs.
+Instrumentation/GCOVProfiling.cpp:    // Skip module skeleton (and module) CUs.
+Instrumentation/Instrumentation.cpp:#include "llvm/IR/Module.h"
+Instrumentation/Instrumentation.cpp:GlobalVariable *llvm::createPrivateGlobalForString(Module &M, StringRef Str,
+Instrumentation/Instrumentation.cpp:  // We use private linkage for module-local strings. If they can be merged
+Instrumentation/Instrumentation.cpp:                                        const std::string &ModuleId) {
+Instrumentation/Instrumentation.cpp:  Module *M = F.getParent();
+Instrumentation/Instrumentation.cpp:    if (ModuleId.empty())
+Instrumentation/Instrumentation.cpp:    Name += ModuleId;
+Instrumentation/Instrumentation.cpp:  initializeModuleAddressSanitizerLegacyPassPass(Registry);
+Instrumentation/Instrumentation.cpp:  initializeModuleMemProfilerLegacyPassPass(Registry);
+Instrumentation/Instrumentation.cpp:  initializeModuleSanitizerCoverageLegacyPassPass(Registry);
+Instrumentation/SanitizerCoverage.cpp:#include "llvm/IR/Module.h"
+Instrumentation/SanitizerCoverage.cpp:#include "llvm/Transforms/Utils/ModuleUtils.h"
+Instrumentation/SanitizerCoverage.cpp:const char SanCovModuleCtorTracePcGuardName[] =
+Instrumentation/SanitizerCoverage.cpp:    "sancov.module_ctor_trace_pc_guard";
+Instrumentation/SanitizerCoverage.cpp:const char SanCovModuleCtor8bitCountersName[] =
+Instrumentation/SanitizerCoverage.cpp:    "sancov.module_ctor_8bit_counters";
+Instrumentation/SanitizerCoverage.cpp:const char SanCovModuleCtorBoolFlagName[] = "sancov.module_ctor_bool_flag";
+Instrumentation/SanitizerCoverage.cpp:class ModuleSanitizerCoverage {
+Instrumentation/SanitizerCoverage.cpp:  ModuleSanitizerCoverage(
+Instrumentation/SanitizerCoverage.cpp:  bool instrumentModule(Module &M, DomTreeCallback DTCallback,
+Instrumentation/SanitizerCoverage.cpp:  Function *CreateInitCallsForSections(Module &M, const char *CtorName,
+Instrumentation/SanitizerCoverage.cpp:  std::pair<Value *, Value *> CreateSecStartEnd(Module &M, const char *Section,
+Instrumentation/SanitizerCoverage.cpp:    I->setMetadata(I->getModule()->getMDKindID("nosanitize"),
+Instrumentation/SanitizerCoverage.cpp:  Module *CurModule;
+Instrumentation/SanitizerCoverage.cpp:  std::string CurModuleUniqueId;
+Instrumentation/SanitizerCoverage.cpp:class ModuleSanitizerCoverageLegacyPass : public ModulePass {
+Instrumentation/SanitizerCoverage.cpp:  ModuleSanitizerCoverageLegacyPass(
+Instrumentation/SanitizerCoverage.cpp:      : ModulePass(ID), Options(Options) {
+Instrumentation/SanitizerCoverage.cpp:    initializeModuleSanitizerCoverageLegacyPassPass(
+Instrumentation/SanitizerCoverage.cpp:  bool runOnModule(Module &M) override {
+Instrumentation/SanitizerCoverage.cpp:    ModuleSanitizerCoverage ModuleSancov(Options, Allowlist.get(),
+Instrumentation/SanitizerCoverage.cpp:    return ModuleSancov.instrumentModule(M, DTCallback, PDTCallback);
+Instrumentation/SanitizerCoverage.cpp:  StringRef getPassName() const override { return "ModuleSanitizerCoverage"; }
+Instrumentation/SanitizerCoverage.cpp:PreservedAnalyses ModuleSanitizerCoveragePass::run(Module &M,
+Instrumentation/SanitizerCoverage.cpp:                                                   ModuleAnalysisManager &MAM) {
+Instrumentation/SanitizerCoverage.cpp:  ModuleSanitizerCoverage ModuleSancov(Options, Allowlist.get(),
+Instrumentation/SanitizerCoverage.cpp:  auto &FAM = MAM.getResult<FunctionAnalysisManagerModuleProxy>(M).getManager();
+Instrumentation/SanitizerCoverage.cpp:  if (ModuleSancov.instrumentModule(M, DTCallback, PDTCallback))
+Instrumentation/SanitizerCoverage.cpp:ModuleSanitizerCoverage::CreateSecStartEnd(Module &M, const char *Section,
+Instrumentation/SanitizerCoverage.cpp:Function *ModuleSanitizerCoverage::CreateInitCallsForSections(
+Instrumentation/SanitizerCoverage.cpp:    Module &M, const char *CtorName, const char *InitFunctionName, Type *Ty,
+Instrumentation/SanitizerCoverage.cpp:bool ModuleSanitizerCoverage::instrumentModule(
+Instrumentation/SanitizerCoverage.cpp:    Module &M, DomTreeCallback DTCallback, PostDomTreeCallback PDTCallback) {
+Instrumentation/SanitizerCoverage.cpp:  CurModule = &M;
+Instrumentation/SanitizerCoverage.cpp:  CurModuleUniqueId = getUniqueModuleId(CurModule);
+Instrumentation/SanitizerCoverage.cpp:    Ctor = CreateInitCallsForSections(M, SanCovModuleCtorTracePcGuardName,
+Instrumentation/SanitizerCoverage.cpp:    Ctor = CreateInitCallsForSections(M, SanCovModuleCtor8bitCountersName,
+Instrumentation/SanitizerCoverage.cpp:    Ctor = CreateInitCallsForSections(M, SanCovModuleCtorBoolFlagName,
+Instrumentation/SanitizerCoverage.cpp:void ModuleSanitizerCoverage::instrumentFunction(
+Instrumentation/SanitizerCoverage.cpp:  if (F.getName().find(".module_ctor") != std::string::npos)
+Instrumentation/SanitizerCoverage.cpp:GlobalVariable *ModuleSanitizerCoverage::CreateFunctionLocalArrayInSection(
+Instrumentation/SanitizerCoverage.cpp:      *CurModule, ArrayTy, false, GlobalVariable::PrivateLinkage,
+Instrumentation/SanitizerCoverage.cpp:            GetOrCreateFunctionComdat(F, TargetTriple, CurModuleUniqueId))
+Instrumentation/SanitizerCoverage.cpp:ModuleSanitizerCoverage::CreatePCArray(Function &F,
+Instrumentation/SanitizerCoverage.cpp:void ModuleSanitizerCoverage::CreateFunctionLocalArrays(
+Instrumentation/SanitizerCoverage.cpp:bool ModuleSanitizerCoverage::InjectCoverage(Function &F,
+Instrumentation/SanitizerCoverage.cpp:void ModuleSanitizerCoverage::InjectCoverageForIndirectCalls(
+Instrumentation/SanitizerCoverage.cpp:void ModuleSanitizerCoverage::InjectTraceForSwitch(
+Instrumentation/SanitizerCoverage.cpp:          *CurModule, ArrayOfInt64Ty, false, GlobalVariable::InternalLinkage,
+Instrumentation/SanitizerCoverage.cpp:void ModuleSanitizerCoverage::InjectTraceForDiv(
+Instrumentation/SanitizerCoverage.cpp:void ModuleSanitizerCoverage::InjectTraceForGep(
+Instrumentation/SanitizerCoverage.cpp:void ModuleSanitizerCoverage::InjectTraceForCmp(
+Instrumentation/SanitizerCoverage.cpp:void ModuleSanitizerCoverage::InjectCoverageAtBlock(Function &F, BasicBlock &BB,
+Instrumentation/SanitizerCoverage.cpp:    Module *M = F.getParent();
+Instrumentation/SanitizerCoverage.cpp:ModuleSanitizerCoverage::getSectionName(const std::string &Section) const {
+Instrumentation/SanitizerCoverage.cpp:ModuleSanitizerCoverage::getSectionStart(const std::string &Section) const {
+Instrumentation/SanitizerCoverage.cpp:ModuleSanitizerCoverage::getSectionEnd(const std::string &Section) const {
+Instrumentation/SanitizerCoverage.cpp:char ModuleSanitizerCoverageLegacyPass::ID = 0;
+Instrumentation/SanitizerCoverage.cpp:INITIALIZE_PASS_BEGIN(ModuleSanitizerCoverageLegacyPass, "sancov",
+Instrumentation/SanitizerCoverage.cpp:INITIALIZE_PASS_END(ModuleSanitizerCoverageLegacyPass, "sancov",
+Instrumentation/SanitizerCoverage.cpp:ModulePass *llvm::createModuleSanitizerCoverageLegacyPassPass(
+Instrumentation/SanitizerCoverage.cpp:  return new ModuleSanitizerCoverageLegacyPass(Options, AllowlistFiles,
+Instrumentation/PGOInstrumentation.cpp:// the profile is opened in module level and passed to each PGOUseFunc instance.
+Instrumentation/PGOInstrumentation.cpp:#include "llvm/IR/Module.h"
+Instrumentation/PGOInstrumentation.cpp:class PGOInstrumentationGenLegacyPass : public ModulePass {
+Instrumentation/PGOInstrumentation.cpp:      : ModulePass(ID), IsCS(IsCS) {
+Instrumentation/PGOInstrumentation.cpp:  bool runOnModule(Module &M) override;
+Instrumentation/PGOInstrumentation.cpp:class PGOInstrumentationUseLegacyPass : public ModulePass {
+Instrumentation/PGOInstrumentation.cpp:      : ModulePass(ID), ProfileFileName(std::move(Filename)), IsCS(IsCS) {
+Instrumentation/PGOInstrumentation.cpp:  bool runOnModule(Module &M) override;
+Instrumentation/PGOInstrumentation.cpp:class PGOInstrumentationGenCreateVarLegacyPass : public ModulePass {
+Instrumentation/PGOInstrumentation.cpp:      : ModulePass(ID), InstrProfileOutput(CSInstrName) {
+Instrumentation/PGOInstrumentation.cpp:  bool runOnModule(Module &M) override {
+Instrumentation/PGOInstrumentation.cpp:ModulePass *llvm::createPGOInstrumentationGenLegacyPass(bool IsCS) {
+Instrumentation/PGOInstrumentation.cpp:ModulePass *llvm::createPGOInstrumentationUseLegacyPass(StringRef Filename,
+Instrumentation/PGOInstrumentation.cpp:ModulePass *
+Instrumentation/PGOInstrumentation.cpp:  Module *M = F.getParent();
+Instrumentation/PGOInstrumentation.cpp:    Function &F, Module *M, TargetLibraryInfo &TLI, BranchProbabilityInfo *BPI,
+Instrumentation/PGOInstrumentation.cpp:  PGOUseFunc(Function &Func, Module *Modu, TargetLibraryInfo &TLI,
+Instrumentation/PGOInstrumentation.cpp:  Module *M;
+Instrumentation/PGOInstrumentation.cpp:  Module *M = F.getParent();
+Instrumentation/PGOInstrumentation.cpp:// Collect the set of members for each Comdat in module M and store
+Instrumentation/PGOInstrumentation.cpp:    Module &M,
+Instrumentation/PGOInstrumentation.cpp:    Module &M, function_ref<TargetLibraryInfo &(Function &)> LookupTLI,
+Instrumentation/PGOInstrumentation.cpp:PGOInstrumentationGenCreateVar::run(Module &M, ModuleAnalysisManager &AM) {
+Instrumentation/PGOInstrumentation.cpp:bool PGOInstrumentationGenLegacyPass::runOnModule(Module &M) {
+Instrumentation/PGOInstrumentation.cpp:  if (skipModule(M))
+Instrumentation/PGOInstrumentation.cpp:PreservedAnalyses PGOInstrumentationGen::run(Module &M,
+Instrumentation/PGOInstrumentation.cpp:                                             ModuleAnalysisManager &AM) {
+Instrumentation/PGOInstrumentation.cpp:  auto &FAM = AM.getResult<FunctionAnalysisManagerModuleProxy>(M).getManager();
+Instrumentation/PGOInstrumentation.cpp:    Module &M, StringRef ProfileFileName, StringRef ProfileRemappingFileName,
+Instrumentation/PGOInstrumentation.cpp:PreservedAnalyses PGOInstrumentationUse::run(Module &M,
+Instrumentation/PGOInstrumentation.cpp:                                             ModuleAnalysisManager &AM) {
+Instrumentation/PGOInstrumentation.cpp:  auto &FAM = AM.getResult<FunctionAnalysisManagerModuleProxy>(M).getManager();
+Instrumentation/PGOInstrumentation.cpp:bool PGOInstrumentationUseLegacyPass::runOnModule(Module &M) {
+Instrumentation/PGOInstrumentation.cpp:  if (skipModule(M))
+Instrumentation/PGOInstrumentation.cpp:void llvm::setProfMetadata(Module *M, Instruction *TI,
+Instrumentation/PGOInstrumentation.cpp:void setIrrLoopHeaderMetadata(Module *M, Instruction *TI, uint64_t Count) {
+Instrumentation/MemProfiler.cpp:#include "llvm/IR/Module.h"
+Instrumentation/MemProfiler.cpp:#include "llvm/Transforms/Utils/ModuleUtils.h"
+Instrumentation/MemProfiler.cpp:constexpr char MemProfModuleCtorName[] = "memprof.module_ctor";
+Instrumentation/MemProfiler.cpp:/// Instrument the code in module to profile memory accesses.
+Instrumentation/MemProfiler.cpp:  MemProfiler(Module &M) {
+Instrumentation/MemProfiler.cpp:  void initializeCallbacks(Module &M);
+Instrumentation/MemProfiler.cpp:class ModuleMemProfiler {
+Instrumentation/MemProfiler.cpp:  ModuleMemProfiler(Module &M) { TargetTriple = Triple(M.getTargetTriple()); }
+Instrumentation/MemProfiler.cpp:  bool instrumentModule(Module &);
+Instrumentation/MemProfiler.cpp:class ModuleMemProfilerLegacyPass : public ModulePass {
+Instrumentation/MemProfiler.cpp:  explicit ModuleMemProfilerLegacyPass() : ModulePass(ID) {
+Instrumentation/MemProfiler.cpp:    initializeModuleMemProfilerLegacyPassPass(*PassRegistry::getPassRegistry());
+Instrumentation/MemProfiler.cpp:  StringRef getPassName() const override { return "ModuleMemProfiler"; }
+Instrumentation/MemProfiler.cpp:  bool runOnModule(Module &M) override {
+Instrumentation/MemProfiler.cpp:    ModuleMemProfiler MemProfiler(M);
+Instrumentation/MemProfiler.cpp:    return MemProfiler.instrumentModule(M);
+Instrumentation/MemProfiler.cpp:  Module &M = *F.getParent();
+Instrumentation/MemProfiler.cpp:ModuleMemProfilerPass::ModuleMemProfilerPass() {}
+Instrumentation/MemProfiler.cpp:PreservedAnalyses ModuleMemProfilerPass::run(Module &M,
+Instrumentation/MemProfiler.cpp:                                             AnalysisManager<Module> &AM) {
+Instrumentation/MemProfiler.cpp:  ModuleMemProfiler Profiler(M);
+Instrumentation/MemProfiler.cpp:  if (Profiler.instrumentModule(M))
+Instrumentation/MemProfiler.cpp:char ModuleMemProfilerLegacyPass::ID = 0;
+Instrumentation/MemProfiler.cpp:INITIALIZE_PASS(ModuleMemProfilerLegacyPass, "memprof-module",
+Instrumentation/MemProfiler.cpp:                "ModulePass",
+Instrumentation/MemProfiler.cpp:ModulePass *llvm::createModuleMemProfilerLegacyPassPass() {
+Instrumentation/MemProfiler.cpp:  return new ModuleMemProfilerLegacyPass();
+Instrumentation/MemProfiler.cpp:  const DataLayout &DL = I->getModule()->getDataLayout();
+Instrumentation/MemProfiler.cpp:void createProfileFileNameVar(Module &M) {
+Instrumentation/MemProfiler.cpp:      dyn_cast_or_null<MDString>(M.getModuleFlag("MemProfProfileFilename"));
+Instrumentation/MemProfiler.cpp:bool ModuleMemProfiler::instrumentModule(Module &M) {
+Instrumentation/MemProfiler.cpp:  // Create a module constructor.
+Instrumentation/MemProfiler.cpp:      createSanitizerCtorAndInitFunctions(M, MemProfModuleCtorName,
+Instrumentation/MemProfiler.cpp:void MemProfiler::initializeCallbacks(Module &M) {
+Instrumentation/PoisonChecking.cpp:  Module *M = B.GetInsertBlock()->getModule();
+Instrumentation/PoisonChecking.cpp:PreservedAnalyses PoisonCheckingPass::run(Module &M,
+Instrumentation/PoisonChecking.cpp:                                          ModuleAnalysisManager &AM) {
+Instrumentation/MemorySanitizer.cpp:/// Every module initializer should call __msan_init to ensure that the
+Instrumentation/MemorySanitizer.cpp:#include "llvm/IR/Module.h"
+Instrumentation/MemorySanitizer.cpp:#include "llvm/Transforms/Utils/ModuleUtils.h"
+Instrumentation/MemorySanitizer.cpp:const char kMsanModuleCtorName[] = "msan.module_ctor";
+Instrumentation/MemorySanitizer.cpp:/// Instrument functions of a module to detect uninitialized reads.
+Instrumentation/MemorySanitizer.cpp:/// declarations into the module if they don't exist already. Instantiating
+Instrumentation/MemorySanitizer.cpp:/// the module.
+Instrumentation/MemorySanitizer.cpp:  MemorySanitizer(Module &M, MemorySanitizerOptions Options)
+Instrumentation/MemorySanitizer.cpp:    initializeModule(M);
+Instrumentation/MemorySanitizer.cpp:  void initializeModule(Module &M);
+Instrumentation/MemorySanitizer.cpp:  void initializeCallbacks(Module &M);
+Instrumentation/MemorySanitizer.cpp:  void createKernelApi(Module &M);
+Instrumentation/MemorySanitizer.cpp:  void createUserspaceApi(Module &M);
+Instrumentation/MemorySanitizer.cpp:void insertModuleCtor(Module &M) {
+Instrumentation/MemorySanitizer.cpp:      M, kMsanModuleCtorName, kMsanInitName,
+Instrumentation/MemorySanitizer.cpp:        Comdat *MsanCtorComdat = M.getOrInsertComdat(kMsanModuleCtorName);
+Instrumentation/MemorySanitizer.cpp:  bool doInitialization(Module &M) override;
+Instrumentation/MemorySanitizer.cpp:PreservedAnalyses MemorySanitizerPass::run(Module &M,
+Instrumentation/MemorySanitizer.cpp:                                           ModuleAnalysisManager &AM) {
+Instrumentation/MemorySanitizer.cpp:  insertModuleCtor(M);
+Instrumentation/MemorySanitizer.cpp:static GlobalVariable *createPrivateNonConstGlobalForString(Module &M,
+Instrumentation/MemorySanitizer.cpp:void MemorySanitizer::createKernelApi(Module &M) {
+Instrumentation/MemorySanitizer.cpp:static Constant *getOrInsertGlobal(Module &M, StringRef Name, Type *Ty) {
+Instrumentation/MemorySanitizer.cpp:void MemorySanitizer::createUserspaceApi(Module &M) {
+Instrumentation/MemorySanitizer.cpp:void MemorySanitizer::initializeCallbacks(Module &M) {
+Instrumentation/MemorySanitizer.cpp:/// Module-level initialization.
+Instrumentation/MemorySanitizer.cpp:/// inserts a call to __msan_init to the module's constructor list.
+Instrumentation/MemorySanitizer.cpp:void MemorySanitizer::initializeModule(Module &M) {
+Instrumentation/MemorySanitizer.cpp:bool MemorySanitizerLegacyPass::doInitialization(Module &M) {
+Instrumentation/MemorySanitizer.cpp:    insertModuleCtor(M);
+Instrumentation/MemorySanitizer.cpp:    const DataLayout &DL = OrigIns->getModule()->getDataLayout();
+Instrumentation/MemorySanitizer.cpp:  if (!CompileKernel && F.getName() == kMsanModuleCtorName)
+Instrumentation/AddressSanitizer.cpp:#include "llvm/IR/Module.h"
+Instrumentation/AddressSanitizer.cpp:#include "llvm/Transforms/Utils/ModuleUtils.h"
+Instrumentation/AddressSanitizer.cpp:const char kAsanModuleCtorName[] = "asan.module_ctor";
+Instrumentation/AddressSanitizer.cpp:const char kAsanModuleDtorName[] = "asan.module_dtor";
+Instrumentation/AddressSanitizer.cpp:/// Module analysis for getting various metadata about the module.
+Instrumentation/AddressSanitizer.cpp:class ASanGlobalsMetadataWrapperPass : public ModulePass {
+Instrumentation/AddressSanitizer.cpp:  ASanGlobalsMetadataWrapperPass() : ModulePass(ID) {
+Instrumentation/AddressSanitizer.cpp:  bool runOnModule(Module &M) override {
+Instrumentation/AddressSanitizer.cpp:/// AddressSanitizer: instrument the code in module to find memory bugs.
+Instrumentation/AddressSanitizer.cpp:  AddressSanitizer(Module &M, const GlobalsMetadata *GlobalsMD,
+Instrumentation/AddressSanitizer.cpp:        AI.getModule()->getDataLayout().getTypeAllocSize(Ty);
+Instrumentation/AddressSanitizer.cpp:  void initializeCallbacks(Module &M);
+Instrumentation/AddressSanitizer.cpp:class ModuleAddressSanitizer {
+Instrumentation/AddressSanitizer.cpp:  ModuleAddressSanitizer(Module &M, const GlobalsMetadata *GlobalsMD,
+Instrumentation/AddressSanitizer.cpp:        // ClUseGlobalsGC (because then it only works on modules without
+Instrumentation/AddressSanitizer.cpp:  bool instrumentModule(Module &);
+Instrumentation/AddressSanitizer.cpp:  void initializeCallbacks(Module &M);
+Instrumentation/AddressSanitizer.cpp:  bool InstrumentGlobals(IRBuilder<> &IRB, Module &M, bool *CtorComdat);
+Instrumentation/AddressSanitizer.cpp:  void InstrumentGlobalsCOFF(IRBuilder<> &IRB, Module &M,
+Instrumentation/AddressSanitizer.cpp:  void InstrumentGlobalsELF(IRBuilder<> &IRB, Module &M,
+Instrumentation/AddressSanitizer.cpp:                            const std::string &UniqueModuleId);
+Instrumentation/AddressSanitizer.cpp:  void InstrumentGlobalsMachO(IRBuilder<> &IRB, Module &M,
+Instrumentation/AddressSanitizer.cpp:  InstrumentGlobalsWithMetadataArray(IRBuilder<> &IRB, Module &M,
+Instrumentation/AddressSanitizer.cpp:  GlobalVariable *CreateMetadataGlobal(Module &M, Constant *Initializer,
+Instrumentation/AddressSanitizer.cpp:  Instruction *CreateAsanModuleDtor(Module &M);
+Instrumentation/AddressSanitizer.cpp:  void poisonOneInitializer(Function &GlobalInit, GlobalValue *ModuleName);
+Instrumentation/AddressSanitizer.cpp:  void createInitializerPoisonCalls(Module &M, GlobalValue *ModuleName);
+Instrumentation/AddressSanitizer.cpp:  int GetAsanVersion(const Module &M) const;
+Instrumentation/AddressSanitizer.cpp:class ModuleAddressSanitizerLegacyPass : public ModulePass {
+Instrumentation/AddressSanitizer.cpp:  explicit ModuleAddressSanitizerLegacyPass(bool CompileKernel = false,
+Instrumentation/AddressSanitizer.cpp:      : ModulePass(ID), CompileKernel(CompileKernel), Recover(Recover),
+Instrumentation/AddressSanitizer.cpp:    initializeModuleAddressSanitizerLegacyPassPass(
+Instrumentation/AddressSanitizer.cpp:  StringRef getPassName() const override { return "ModuleAddressSanitizer"; }
+Instrumentation/AddressSanitizer.cpp:  bool runOnModule(Module &M) override {
+Instrumentation/AddressSanitizer.cpp:    ModuleAddressSanitizer ASanModule(M, &GlobalsMD, CompileKernel, Recover,
+Instrumentation/AddressSanitizer.cpp:    return ASanModule.instrumentModule(M);
+Instrumentation/AddressSanitizer.cpp:          InstBefore->getModule(), Intrinsic::get_dynamic_area_offset,
+Instrumentation/AddressSanitizer.cpp:  void initializeCallbacks(Module &M);
+Instrumentation/AddressSanitizer.cpp:// function instead of reading module level metadata at first.
+Instrumentation/AddressSanitizer.cpp:GlobalsMetadata::GlobalsMetadata(Module &M) {
+Instrumentation/AddressSanitizer.cpp:GlobalsMetadata ASanGlobalsMetadataAnalysis::run(Module &M,
+Instrumentation/AddressSanitizer.cpp:                                                 ModuleAnalysisManager &AM) {
+Instrumentation/AddressSanitizer.cpp:  auto &MAMProxy = AM.getResult<ModuleAnalysisManagerFunctionProxy>(F);
+Instrumentation/AddressSanitizer.cpp:  Module &M = *F.getParent();
+Instrumentation/AddressSanitizer.cpp:ModuleAddressSanitizerPass::ModuleAddressSanitizerPass(bool CompileKernel,
+Instrumentation/AddressSanitizer.cpp:PreservedAnalyses ModuleAddressSanitizerPass::run(Module &M,
+Instrumentation/AddressSanitizer.cpp:                                                  AnalysisManager<Module> &AM) {
+Instrumentation/AddressSanitizer.cpp:  ModuleAddressSanitizer Sanitizer(M, &GlobalsMD, CompileKernel, Recover,
+Instrumentation/AddressSanitizer.cpp:  if (Sanitizer.instrumentModule(M))
+Instrumentation/AddressSanitizer.cpp:char ModuleAddressSanitizerLegacyPass::ID = 0;
+Instrumentation/AddressSanitizer.cpp:    ModuleAddressSanitizerLegacyPass, "asan-module",
+Instrumentation/AddressSanitizer.cpp:    "ModulePass",
+Instrumentation/AddressSanitizer.cpp:ModulePass *llvm::createModuleAddressSanitizerLegacyPassPass(
+Instrumentation/AddressSanitizer.cpp:  return new ModuleAddressSanitizerLegacyPass(CompileKernel, Recover,
+Instrumentation/AddressSanitizer.cpp:static GlobalVariable *createPrivateGlobalForSourceLoc(Module &M,
+Instrumentation/AddressSanitizer.cpp:void ModuleAddressSanitizer::poisonOneInitializer(Function &GlobalInit,
+Instrumentation/AddressSanitizer.cpp:                                                  GlobalValue *ModuleName) {
+Instrumentation/AddressSanitizer.cpp:  Value *ModuleNameAddr = ConstantExpr::getPointerCast(ModuleName, IntptrTy);
+Instrumentation/AddressSanitizer.cpp:  IRB.CreateCall(AsanPoisonGlobals, ModuleNameAddr);
+Instrumentation/AddressSanitizer.cpp:void ModuleAddressSanitizer::createInitializerPoisonCalls(
+Instrumentation/AddressSanitizer.cpp:    Module &M, GlobalValue *ModuleName) {
+Instrumentation/AddressSanitizer.cpp:      if (F->getName() == kAsanModuleCtorName) continue;
+Instrumentation/AddressSanitizer.cpp:      // Don't instrument CTORs that will run before asan.module_ctor.
+Instrumentation/AddressSanitizer.cpp:      poisonOneInitializer(*F, ModuleName);
+Instrumentation/AddressSanitizer.cpp:ModuleAddressSanitizer::getExcludedAliasedGlobal(const GlobalAlias &GA) const {
+Instrumentation/AddressSanitizer.cpp:bool ModuleAddressSanitizer::shouldInstrumentGlobal(GlobalVariable *G) const {
+Instrumentation/AddressSanitizer.cpp:bool ModuleAddressSanitizer::ShouldUseMachOGlobalsSection() const {
+Instrumentation/AddressSanitizer.cpp:StringRef ModuleAddressSanitizer::getGlobalMetadataSection() const {
+Instrumentation/AddressSanitizer.cpp:        "ModuleAddressSanitizer not implemented for object file format");
+Instrumentation/AddressSanitizer.cpp:void ModuleAddressSanitizer::initializeCallbacks(Module &M) {
+Instrumentation/AddressSanitizer.cpp:void ModuleAddressSanitizer::SetComdatForGlobalMetadata(
+Instrumentation/AddressSanitizer.cpp:  Module &M = *G->getParent();
+Instrumentation/AddressSanitizer.cpp:ModuleAddressSanitizer::CreateMetadataGlobal(Module &M, Constant *Initializer,
+Instrumentation/AddressSanitizer.cpp:Instruction *ModuleAddressSanitizer::CreateAsanModuleDtor(Module &M) {
+Instrumentation/AddressSanitizer.cpp:                       GlobalValue::InternalLinkage, kAsanModuleDtorName, &M);
+Instrumentation/AddressSanitizer.cpp:void ModuleAddressSanitizer::InstrumentGlobalsCOFF(
+Instrumentation/AddressSanitizer.cpp:    IRBuilder<> &IRB, Module &M, ArrayRef<GlobalVariable *> ExtendedGlobals,
+Instrumentation/AddressSanitizer.cpp:void ModuleAddressSanitizer::InstrumentGlobalsELF(
+Instrumentation/AddressSanitizer.cpp:    IRBuilder<> &IRB, Module &M, ArrayRef<GlobalVariable *> ExtendedGlobals,
+Instrumentation/AddressSanitizer.cpp:    const std::string &UniqueModuleId) {
+Instrumentation/AddressSanitizer.cpp:    SetComdatForGlobalMetadata(G, Metadata, UniqueModuleId);
+Instrumentation/AddressSanitizer.cpp:  IRBuilder<> IRB_Dtor(CreateAsanModuleDtor(M));
+Instrumentation/AddressSanitizer.cpp:void ModuleAddressSanitizer::InstrumentGlobalsMachO(
+Instrumentation/AddressSanitizer.cpp:    IRBuilder<> &IRB, Module &M, ArrayRef<GlobalVariable *> ExtendedGlobals,
+Instrumentation/AddressSanitizer.cpp:  IRBuilder<> IRB_Dtor(CreateAsanModuleDtor(M));
+Instrumentation/AddressSanitizer.cpp:void ModuleAddressSanitizer::InstrumentGlobalsWithMetadataArray(
+Instrumentation/AddressSanitizer.cpp:    IRBuilder<> &IRB, Module &M, ArrayRef<GlobalVariable *> ExtendedGlobals,
+Instrumentation/AddressSanitizer.cpp:  IRBuilder<> IRB_Dtor(CreateAsanModuleDtor(M));
+Instrumentation/AddressSanitizer.cpp:bool ModuleAddressSanitizer::InstrumentGlobals(IRBuilder<> &IRB, Module &M,
+Instrumentation/AddressSanitizer.cpp:  //   const char *module_name;
+Instrumentation/AddressSanitizer.cpp:  // We shouldn't merge same module names, as this string serves as unique
+Instrumentation/AddressSanitizer.cpp:  // module ID in runtime.
+Instrumentation/AddressSanitizer.cpp:  GlobalVariable *ModuleName = createPrivateGlobalForString(
+Instrumentation/AddressSanitizer.cpp:      M, M.getModuleIdentifier(), /*AllowMerging*/ false, kAsanGenPrefix);
+Instrumentation/AddressSanitizer.cpp:        ConstantExpr::getPointerCast(ModuleName, IntptrTy),
+Instrumentation/AddressSanitizer.cpp:  std::string ELFUniqueModuleId =
+Instrumentation/AddressSanitizer.cpp:      (UseGlobalsGC && TargetTriple.isOSBinFormatELF()) ? getUniqueModuleId(&M)
+Instrumentation/AddressSanitizer.cpp:  if (!ELFUniqueModuleId.empty()) {
+Instrumentation/AddressSanitizer.cpp:    InstrumentGlobalsELF(IRB, M, NewGlobals, Initializers, ELFUniqueModuleId);
+Instrumentation/AddressSanitizer.cpp:    createInitializerPoisonCalls(M, ModuleName);
+Instrumentation/AddressSanitizer.cpp:ModuleAddressSanitizer::getRedzoneSizeForGlobal(uint64_t SizeInBytes) const {
+Instrumentation/AddressSanitizer.cpp:int ModuleAddressSanitizer::GetAsanVersion(const Module &M) const {
+Instrumentation/AddressSanitizer.cpp:bool ModuleAddressSanitizer::instrumentModule(Module &M) {
+Instrumentation/AddressSanitizer.cpp:  // Create a module constructor. A destructor is created lazily because not all
+Instrumentation/AddressSanitizer.cpp:  // platforms, and not all modules need it.
+Instrumentation/AddressSanitizer.cpp:    AsanCtorFunction = createSanitizerCtor(M, kAsanModuleCtorName);
+Instrumentation/AddressSanitizer.cpp:        createSanitizerCtorAndInitFunctions(M, kAsanModuleCtorName,
+Instrumentation/AddressSanitizer.cpp:    AsanCtorFunction->setComdat(M.getOrInsertComdat(kAsanModuleCtorName));
+Instrumentation/AddressSanitizer.cpp:      AsanDtorFunction->setComdat(M.getOrInsertComdat(kAsanModuleDtorName));
+Instrumentation/AddressSanitizer.cpp:void AddressSanitizer::initializeCallbacks(Module &M) {
+Instrumentation/AddressSanitizer.cpp:  // Try to get the declaration of llvm.localescape. If it's not in the module,
+Instrumentation/AddressSanitizer.cpp:void FunctionStackPoisoner::initializeCallbacks(Module &M) {
+Instrumentation/InstrProfiling.cpp:#include "llvm/IR/Module.h"
+Instrumentation/InstrProfiling.cpp:#include "llvm/Transforms/Utils/ModuleUtils.h"
+Instrumentation/InstrProfiling.cpp:class InstrProfilingLegacyPass : public ModulePass {
+Instrumentation/InstrProfiling.cpp:  InstrProfilingLegacyPass() : ModulePass(ID) {}
+Instrumentation/InstrProfiling.cpp:      : ModulePass(ID), InstrProf(Options, IsCS) {
+Instrumentation/InstrProfiling.cpp:  bool runOnModule(Module &M) override {
+Instrumentation/InstrProfiling.cpp:PreservedAnalyses InstrProfiling::run(Module &M, ModuleAnalysisManager &AM) {
+Instrumentation/InstrProfiling.cpp:      AM.getResult<FunctionAnalysisManagerModuleProxy>(M).getManager();
+Instrumentation/InstrProfiling.cpp:ModulePass *
+Instrumentation/InstrProfiling.cpp:/// Check if the module contains uses of any profiling intrinsics.
+Instrumentation/InstrProfiling.cpp:static bool containsProfilingIntrinsics(Module &M) {
+Instrumentation/InstrProfiling.cpp:    Module &M, std::function<const TargetLibraryInfo &(Function &F)> GetTLI) {
+Instrumentation/InstrProfiling.cpp:    Module &M, const TargetLibraryInfo &TLI,
+Instrumentation/InstrProfiling.cpp:  Module *M = F->getParent();
+Instrumentation/InstrProfiling.cpp:  // If the module's provided its own runtime, we don't need to do anything.
+Instrumentation/MaximumSpanningTree.h:// This module provides means for calculating a maximum spanning tree for a
+Scalar/LoopInterchange.cpp:  // transform module.
+Scalar/Reg2Mem.cpp:#include "llvm/IR/Module.h"
+Scalar/Float2Int.cpp:#include "llvm/IR/Module.h"
+Scalar/DeadStoreElimination.cpp:#include "llvm/IR/Module.h"
+Scalar/DeadStoreElimination.cpp:  const DataLayout &DL = BB.getModule()->getDataLayout();
+Scalar/DeadStoreElimination.cpp:  const DataLayout &DL = BB.getModule()->getDataLayout();
+Scalar/ConstantHoisting.cpp:  auto &MAMProxy = AM.getResult<ModuleAnalysisManagerFunctionProxy>(F);
+Scalar/LICM.cpp:              &I, I.getModule()->getDataLayout(), TLI)) {
+Scalar/LICM.cpp:  const DataLayout &DL = LI->getModule()->getDataLayout();
+Scalar/LICM.cpp:  const DataLayout &MDL = Preheader->getModule()->getDataLayout();
+Scalar/SeparateConstOffsetFromGEP.cpp:#include "llvm/IR/Module.h"
+Scalar/SeparateConstOffsetFromGEP.cpp:// Setting this flag may emit false positives when the input module already
+Scalar/SeparateConstOffsetFromGEP.cpp:      : IP(InsertionPt), DL(InsertionPt->getModule()->getDataLayout()), DT(DT) {
+Scalar/SeparateConstOffsetFromGEP.cpp:  /// Returns true if the module changes.
+Scalar/SeparateConstOffsetFromGEP.cpp:  const DataLayout &DAL = First->getModule()->getDataLayout();
+Scalar/GVN.cpp:#include "llvm/IR/Module.h"
+Scalar/GVN.cpp:  const DataLayout &DL = LI->getModule()->getDataLayout();
+Scalar/GVN.cpp:  const DataLayout &DL = LI->getModule()->getDataLayout();
+Scalar/GVN.cpp:  const DataLayout &DL = LI->getModule()->getDataLayout();
+Scalar/GVN.cpp:  const DataLayout &DL = I->getModule()->getDataLayout();
+Scalar/StraightLineStrengthReduce.cpp:#include "llvm/IR/Module.h"
+Scalar/StraightLineStrengthReduce.cpp:  bool doInitialization(Module &M) override {
+Scalar/Scalarizer.cpp:#include "llvm/IR/Module.h"
+Scalar/Scalarizer.cpp:  Module &M = *F.getParent();
+Scalar/Scalarizer.cpp:static Function *getScalarIntrinsicDeclaration(Module *M,
+Scalar/Scalarizer.cpp:      LI.getType(), LI.getAlign(), LI.getModule()->getDataLayout());
+Scalar/Scalarizer.cpp:      FullValue->getType(), SI.getAlign(), SI.getModule()->getDataLayout());
+Scalar/Scalarizer.cpp:  Module &M = *F.getParent();
+Scalar/LoopIdiomRecognize.cpp:#include "llvm/IR/Module.h"
+Scalar/LoopIdiomRecognize.cpp:    const DataLayout *DL = &L->getHeader()->getModule()->getDataLayout();
+Scalar/LoopIdiomRecognize.cpp:  const auto *DL = &L.getHeader()->getModule()->getDataLayout();
+Scalar/LoopIdiomRecognize.cpp:    Module *M = TheStore->getModule();
+Scalar/LoopIdiomRecognize.cpp:  Module *M = IRBuilder.GetInsertBlock()->getParent()->getParent();
+Scalar/LoopIdiomRecognize.cpp:  Module *M = IRBuilder.GetInsertBlock()->getParent()->getParent();
+Scalar/SimpleLoopUnswitch.cpp:                       RF_NoModuleLevelChanges | RF_IgnoreMissingLocals);
+Scalar/LoopInstSimplify.cpp:#include "llvm/IR/Module.h"
+Scalar/LoopInstSimplify.cpp:  const DataLayout &DL = L.getHeader()->getModule()->getDataLayout();
+Scalar/LoopUnrollPass.cpp:  auto &MAMProxy = AM.getResult<ModuleAnalysisManagerFunctionProxy>(F);
+Scalar/AlignmentFromAssumptions.cpp:#include "llvm/IR/Module.h"
+Scalar/GuardWidening.cpp:  auto &DL = IC->getModule()->getDataLayout();
+Scalar/SROA.cpp:#include "llvm/IR/Module.h"
+Scalar/SROA.cpp:      const DataLayout &DL = GEPI.getModule()->getDataLayout();
+Scalar/SROA.cpp:    const DataLayout &DL = Root->getModule()->getDataLayout();
+Scalar/SROA.cpp:  const DataLayout &DL = PN.getModule()->getDataLayout();
+Scalar/SROA.cpp:  const DataLayout &DL = SI.getModule()->getDataLayout();
+Scalar/SROA.cpp:  const DataLayout &DL = AI.getModule()->getDataLayout();
+Scalar/SROA.cpp:  const DataLayout &DL = AI.getModule()->getDataLayout();
+Scalar/SROA.cpp:  const DataLayout &DL = AI.getModule()->getDataLayout();
+Scalar/SROA.cpp:    DIBuilder DIB(*AI.getModule(), /*AllowUnresolved*/ false);
+Scalar/SROA.cpp:  const DataLayout &DL = AI.getModule()->getDataLayout();
+Scalar/Sink.cpp:#include "llvm/IR/Module.h"
+Scalar/TailRecursionElimination.cpp:#include "llvm/IR/Module.h"
+Scalar/TailRecursionElimination.cpp:      const DataLayout &DL = L->getModule()->getDataLayout();
+Scalar/SimplifyCFGPass.cpp:#include "llvm/IR/Module.h"
+Scalar/LowerMatrixIntrinsics.cpp:    Type *IntPtrTy = Builder.getIntPtrTy(Load->getModule()->getDataLayout());
+Scalar/LoopRotation.cpp:  const DataLayout &DL = L.getHeader()->getModule()->getDataLayout();
+Scalar/Reassociate.cpp:  Module *M = I->getModule();
+Scalar/Reassociate.cpp:                          I->getModule()->getDataLayout(), /*AC=*/nullptr, I,
+Scalar/LowerWidenableCondition.cpp:#include "llvm/IR/Module.h"
+Scalar/LoopLoadElimination.cpp:#include "llvm/IR/Module.h"
+Scalar/LoopLoadElimination.cpp:    auto &DL = Load->getParent()->getModule()->getDataLayout();
+Scalar/LoopLoadElimination.cpp:    SCEVExpander SEE(*PSE.getSE(), L->getHeader()->getModule()->getDataLayout(),
+Scalar/LoopLoadElimination.cpp:  auto &MAMProxy = AM.getResult<ModuleAnalysisManagerFunctionProxy>(F);
+Scalar/LoopPassManager.cpp:    // Then intersect the preserved set so that invalidation of module
+Scalar/LoopPassManager.cpp:    // analyses will eventually occur when the module pass completes.
+Scalar/LoopDataPrefetch.cpp:#include "llvm/IR/Module.h"
+Scalar/LoopDataPrefetch.cpp:    SCEVExpander SCEVE(*SE, BB->getModule()->getDataLayout(), "prefaddr");
+Scalar/LoopDataPrefetch.cpp:    Module *M = BB->getParent()->getParent();
+Scalar/LoopUnswitch.cpp:#include "llvm/IR/Module.h"
+Scalar/LoopUnswitch.cpp:                       RF_NoModuleLevelChanges | RF_IgnoreMissingLocals);
+Scalar/LoopUnswitch.cpp:                       RF_NoModuleLevelChanges | RF_IgnoreMissingLocals);
+Scalar/LoopUnswitch.cpp:  const DataLayout &DL = L->getHeader()->getModule()->getDataLayout();
+Scalar/IndVarSimplify.cpp:#include "llvm/IR/Module.h"
+Scalar/IndVarSimplify.cpp:  if (!Cast->getModule()->getDataLayout().isLegalInteger(Width))
+Scalar/IndVarSimplify.cpp:  auto *GuardDecl = L->getBlocks()[0]->getModule()->getFunction(
+Scalar/IndVarSimplify.cpp:  const DataLayout &DL = L->getHeader()->getModule()->getDataLayout();
+Scalar/IndVarSimplify.cpp:    const DataLayout &DL = L->getHeader()->getModule()->getDataLayout();
+Scalar/LoopFlatten.cpp:#include "llvm/IR/Module.h"
+Scalar/LoopFlatten.cpp:  Module *M = FI.InnerLoop->getHeader()->getParent()->getParent();
+Scalar/LoopStrengthReduce.cpp:#include "llvm/IR/Module.h"
+Scalar/LoopStrengthReduce.cpp:  SCEVExpander Rewriter(SE, L->getHeader()->getModule()->getDataLayout(), "lsr",
+Scalar/LoopStrengthReduce.cpp:    const DataLayout &DL = L->getHeader()->getModule()->getDataLayout();
+Scalar/PlaceSafepoints.cpp:  Module *M = InsertBefore->getModule();
+Scalar/PlaceSafepoints.cpp:  assert(M && "must be part of a module");
+Scalar/InferAddressSpaces.cpp:  Module *M = II->getParent()->getParent()->getParent();
+Scalar/SCCP.cpp:#include "llvm/IR/Module.h"
+Scalar/SCCP.cpp:    Module &M, const DataLayout &DL,
+Scalar/SCCP.cpp:  // Determine if we can track any of the module's global variables. If so, add
+Scalar/SCCP.cpp:  // Iterate over all of the instructions in the module, replacing them with
+Scalar/MemCpyOptimizer.cpp:#include "llvm/IR/Module.h"
+Scalar/MemCpyOptimizer.cpp:  const DataLayout &DL = StartInst->getModule()->getDataLayout();
+Scalar/MemCpyOptimizer.cpp:  const DataLayout &DL = SI->getModule()->getDataLayout();
+Scalar/MemCpyOptimizer.cpp:  const DataLayout &DL = cpyLoad->getModule()->getDataLayout();
+Scalar/MemCpyOptimizer.cpp:                                           M->getModule()->getDataLayout())) {
+Scalar/MemCpyOptimizer.cpp:  M->setCalledFunction(Intrinsic::getDeclaration(M->getModule(),
+Scalar/SpeculativeExecution.cpp:#include "llvm/IR/Module.h"
+Scalar/MergeICmps.cpp:  const auto &DL = GEP->getModule()->getDataLayout();
+Scalar/MergeICmps.cpp:  const auto &DL = CmpI->getModule()->getDataLayout();
+Scalar/MergeICmps.cpp:    const auto &DL = Phi.getModule()->getDataLayout();
+Scalar/InductiveRangeCheckElimination.cpp:#include "llvm/IR/Module.h"
+Scalar/InductiveRangeCheckElimination.cpp:  const DataLayout &DL = Preheader->getModule()->getDataLayout();
+Scalar/InductiveRangeCheckElimination.cpp:                       RF_NoModuleLevelChanges | RF_IgnoreMissingLocals);
+Scalar/LoopPredication.cpp:#include "llvm/IR/Module.h"
+Scalar/LoopPredication.cpp:  Module *M = L->getHeader()->getModule();
+Scalar/LoopPredication.cpp:  // There is nothing to do if the module doesn't use guards
+Scalar/NaryReassociate.cpp:#include "llvm/IR/Module.h"
+Scalar/NaryReassociate.cpp:  bool doInitialization(Module &M) override {
+Scalar/JumpThreading.cpp:#include "llvm/IR/Module.h"
+Scalar/JumpThreading.cpp:      const DataLayout &DL = PN->getModule()->getDataLayout();
+Scalar/JumpThreading.cpp:        ConstantFoldInstruction(I, BB->getModule()->getDataLayout(), TLI);
+Scalar/JumpThreading.cpp:  auto &DL = BB->getModule()->getDataLayout();
+Scalar/JumpThreading.cpp:            {BB->getModule()->getDataLayout(), TLI, nullptr, nullptr, New})) {
+Scalar/JumpThreading.cpp:  auto &DL = BB->getModule()->getDataLayout();
+Scalar/LoopRerollPass.cpp:#include "llvm/IR/Module.h"
+Scalar/LoopRerollPass.cpp:    const DataLayout &DL = Header->getModule()->getDataLayout();
+Scalar/LoopRerollPass.cpp:    const DataLayout &DL = Header->getModule()->getDataLayout();
+Scalar/RewriteStatepointsForGC.cpp:#include "llvm/IR/Module.h"
+Scalar/RewriteStatepointsForGC.cpp:/// correctness by erasing all attributes in the module that externally imply
+Scalar/RewriteStatepointsForGC.cpp:static void stripNonValidData(Module &M);
+Scalar/RewriteStatepointsForGC.cpp:PreservedAnalyses RewriteStatepointsForGC::run(Module &M,
+Scalar/RewriteStatepointsForGC.cpp:                                               ModuleAnalysisManager &AM) {
+Scalar/RewriteStatepointsForGC.cpp:  auto &FAM = AM.getResult<FunctionAnalysisManagerModuleProxy>(M).getManager();
+Scalar/RewriteStatepointsForGC.cpp:  // returns true for at least one function in the module.  Since at least
+Scalar/RewriteStatepointsForGC.cpp:class RewriteStatepointsForGCLegacyPass : public ModulePass {
+Scalar/RewriteStatepointsForGC.cpp:  RewriteStatepointsForGCLegacyPass() : ModulePass(ID), Impl() {
+Scalar/RewriteStatepointsForGC.cpp:  bool runOnModule(Module &M) override {
+Scalar/RewriteStatepointsForGC.cpp:    // returns true for at least one function in the module.  Since at least
+Scalar/RewriteStatepointsForGC.cpp:ModulePass *llvm::createRewriteStatepointsForGCLegacyPass() {
+Scalar/RewriteStatepointsForGC.cpp:  Module *M = StatepointToken->getModule();
+Scalar/RewriteStatepointsForGC.cpp:      // the same module.  This is fine -- we assume the frontend knew what it
+Scalar/RewriteStatepointsForGC.cpp:      auto &DL = Call->getModule()->getDataLayout();
+Scalar/RewriteStatepointsForGC.cpp:  Module *M = Call->getModule();
+Scalar/RewriteStatepointsForGC.cpp:    if (!CI->isNoopCast(CI->getModule()->getDataLayout()))
+Scalar/RewriteStatepointsForGC.cpp:      assert(CI->isNoopCast(CI->getModule()->getDataLayout()) &&
+Scalar/RewriteStatepointsForGC.cpp:static void stripNonValidData(Module &M) {
+Scalar/LowerGuardIntrinsic.cpp:#include "llvm/IR/Module.h"
+Coroutines/CoroSplit.cpp:#include "llvm/IR/Module.h"
+Coroutines/CoroSplit.cpp:                                        Module::iterator InsertBefore) {
+Coroutines/CoroSplit.cpp:  Module *M = OrigF.getParent();
+Coroutines/CoroSplit.cpp:  CloneFunctionInto(NewF, &OrigF, VMap, /*ModuleLevelChanges=*/true, Returns);
+Coroutines/CoroSplit.cpp:  Module *M = SizeIntrin->getModule();
+Coroutines/CoroSplit.cpp:  Module *M = Part->getParent();
+Coroutines/CoroSplit.cpp:  Module &M = *F.getParent();
+Coroutines/CoroSplit.cpp:  Module &M = CG.getModule();
+Coroutines/CoroSplit.cpp:/// coroutines in the module.  We can do that this in this pass because
+Coroutines/CoroSplit.cpp:static bool declaresCoroSplitIntrinsics(const Module &M) {
+Coroutines/CoroSplit.cpp:static void addPrepareFunction(const Module &M,
+Coroutines/CoroSplit.cpp:  //     node's function's module.
+Coroutines/CoroSplit.cpp:  Module &M = *C.begin()->getFunction().getParent();
+Coroutines/CoroSplit.cpp:    Run = declaresCoroSplitIntrinsics(CG.getModule());
+Coroutines/CoroSplit.cpp:    auto &M = SCC.getCallGraph().getModule();
+Coroutines/CoroElide.cpp:  Lowerer(Module &M) : LowererBase(M) {}
+Coroutines/CoroElide.cpp:  Module &M = *F.getParent();
+Coroutines/CoroElide.cpp:static bool declaresCoroElideIntrinsics(Module &M) {
+Coroutines/CoroElide.cpp:  bool doInitialization(Module &M) override {
+Coroutines/CoroCleanup.cpp:  Lowerer(Module &M) : LowererBase(M), Builder(Context) {}
+Coroutines/CoroCleanup.cpp:static bool declaresCoroCleanupIntrinsics(const Module &M) {
+Coroutines/CoroCleanup.cpp:  // in the module.
+Coroutines/CoroCleanup.cpp:  bool doInitialization(Module &M) override {
+Coroutines/CoroEarly.cpp:#include "llvm/IR/Module.h"
+Coroutines/CoroEarly.cpp:  Lowerer(Module &M)
+Coroutines/CoroEarly.cpp:  const DataLayout &DL = TheModule.getDataLayout();
+Coroutines/CoroEarly.cpp:    Module &M = *II->getModule();
+Coroutines/CoroEarly.cpp:static bool declaresCoroEarlyIntrinsics(const Module &M) {
+Coroutines/CoroEarly.cpp:  Module &M = *F.getParent();
+Coroutines/CoroEarly.cpp:  // in the module.
+Coroutines/CoroEarly.cpp:  bool doInitialization(Module &M) override {
+Coroutines/CoroFrame.cpp:      DIBuilder(*Alloca->getModule(),
+Coroutines/CoroFrame.cpp:    auto M = AI->getModule();
+Coroutines/CoroInternal.h:bool declaresIntrinsics(const Module &M,
+Coroutines/CoroInternal.h:  Module &TheModule;
+Coroutines/CoroInternal.h:  LowererBase(Module &M);
+Coroutines/Coroutines.cpp:#include "llvm/IR/Module.h"
+Coroutines/Coroutines.cpp:coro::LowererBase::LowererBase(Module &M)
+Coroutines/Coroutines.cpp:    : TheModule(M), Context(M.getContext()),
+Coroutines/Coroutines.cpp:  auto *Fn = Intrinsic::getDeclaration(&TheModule, Intrinsic::coro_subfn_addr);
+Coroutines/Coroutines.cpp:// Verifies if a module has named values listed. Also, in debug mode verifies
+Coroutines/Coroutines.cpp:bool coro::declaresIntrinsics(const Module &M,
+Coroutines/Coroutines.cpp:  Module *M = SuspendInst->getModule();
+Utils/CodeExtractor.cpp:#include "llvm/IR/Module.h"
+Utils/CodeExtractor.cpp:      Module *M = AIFunc->getParent();
+Utils/CodeExtractor.cpp:                                           Module *M) {
+Utils/CodeExtractor.cpp:    Module *M, ArrayRef<Value *> LifetimesStart, ArrayRef<Value *> LifetimesEnd,
+Utils/CodeExtractor.cpp:  Module *M = newFunction->getParent();
+Utils/EntryExitInstrumenter.cpp:#include "llvm/IR/Module.h"
+Utils/EntryExitInstrumenter.cpp:  Module &M = *InsertionPt->getParent()->getParent()->getParent();
+Utils/PromoteMemoryToRegister.cpp:#include "llvm/IR/Module.h"
+Utils/PromoteMemoryToRegister.cpp:      Intrinsic::getDeclaration(LI->getModule(), Intrinsic::assume);
+Utils/PromoteMemoryToRegister.cpp:      DIBuilder DIB(*AI->getModule(), /*AllowUnresolved*/ false);
+Utils/PromoteMemoryToRegister.cpp:        DIBuilder DIB(*AI->getModule(), /*AllowUnresolved*/ false);
+Utils/SSAUpdater.cpp:#include "llvm/IR/Module.h"
+Utils/SSAUpdater.cpp:          SimplifyInstruction(InsertedPHI, BB->getModule()->getDataLayout())) {
+Utils/MetaRenamer.cpp:#include "llvm/IR/Module.h"
+Utils/MetaRenamer.cpp:void MetaRename(Module &M,
+Utils/MetaRenamer.cpp:  // Seed our PRNG with simple additive sum of ModuleID. We're looking to
+Utils/MetaRenamer.cpp:  for (auto C : M.getModuleIdentifier())
+Utils/MetaRenamer.cpp:struct MetaRenamer : public ModulePass {
+Utils/MetaRenamer.cpp:  MetaRenamer() : ModulePass(ID) {
+Utils/MetaRenamer.cpp:  bool runOnModule(Module &M) override {
+Utils/MetaRenamer.cpp:ModulePass *llvm::createMetaRenamerPass() {
+Utils/MetaRenamer.cpp:PreservedAnalyses MetaRenamerPass::run(Module &M, ModuleAnalysisManager &AM) {
+Utils/MetaRenamer.cpp:      AM.getResult<FunctionAnalysisManagerModuleProxy>(M).getManager();
+Utils/SymbolRewriter.cpp:#include "llvm/IR/Module.h"
+Utils/SymbolRewriter.cpp:static void rewriteComdat(Module &M, GlobalObject *GO,
+Utils/SymbolRewriter.cpp:          ValueType *(Module::*Get)(StringRef) const>
+Utils/SymbolRewriter.cpp:  bool performOnModule(Module &M) override;
+Utils/SymbolRewriter.cpp:          ValueType *(Module::*Get)(StringRef) const>
+Utils/SymbolRewriter.cpp:bool ExplicitRewriteDescriptor<DT, ValueType, Get>::performOnModule(Module &M) {
+Utils/SymbolRewriter.cpp:          ValueType *(Module::*Get)(StringRef) const,
+Utils/SymbolRewriter.cpp:          (Module::*Iterator)()>
+Utils/SymbolRewriter.cpp:  bool performOnModule(Module &M) override;
+Utils/SymbolRewriter.cpp:          ValueType *(Module::*Get)(StringRef) const,
+Utils/SymbolRewriter.cpp:          (Module::*Iterator)()>
+Utils/SymbolRewriter.cpp:performOnModule(Module &M) {
+Utils/SymbolRewriter.cpp:                         M.getModuleIdentifier() + ": " + Error);
+Utils/SymbolRewriter.cpp:                              &Module::getFunction>;
+Utils/SymbolRewriter.cpp:/// applies only to module level variables.
+Utils/SymbolRewriter.cpp:                              GlobalVariable, &Module::getGlobalVariable>;
+Utils/SymbolRewriter.cpp:                              &Module::getNamedAlias>;
+Utils/SymbolRewriter.cpp:                             &Module::getFunction, &Module::functions>;
+Utils/SymbolRewriter.cpp:/// module level variables.
+Utils/SymbolRewriter.cpp:                             GlobalVariable, &Module::getGlobalVariable,
+Utils/SymbolRewriter.cpp:                             &Module::globals>;
+Utils/SymbolRewriter.cpp:                             &Module::getNamedAlias, &Module::aliases>;
+Utils/SymbolRewriter.cpp:class RewriteSymbolsLegacyPass : public ModulePass {
+Utils/SymbolRewriter.cpp:  bool runOnModule(Module &M) override;
+Utils/SymbolRewriter.cpp:RewriteSymbolsLegacyPass::RewriteSymbolsLegacyPass() : ModulePass(ID) {
+Utils/SymbolRewriter.cpp:    : ModulePass(ID), Impl(DL) {}
+Utils/SymbolRewriter.cpp:bool RewriteSymbolsLegacyPass::runOnModule(Module &M) {
+Utils/SymbolRewriter.cpp:PreservedAnalyses RewriteSymbolPass::run(Module &M, ModuleAnalysisManager &AM) {
+Utils/SymbolRewriter.cpp:bool RewriteSymbolPass::runImpl(Module &M) {
+Utils/SymbolRewriter.cpp:    Changed |= Descriptor->performOnModule(M);
+Utils/SymbolRewriter.cpp:ModulePass *llvm::createRewriteSymbolsPass() {
+Utils/SymbolRewriter.cpp:ModulePass *
+Utils/SimplifyCFG.cpp:#include "llvm/IR/Module.h"
+Utils/SimplifyCFG.cpp:                     RF_NoModuleLevelChanges | RF_IgnoreMissingLocals);
+Utils/SimplifyCFG.cpp:                       RF_NoModuleLevelChanges | RF_IgnoreMissingLocals);
+Utils/SimplifyCFG.cpp:      Module &M, uint64_t TableSize, ConstantInt *Offset,
+Utils/SimplifyCFG.cpp:    Module &M, uint64_t TableSize, ConstantInt *Offset,
+Utils/SimplifyCFG.cpp:  Module &Mod = *CommonDest->getParent()->getParent();
+Utils/SimplifyCFG.cpp:                        BB->getModule()->getDataLayout(), LoopHeaders, Options)
+Utils/UniqueInternalLinkageNames.cpp:#include "llvm/IR/Module.h"
+Utils/UniqueInternalLinkageNames.cpp:#include "llvm/Transforms/Utils/ModuleUtils.h"
+Utils/UniqueInternalLinkageNames.cpp:static bool uniqueifyInternalLinkageNames(Module &M) {
+Utils/UniqueInternalLinkageNames.cpp:  std::string ModuleNameHash = (Twine(".__uniq.") + Twine(IntHash.toString(10, false))).str();
+Utils/UniqueInternalLinkageNames.cpp:  // Append the module hash to all internal linkage functions.
+Utils/UniqueInternalLinkageNames.cpp:      F.setName(F.getName() + ModuleNameHash);
+Utils/UniqueInternalLinkageNames.cpp:  // Append the module hash to all internal linkage globals.
+Utils/UniqueInternalLinkageNames.cpp:      GV.setName(GV.getName() + ModuleNameHash);
+Utils/UniqueInternalLinkageNames.cpp:class UniqueInternalLinkageNamesLegacyPass : public ModulePass {
+Utils/UniqueInternalLinkageNames.cpp:  explicit UniqueInternalLinkageNamesLegacyPass() : ModulePass(ID) {
+Utils/UniqueInternalLinkageNames.cpp:  bool runOnModule(Module &M) override {
+Utils/UniqueInternalLinkageNames.cpp:UniqueInternalLinkageNamesPass::run(Module &M, ModuleAnalysisManager &AM) {
+Utils/UniqueInternalLinkageNames.cpp:ModulePass *createUniqueInternalLinkageNamesPass() {
+Utils/AMDGPUEmitPrintf.cpp:  auto M = Builder.GetInsertBlock()->getModule();
+Utils/AMDGPUEmitPrintf.cpp:  auto M = Builder.GetInsertBlock()->getModule();
+Utils/AMDGPUEmitPrintf.cpp:  Module *M = Prev->getModule();
+Utils/AMDGPUEmitPrintf.cpp:  auto M = Builder.GetInsertBlock()->getModule();
+Utils/Local.cpp:#include "llvm/IR/Module.h"
+Utils/Local.cpp:  const DataLayout &DL = BB->getModule()->getDataLayout();
+Utils/Local.cpp:  const DataLayout &DL = DII->getModule()->getDataLayout();
+Utils/Local.cpp:  auto &M = *I.getModule();
+Utils/Local.cpp:  Module &M = *From.getModule();
+Utils/Local.cpp:  const DataLayout &DL = Source.getModule()->getDataLayout();
+Utils/Local.cpp:  Function *F = Intrinsic::getDeclaration(I->getModule(), Intrin, DemandedTy);
+Utils/LoopVersioning.cpp:  SCEVExpander Exp(*SE, RuntimeCheckBB->getModule()->getDataLayout(),
+Utils/LoopSimplify.cpp:#include "llvm/IR/Module.h"
+Utils/LoopSimplify.cpp:  const DataLayout &DL = L->getHeader()->getModule()->getDataLayout();
+Utils/LoopSimplify.cpp:  const DataLayout &DL = L->getHeader()->getModule()->getDataLayout();
+Utils/LoopUnrollRuntime.cpp:#include "llvm/IR/Module.h"
+Utils/LoopUnrollRuntime.cpp:  const DataLayout &DL = Header->getModule()->getDataLayout();
+Utils/LoopUnrollRuntime.cpp:                       RF_NoModuleLevelChanges | RF_IgnoreMissingLocals);
+Utils/PredicateInfo.cpp:#include "llvm/IR/Module.h"
+Utils/PredicateInfo.cpp:static Function *getCopyDeclaration(Module *M, Type *Ty) {
+Utils/CtorUtils.cpp:#include "llvm/IR/Module.h"
+Utils/CtorUtils.cpp:static GlobalVariable *findGlobalCtors(Module &M) {
+Utils/CtorUtils.cpp:    Module &M, function_ref<bool(Function *)> ShouldRemove) {
+Utils/CanonicalizeAliases.cpp:static bool canonicalizeAliases(Module &M) {
+Utils/CanonicalizeAliases.cpp:class CanonicalizeAliasesLegacyPass : public ModulePass {
+Utils/CanonicalizeAliases.cpp:  explicit CanonicalizeAliasesLegacyPass() : ModulePass(ID) {}
+Utils/CanonicalizeAliases.cpp:  bool runOnModule(Module &M) override { return canonicalizeAliases(M); }
+Utils/CanonicalizeAliases.cpp:PreservedAnalyses CanonicalizeAliasesPass::run(Module &M,
+Utils/CanonicalizeAliases.cpp:                                               ModuleAnalysisManager &AM) {
+Utils/CanonicalizeAliases.cpp:ModulePass *createCanonicalizeAliasesPass() {
+Utils/Debugify.cpp:#include "llvm/IR/Module.h"
+Utils/Debugify.cpp:uint64_t getAllocSizeInBits(Module &M, Type *Ty) {
+Utils/Debugify.cpp:    Module &M, iterator_range<Module::iterator> Functions, StringRef Banner,
+Utils/Debugify.cpp:  // Skip modules with debug info.
+Utils/Debugify.cpp:    dbg() << Banner << "Skipping module with debug info\n";
+Utils/Debugify.cpp:  if (!M.getModuleFlag(DIVersionKey))
+Utils/Debugify.cpp:    M.addModuleFlag(Module::Warning, DIVersionKey, DEBUG_METADATA_VERSION);
+Utils/Debugify.cpp:  Module &M = *F.getParent();
+Utils/Debugify.cpp:static bool applyDebugify(Module &M) {
+Utils/Debugify.cpp:                               "ModuleDebugify: ", /*ApplyToMF=*/nullptr);
+Utils/Debugify.cpp:bool llvm::stripDebugifyMetadata(Module &M) {
+Utils/Debugify.cpp:  // Remove the llvm.debugify module-level named metadata.
+Utils/Debugify.cpp:  // Strip out the module-level Debug Info Version metadata.
+Utils/Debugify.cpp:  NamedMDNode *NMD = M.getModuleFlagsMetadata();
+Utils/Debugify.cpp:bool diagnoseMisSizedDbgValue(Module &M, DbgValueInst *DVI) {
+Utils/Debugify.cpp:bool checkDebugifyMetadata(Module &M,
+Utils/Debugify.cpp:                           iterator_range<Module::iterator> Functions,
+Utils/Debugify.cpp:  // Skip modules without debugify metadata.
+Utils/Debugify.cpp:    dbg() << Banner << ": Skipping module without debugify metadata\n";
+Utils/Debugify.cpp:/// ModulePass for attaching synthetic debug info to everything, used with the
+Utils/Debugify.cpp:/// legacy module pass manager.
+Utils/Debugify.cpp:struct DebugifyModulePass : public ModulePass {
+Utils/Debugify.cpp:  bool runOnModule(Module &M) override { return applyDebugify(M); }
+Utils/Debugify.cpp:  DebugifyModulePass() : ModulePass(ID) {}
+Utils/Debugify.cpp:/// single function, used with the legacy module pass manager.
+Utils/Debugify.cpp:/// ModulePass for checking debug info inserted by -debugify, used with the
+Utils/Debugify.cpp:/// legacy module pass manager.
+Utils/Debugify.cpp:struct CheckDebugifyModulePass : public ModulePass {
+Utils/Debugify.cpp:  bool runOnModule(Module &M) override {
+Utils/Debugify.cpp:                                 "CheckModuleDebugify", Strip, StatsMap);
+Utils/Debugify.cpp:  CheckDebugifyModulePass(bool Strip = false, StringRef NameOfWrappedPass = "",
+Utils/Debugify.cpp:      : ModulePass(ID), Strip(Strip), NameOfWrappedPass(NameOfWrappedPass),
+Utils/Debugify.cpp:/// with the legacy module pass manager.
+Utils/Debugify.cpp:    Module &M = *F.getParent();
+Utils/Debugify.cpp:ModulePass *llvm::createDebugifyModulePass() {
+Utils/Debugify.cpp:  return new DebugifyModulePass();
+Utils/Debugify.cpp:PreservedAnalyses NewPMDebugifyPass::run(Module &M, ModuleAnalysisManager &) {
+Utils/Debugify.cpp:                        "ModuleDebugify: ", /*ApplyToMF*/ nullptr);
+Utils/Debugify.cpp:ModulePass *llvm::createCheckDebugifyModulePass(bool Strip,
+Utils/Debugify.cpp:  return new CheckDebugifyModulePass(Strip, NameOfWrappedPass, StatsMap);
+Utils/Debugify.cpp:PreservedAnalyses NewPMCheckDebugifyPass::run(Module &M,
+Utils/Debugify.cpp:                                              ModuleAnalysisManager &) {
+Utils/Debugify.cpp:  checkDebugifyMetadata(M, M.functions(), "", "CheckModuleDebugify", false,
+Utils/Debugify.cpp:                                "PrintModulePass", "BitcodeWriterPass",
+Utils/Debugify.cpp:    else if (any_isa<const Module *>(IR))
+Utils/Debugify.cpp:      applyDebugify(*const_cast<Module *>(any_cast<const Module *>(IR)));
+Utils/Debugify.cpp:      Module &M = *F.getParent();
+Utils/Debugify.cpp:    } else if (any_isa<const Module *>(IR)) {
+Utils/Debugify.cpp:      auto &M = *const_cast<Module *>(any_cast<const Module *>(IR));
+Utils/Debugify.cpp:      checkDebugifyMetadata(M, M.functions(), P, "CheckModuleDebugify",
+Utils/Debugify.cpp:char DebugifyModulePass::ID = 0;
+Utils/Debugify.cpp:static RegisterPass<DebugifyModulePass> DM("debugify",
+Utils/Debugify.cpp:char CheckDebugifyModulePass::ID = 0;
+Utils/Debugify.cpp:static RegisterPass<CheckDebugifyModulePass>
+Utils/FunctionComparator.cpp:#include "llvm/IR/Module.h"
+Utils/FunctionComparator.cpp:    // endianness. This isn't a problem though, because the endiness of a module
+Utils/FunctionComparator.cpp:    // for a given input module and host platform.
+Utils/BuildLibCalls.cpp:#include "llvm/IR/Module.h"
+Utils/BuildLibCalls.cpp:bool llvm::inferLibFuncAttributes(Module *M, StringRef Name,
+Utils/BuildLibCalls.cpp:  Module *M = B.GetInsertBlock()->getModule();
+Utils/BuildLibCalls.cpp:  Module *M = B.GetInsertBlock()->getModule();
+Utils/BuildLibCalls.cpp:  Module *M = B.GetInsertBlock()->getModule();
+Utils/BuildLibCalls.cpp:  Module *M = B.GetInsertBlock()->getModule();
+Utils/BuildLibCalls.cpp:  Module *M = B.GetInsertBlock()->getModule();
+Utils/BuildLibCalls.cpp:  Module *M = B.GetInsertBlock()->getModule();
+Utils/BuildLibCalls.cpp:  Module *M = B.GetInsertBlock()->getModule();
+Utils/BuildLibCalls.cpp:  Module *M = B.GetInsertBlock()->getModule();
+Utils/BuildLibCalls.cpp:  Module *M = B.GetInsertBlock()->getModule();
+Utils/BuildLibCalls.cpp:  Module *M = B.GetInsertBlock()->getModule();
+Utils/BuildLibCalls.cpp:  Module *M = B.GetInsertBlock()->getModule();
+Utils/LowerInvoke.cpp:#include "llvm/IR/Module.h"
+Utils/CloneFunction.cpp:#include "llvm/IR/Module.h"
+Utils/CloneFunction.cpp:  Module *TheModule = F ? F->getParent() : nullptr;
+Utils/CloneFunction.cpp:    if (DIFinder && TheModule)
+Utils/CloneFunction.cpp:      DIFinder->processInstruction(*TheModule, I);
+Utils/CloneFunction.cpp:                             bool ModuleLevelChanges,
+Utils/CloneFunction.cpp:                 ModuleLevelChanges ? RF_None : RF_NoModuleLevelChanges,
+Utils/CloneFunction.cpp:    assert(!MustCloneSP || ModuleLevelChanges);
+Utils/CloneFunction.cpp:    // If we're not cloning into the same module, no need to clone the
+Utils/CloneFunction.cpp:                                      ModuleLevelChanges ? &DIFinder : nullptr);
+Utils/CloneFunction.cpp:                     ModuleLevelChanges ? RF_None : RF_NoModuleLevelChanges,
+Utils/CloneFunction.cpp:                       ModuleLevelChanges ? RF_None : RF_NoModuleLevelChanges,
+Utils/CloneFunction.cpp:  // Register all DICompileUnits of the old parent module in the new parent module
+Utils/CloneFunction.cpp:  auto* OldModule = OldFunc->getParent();
+Utils/CloneFunction.cpp:  auto* NewModule = NewFunc->getParent();
+Utils/CloneFunction.cpp:  if (OldModule && NewModule && OldModule != NewModule && DIFinder.compile_unit_count()) {
+Utils/CloneFunction.cpp:    auto* NMD = NewModule->getOrInsertNamedMetadata("llvm.dbg.cu");
+Utils/CloneFunction.cpp:/// module.  Also, any references specified in the VMap are changed to refer to
+Utils/CloneFunction.cpp:    bool ModuleLevelChanges;
+Utils/CloneFunction.cpp:                          ValueToValueMapTy &valueMap, bool moduleLevelChanges,
+Utils/CloneFunction.cpp:          ModuleLevelChanges(moduleLevelChanges), NameSuffix(nameSuffix),
+Utils/CloneFunction.cpp:                       ModuleLevelChanges ? RF_None : RF_NoModuleLevelChanges);
+Utils/CloneFunction.cpp:              SimplifyInstruction(NewInst, BB->getModule()->getDataLayout())) {
+Utils/CloneFunction.cpp:                                     bool ModuleLevelChanges,
+Utils/CloneFunction.cpp:  PruningFunctionCloner PFC(NewFunc, OldFunc, VMap, ModuleLevelChanges,
+Utils/CloneFunction.cpp:                     ModuleLevelChanges ? RF_None : RF_NoModuleLevelChanges,
+Utils/CloneFunction.cpp:                        ModuleLevelChanges ? RF_None : RF_NoModuleLevelChanges);
+Utils/CloneFunction.cpp:/// used for things like CloneFunction or CloneModule.
+Utils/CloneFunction.cpp:                                     bool ModuleLevelChanges,
+Utils/CloneFunction.cpp:                            ModuleLevelChanges, Returns, NameSuffix, CodeInfo);
+Utils/CloneFunction.cpp:                       RF_NoModuleLevelChanges | RF_IgnoreMissingLocals);
+Utils/FunctionImportUtils.cpp:  if (!isPerformingImport() && !isModuleExporting())
+Utils/FunctionImportUtils.cpp:    // module. But by necessity if we end up importing it and it is local,
+Utils/FunctionImportUtils.cpp:    // importing module.
+Utils/FunctionImportUtils.cpp:  // in this module.
+Utils/FunctionImportUtils.cpp:  auto Summary = ImportIndex.findSummaryInModule(
+Utils/FunctionImportUtils.cpp:      VI, SGV->getParent()->getModuleIdentifier());
+Utils/FunctionImportUtils.cpp:  // This needs to stay in sync with the logic in buildModuleSummaryIndex.
+Utils/FunctionImportUtils.cpp:  // the promoted name uniquely identifies the copy in the original module,
+Utils/FunctionImportUtils.cpp:  return ModuleSummaryIndex::getGlobalNameForLocal(
+Utils/FunctionImportUtils.cpp:      ImportIndex.getModuleHash(SGV->getParent()->getModuleIdentifier()));
+Utils/FunctionImportUtils.cpp:  // all as potentially exported if this module is exporting anything.
+Utils/FunctionImportUtils.cpp:  if (isModuleExporting()) {
+Utils/FunctionImportUtils.cpp:    // they are seen by the linker. The module linking caller needs to enforce
+Utils/FunctionImportUtils.cpp:            if (FS->modulePath() == M.getModuleIdentifier()) {
+Utils/FunctionImportUtils.cpp:      // and resulting GUID is the same). Find the one in this module.
+Utils/FunctionImportUtils.cpp:      // Handle the case where there is no summary found in this module. That
+Utils/FunctionImportUtils.cpp:      // contains summaries from the source modules if they are being imported.
+Utils/FunctionImportUtils.cpp:      // matches one in this module (e.g. weak or appending linkage).
+Utils/FunctionImportUtils.cpp:          ImportIndex.findSummaryInModule(VI, M.getModuleIdentifier()));
+Utils/FunctionImportUtils.cpp:        // references in IR module (not in combined index), so we can
+Utils/FunctionImportUtils.cpp:bool llvm::renameModuleForThinLTO(Module &M, const ModuleSummaryIndex &Index,
+Utils/ScalarEvolutionExpander.cpp:#include "llvm/IR/Module.h"
+Utils/ScalarEvolutionExpander.cpp:  auto *MulF = Intrinsic::getDeclaration(Loc->getModule(),
+Utils/CloneModule.cpp://===- CloneModule.cpp - Clone an entire module ---------------------------===//
+Utils/CloneModule.cpp:// This file implements the CloneModule interface which makes a copy of an
+Utils/CloneModule.cpp:// entire module.
+Utils/CloneModule.cpp:#include "llvm/IR/Module.h"
+Utils/CloneModule.cpp:std::unique_ptr<Module> llvm::CloneModule(const Module &M) {
+Utils/CloneModule.cpp:  // Create the value map that maps things from the old module over to the new
+Utils/CloneModule.cpp:  // module.
+Utils/CloneModule.cpp:  return CloneModule(M, VMap);
+Utils/CloneModule.cpp:std::unique_ptr<Module> llvm::CloneModule(const Module &M,
+Utils/CloneModule.cpp:  return CloneModule(M, VMap, [](const GlobalValue *GV) { return true; });
+Utils/CloneModule.cpp:std::unique_ptr<Module> llvm::CloneModule(
+Utils/CloneModule.cpp:    const Module &M, ValueToValueMapTy &VMap,
+Utils/CloneModule.cpp:  // First off, we need to create the new module.
+Utils/CloneModule.cpp:  std::unique_ptr<Module> New =
+Utils/CloneModule.cpp:      std::make_unique<Module>(M.getModuleIdentifier(), M.getContext());
+Utils/CloneModule.cpp:  New->setModuleInlineAsm(M.getModuleInlineAsm());
+Utils/CloneModule.cpp:  // new module.  Here we add them to the VMap and to the new Module.  We
+Utils/CloneModule.cpp:  for (Module::const_global_iterator I = M.global_begin(), E = M.global_end();
+Utils/CloneModule.cpp:  // Loop over the functions in the module, making external functions as before
+Utils/CloneModule.cpp:  // Loop over the aliases in the module
+Utils/CloneModule.cpp:  for (Module::const_alias_iterator I = M.alias_begin(), E = M.alias_end();
+Utils/CloneModule.cpp:  for (Module::const_global_iterator I = M.global_begin(), E = M.global_end();
+Utils/CloneModule.cpp:    CloneFunctionInto(F, &I, VMap, /*ModuleLevelChanges=*/true, Returns);
+Utils/CloneModule.cpp:  for (Module::const_alias_iterator I = M.alias_begin(), E = M.alias_end();
+Utils/CloneModule.cpp:  for (Module::const_named_metadata_iterator I = M.named_metadata_begin(),
+Utils/CloneModule.cpp:LLVMModuleRef LLVMCloneModule(LLVMModuleRef M) {
+Utils/CloneModule.cpp:  return wrap(CloneModule(*unwrap(M)).release());
+Utils/LoopUtils.cpp:#include "llvm/IR/Module.h"
+Utils/LoopUtils.cpp:    DIBuilder DIB(*ExitBlock->getModule());
+Utils/LoopUtils.cpp:  const DataLayout &DL = TheLoop->getHeader()->getModule()->getDataLayout();
+Utils/StripNonLineTableDebugInfo.cpp:struct StripNonLineTableDebugLegacyPass : public ModulePass {
+Utils/StripNonLineTableDebugInfo.cpp:  StripNonLineTableDebugLegacyPass() : ModulePass(ID) {
+Utils/StripNonLineTableDebugInfo.cpp:  bool runOnModule(Module &M) override {
+Utils/StripNonLineTableDebugInfo.cpp:ModulePass *llvm::createStripNonLineTableDebugLegacyPass() {
+Utils/StripNonLineTableDebugInfo.cpp:StripNonLineTableDebugInfoPass::run(Module &M, ModuleAnalysisManager &AM) {
+Utils/DemoteRegToStack.cpp:  const DataLayout &DL = P->getModule()->getDataLayout();
+Utils/CallGraphUpdater.cpp:#include "llvm/Transforms/Utils/ModuleUtils.h"
+Utils/CallGraphUpdater.cpp:    // Then remove the node and function from the module.
+Utils/CallGraphUpdater.cpp:      delete CG->removeFunctionFromModule(DeadCGN);
+Utils/LoopUnroll.cpp:#include "llvm/IR/Module.h"
+Utils/LoopUnroll.cpp:  const DataLayout &DL = L->getHeader()->getModule()->getDataLayout();
+Utils/SimplifyLibCalls.cpp:#include "llvm/IR/Module.h"
+Utils/SimplifyLibCalls.cpp:    if (Triple(CI->getModule()->getTargetTriple()).isiOS())
+Utils/SimplifyLibCalls.cpp:  Module &M = *CI->getModule();
+Utils/SimplifyLibCalls.cpp:  const DataLayout &DL = Malloc->getModule()->getDataLayout();
+Utils/SimplifyLibCalls.cpp:  Module *M = CI->getModule();
+Utils/SimplifyLibCalls.cpp:    Module *M = CI->getModule();
+Utils/SimplifyLibCalls.cpp:  Function *FSqrt = Intrinsic::getDeclaration(CI->getModule(), Intrinsic::sqrt,
+Utils/SimplifyLibCalls.cpp:  Module *Mod = Pow->getModule();
+Utils/SimplifyLibCalls.cpp:                          Module *M, IRBuilderBase &B,
+Utils/SimplifyLibCalls.cpp:  Module *Mod = Pow->getModule();
+Utils/SimplifyLibCalls.cpp:static Value *createPowWithIntegerExponent(Value *Base, Value *Expo, Module *M,
+Utils/SimplifyLibCalls.cpp:  Module *M = Pow->getModule();
+Utils/SimplifyLibCalls.cpp:  Function *F = Intrinsic::getDeclaration(CI->getModule(), IID, CI->getType());
+Utils/SimplifyLibCalls.cpp:  Module *Mod = Log->getModule();
+Utils/SimplifyLibCalls.cpp:  Module *M = Callee->getParent();
+Utils/SimplifyLibCalls.cpp:  Module *M = OrigCallee->getParent();
+Utils/SimplifyLibCalls.cpp:    Module *M = B.GetInsertBlock()->getParent()->getParent();
+Utils/SimplifyLibCalls.cpp:    Module *M = B.GetInsertBlock()->getParent()->getParent();
+Utils/SimplifyLibCalls.cpp:    Module *M = B.GetInsertBlock()->getParent()->getParent();
+Utils/SimplifyLibCalls.cpp:    Module *M = B.GetInsertBlock()->getParent()->getParent();
+Utils/SimplifyLibCalls.cpp:    Module *M = B.GetInsertBlock()->getParent()->getParent();
+Utils/SimplifyLibCalls.cpp:    Module *M = B.GetInsertBlock()->getParent()->getParent();
+Utils/SimplifyLibCalls.cpp:  const DataLayout &DL = CI->getModule()->getDataLayout();
+Utils/SimplifyLibCalls.cpp:  const DataLayout &DL = CI->getModule()->getDataLayout();
+Utils/SimplifyLibCalls.cpp:    return emitStrLen(CI->getArgOperand(0), B, CI->getModule()->getDataLayout(),
+Utils/ModuleUtils.cpp://===-- ModuleUtils.cpp - Functions to manipulate Modules -----------------===//
+Utils/ModuleUtils.cpp:// This family of functions perform manipulations on Modules.
+Utils/ModuleUtils.cpp:#include "llvm/Transforms/Utils/ModuleUtils.h"
+Utils/ModuleUtils.cpp:#include "llvm/IR/Module.h"
+Utils/ModuleUtils.cpp:#define DEBUG_TYPE "moduleutils"
+Utils/ModuleUtils.cpp:static void appendToGlobalArray(const char *Array, Module &M, Function *F,
+Utils/ModuleUtils.cpp:void llvm::appendToGlobalCtors(Module &M, Function *F, int Priority, Constant *Data) {
+Utils/ModuleUtils.cpp:void llvm::appendToGlobalDtors(Module &M, Function *F, int Priority, Constant *Data) {
+Utils/ModuleUtils.cpp:static void appendToUsedList(Module &M, StringRef Name, ArrayRef<GlobalValue *> Values) {
+Utils/ModuleUtils.cpp:void llvm::appendToUsed(Module &M, ArrayRef<GlobalValue *> Values) {
+Utils/ModuleUtils.cpp:void llvm::appendToCompilerUsed(Module &M, ArrayRef<GlobalValue *> Values) {
+Utils/ModuleUtils.cpp:llvm::declareSanitizerInitFunction(Module &M, StringRef InitName,
+Utils/ModuleUtils.cpp:Function *llvm::createSanitizerCtor(Module &M, StringRef CtorName) {
+Utils/ModuleUtils.cpp:    Module &M, StringRef CtorName, StringRef InitName,
+Utils/ModuleUtils.cpp:    Module &M, StringRef CtorName, StringRef InitName,
+Utils/ModuleUtils.cpp:    // FIXME: Sink this logic into the module, similar to the handling of
+Utils/ModuleUtils.cpp:Function *llvm::getOrCreateInitFunction(Module &M, StringRef Name) {
+Utils/ModuleUtils.cpp:    Module &M, SmallVectorImpl<Function *> &DeadComdatFunctions) {
+Utils/ModuleUtils.cpp:std::string llvm::getUniqueModuleId(Module *M) {
+Utils/ModuleUtils.cpp:  Module *M = CI->getModule();
+Utils/AssumeBundleBuilder.cpp:#include "llvm/IR/Module.h"
+Utils/AssumeBundleBuilder.cpp:RetainedKnowledge canonicalizedKnowledge(RetainedKnowledge RK, Module *M) {
+Utils/AssumeBundleBuilder.cpp:  Module *M;
+Utils/AssumeBundleBuilder.cpp:  AssumeBuilderState(Module *M, Instruction *I = nullptr,
+Utils/AssumeBundleBuilder.cpp:    unsigned DerefSize = MemInst->getModule()
+Utils/AssumeBundleBuilder.cpp:  AssumeBuilderState Builder(I->getModule());
+Utils/AssumeBundleBuilder.cpp:  AssumeBuilderState Builder(I->getModule(), I, AC, DT);
+Utils/BypassSlowDivision.cpp:#include "llvm/IR/Module.h"
+Utils/BypassSlowDivision.cpp:  const DataLayout &DL = SlowDivOrRem->getModule()->getDataLayout();
+Utils/EscapeEnumerator.cpp:#include "llvm/IR/Module.h"
+Utils/EscapeEnumerator.cpp:static FunctionCallee getDefaultPersonalityFn(Module *M) {
+Utils/InjectTLIMappings.cpp:#include "llvm/Transforms/Utils/ModuleUtils.h"
+Utils/InjectTLIMappings.cpp:  Module *M = CI.getModule();
+Utils/InjectTLIMappings.cpp:  LLVM_DEBUG(dbgs() << DEBUG_TYPE << ": Added to the module: `" << VFName
+Utils/InjectTLIMappings.cpp:  Module *M = CI.getModule();
+Utils/InlineFunction.cpp:#include "llvm/IR/Module.h"
+Utils/InlineFunction.cpp:static void HandleByValArgumentInit(Value *Dst, Value *Src, Module *M,
+Utils/InlineFunction.cpp:                              /*ModuleLevelChanges=*/false, Returns, ".i",
+Utils/InlineFunction.cpp:    Module *M = Caller->getParent();
+Utils/InlineFunction.cpp:        // calling convention in a well-formed module.
+Utils/NameAnonGlobals.cpp:#include "llvm/IR/Module.h"
+Utils/NameAnonGlobals.cpp:#include "llvm/Transforms/Utils/ModuleUtils.h"
+Utils/NameAnonGlobals.cpp:// Compute a "unique" hash for the module based on the name of the public
+Utils/NameAnonGlobals.cpp:class ModuleHasher {
+Utils/NameAnonGlobals.cpp:  Module &TheModule;
+Utils/NameAnonGlobals.cpp:  ModuleHasher(Module &M) : TheModule(M) {}
+Utils/NameAnonGlobals.cpp:    for (auto &F : TheModule) {
+Utils/NameAnonGlobals.cpp:    for (auto &GV : TheModule.globals()) {
+Utils/NameAnonGlobals.cpp:// Rename all the anon globals in the module
+Utils/NameAnonGlobals.cpp:bool llvm::nameUnamedGlobals(Module &M) {
+Utils/NameAnonGlobals.cpp:  ModuleHasher ModuleHash(M);
+Utils/NameAnonGlobals.cpp:    GV.setName(Twine("anon.") + ModuleHash.get() + "." + Twine(count++));
+Utils/NameAnonGlobals.cpp:class NameAnonGlobalLegacyPass : public ModulePass {
+Utils/NameAnonGlobals.cpp:  explicit NameAnonGlobalLegacyPass() : ModulePass(ID) {}
+Utils/NameAnonGlobals.cpp:  bool runOnModule(Module &M) override { return nameUnamedGlobals(M); }
+Utils/NameAnonGlobals.cpp:PreservedAnalyses NameAnonGlobalPass::run(Module &M,
+Utils/NameAnonGlobals.cpp:                                          ModuleAnalysisManager &AM) {
+Utils/NameAnonGlobals.cpp:ModulePass *createNameAnonGlobalPass() {
+Utils/VNCoercion.cpp:  const DataLayout &DL = LI->getModule()->getDataLayout();
+Utils/SanitizerStats.cpp:#include "llvm/IR/Module.h"
+Utils/SanitizerStats.cpp:#include "llvm/Transforms/Utils/ModuleUtils.h"
+Utils/SanitizerStats.cpp:SanitizerStatReport::SanitizerStatReport(Module *M) : M(M) {
+Utils/SanitizerStats.cpp:  EmptyModuleStatsTy = makeModuleStatsTy();
+Utils/SanitizerStats.cpp:  ModuleStatsGV = new GlobalVariable(*M, EmptyModuleStatsTy, false,
+Utils/SanitizerStats.cpp:ArrayType *SanitizerStatReport::makeModuleStatsArrayTy() {
+Utils/SanitizerStats.cpp:StructType *SanitizerStatReport::makeModuleStatsTy() {
+Utils/SanitizerStats.cpp:                                           makeModuleStatsArrayTy()});
+Utils/SanitizerStats.cpp:  Module *M = F->getParent();
+Utils/SanitizerStats.cpp:      EmptyModuleStatsTy, ModuleStatsGV,
+Utils/SanitizerStats.cpp:    ModuleStatsGV->eraseFromParent();
+Utils/SanitizerStats.cpp:  // Create a new ModuleStatsGV to replace the old one. We can't just set the
+Utils/SanitizerStats.cpp:  auto NewModuleStatsGV = new GlobalVariable(
+Utils/SanitizerStats.cpp:      *M, makeModuleStatsTy(), false, GlobalValue::InternalLinkage,
+Utils/SanitizerStats.cpp:           ConstantArray::get(makeModuleStatsArrayTy(), Inits)}));
+Utils/SanitizerStats.cpp:  ModuleStatsGV->replaceAllUsesWith(
+Utils/SanitizerStats.cpp:      ConstantExpr::getBitCast(NewModuleStatsGV, ModuleStatsGV->getType()));
+Utils/SanitizerStats.cpp:  ModuleStatsGV->eraseFromParent();
+Utils/SanitizerStats.cpp:  // Create a global constructor to register NewModuleStatsGV.
+Utils/SanitizerStats.cpp:  B.CreateCall(StatInit, ConstantExpr::getBitCast(NewModuleStatsGV, Int8PtrTy));
+Utils/SimplifyIndVar.cpp:  // Does the module have any calls to the llvm.experimental.guard intrinsic
+Utils/CallPromotionUtils.cpp:  Module *M = CB.getCaller()->getParent();
+Utils/LoopRotationUtils.cpp:#include "llvm/IR/Module.h"
+Utils/LoopRotationUtils.cpp:                       RF_NoModuleLevelChanges | RF_IgnoreMissingLocals);
+Utils/ValueMapper.cpp:    // If this is a module-level metadata and we know that nothing at the module
+Utils/ValueMapper.cpp:    if (Flags & RF_NoModuleLevelChanges)
+Utils/ValueMapper.cpp:  assert(!(M.Flags & RF_NoModuleLevelChanges) &&
+Utils/ValueMapper.cpp:         "MDNodeMapper::map assumes module-level changes");
+Utils/ValueMapper.cpp:  // This is a module-level metadata.  If nothing at the module level is
+Utils/ValueMapper.cpp:  if ((Flags & RF_NoModuleLevelChanges))
+Utils/CMakeLists.txt:  CloneModule.cpp
+Utils/CMakeLists.txt:  ModuleUtils.cpp
+Utils/CMakeLists.txt:  SplitModule.cpp
+Utils/SplitModule.cpp://===- SplitModule.cpp - Split a module into partitions -------------------===//
+Utils/SplitModule.cpp:// This file defines the function llvm::SplitModule, which splits a module
+Utils/SplitModule.cpp:#include "llvm/Transforms/Utils/SplitModule.h"
+Utils/SplitModule.cpp:#include "llvm/IR/Module.h"
+Utils/SplitModule.cpp:#define DEBUG_TYPE "split-module"
+Utils/SplitModule.cpp:// Find partitions for module in the way that no locals need to be
+Utils/SplitModule.cpp:static void findPartitions(Module *M, ClusterIDMapType &ClusterIDMap,
+Utils/SplitModule.cpp:  // At this point module should have the proper mix of globals and locals.
+Utils/SplitModule.cpp:  // As we attempt to partition this module, we must not change any
+Utils/SplitModule.cpp:  LLVM_DEBUG(dbgs() << "Partition module with (" << M->size()
+Utils/SplitModule.cpp:  // Unnamed entities must be named consistently between modules. setName will
+Utils/SplitModule.cpp:void llvm::SplitModule(
+Utils/SplitModule.cpp:    std::unique_ptr<Module> M, unsigned N,
+Utils/SplitModule.cpp:    function_ref<void(std::unique_ptr<Module> MPart)> ModuleCallback,
+Utils/SplitModule.cpp:    std::unique_ptr<Module> MPart(
+Utils/SplitModule.cpp:        CloneModule(*M, VMap, [&](const GlobalValue *GV) {
+Utils/SplitModule.cpp:      MPart->setModuleInlineAsm("");
+Utils/SplitModule.cpp:    ModuleCallback(std::move(MPart));
+ObjCARC/ARCRuntimeEntryPoints.h:class Module;
+ObjCARC/ARCRuntimeEntryPoints.h:/// lazily to avoid cluttering up the Module with unused declarations.
+ObjCARC/ARCRuntimeEntryPoints.h:  void init(Module *M) {
+ObjCARC/ARCRuntimeEntryPoints.h:    TheModule = M;
+ObjCARC/ARCRuntimeEntryPoints.h:    assert(TheModule != nullptr && "Not initialized.");
+ObjCARC/ARCRuntimeEntryPoints.h:  /// Cached reference to the module which we will insert declarations into.
+ObjCARC/ARCRuntimeEntryPoints.h:  Module *TheModule = nullptr;
+ObjCARC/ARCRuntimeEntryPoints.h:    return Decl = Intrinsic::getDeclaration(TheModule, IntID);
+ObjCARC/ObjCARCContract.cpp:  bool init(Module &M);
+ObjCARC/ObjCARCContract.cpp:  bool doInitialization(Module &M) override;
+ObjCARC/ObjCARCContract.cpp:bool ObjCARCContract::init(Module &M) {
+ObjCARC/ObjCARCContract.cpp:  // If nothing in the Module uses ARC, don't do anything.
+ObjCARC/ObjCARCContract.cpp:  Run = ModuleHasARC(M);
+ObjCARC/ObjCARCContract.cpp:  RVInstMarker = dyn_cast_or_null<MDString>(M.getModuleFlag(MarkerKey));
+ObjCARC/ObjCARCContract.cpp:  // If nothing in the Module uses ARC, don't do anything.
+ObjCARC/ObjCARCContract.cpp:bool ObjCARCContractLegacyPass::doInitialization(Module &M) {
+ObjCARC/ObjCARCExpand.cpp:  // If nothing in the Module uses ARC, don't do anything.
+ObjCARC/ObjCARCExpand.cpp:  if (!ModuleHasARC(*F.getParent()))
+ObjCARC/ObjCARCOpts.cpp:  // modules.  It's never a single-use value.
+ObjCARC/ObjCARCOpts.cpp:                 SmallVectorImpl<Instruction *> &DeadInsts, Module *M);
+ObjCARC/ObjCARCOpts.cpp:                                DenseMap<Value *, RRInfo> &Releases, Module *M,
+ObjCARC/ObjCARCOpts.cpp:                            DenseMap<Value *, RRInfo> &Releases, Module *M);
+ObjCARC/ObjCARCOpts.cpp:    void init(Module &M);
+ObjCARC/ObjCARCOpts.cpp:  bool doInitialization(Module &M) override {
+ObjCARC/ObjCARCOpts.cpp:                           Module *M) {
+ObjCARC/ObjCARCOpts.cpp:    DenseMap<Value *, RRInfo> &Releases, Module *M,
+ObjCARC/ObjCARCOpts.cpp:    DenseMap<Value *, RRInfo> &Releases, Module *M) {
+ObjCARC/ObjCARCOpts.cpp:void ObjCARCOpt::init(Module &M) {
+ObjCARC/ObjCARCOpts.cpp:  // If nothing in the Module uses ARC, don't do anything.
+ObjCARC/ObjCARCOpts.cpp:  Run = ModuleHasARC(M);
+ObjCARC/ObjCARCOpts.cpp:  // If nothing in the Module uses ARC, don't do anything.
+ObjCARC/ObjCARCAPElim.cpp:bool runImpl(Module &M) {
+ObjCARC/ObjCARCAPElim.cpp:  // If nothing in the Module uses ARC, don't do anything.
+ObjCARC/ObjCARCAPElim.cpp:  if (!ModuleHasARC(M))
+ObjCARC/ObjCARCAPElim.cpp:class ObjCARCAPElim : public ModulePass {
+ObjCARC/ObjCARCAPElim.cpp:  bool runOnModule(Module &M) override;
+ObjCARC/ObjCARCAPElim.cpp:  ObjCARCAPElim() : ModulePass(ID) {
+ObjCARC/ObjCARCAPElim.cpp:bool ObjCARCAPElim::runOnModule(Module &M) {
+ObjCARC/ObjCARCAPElim.cpp:  if (skipModule(M))
+ObjCARC/ObjCARCAPElim.cpp:PreservedAnalyses ObjCARCAPElimPass::run(Module &M, ModuleAnalysisManager &AM) {
+ObjCARC/ProvenanceAnalysis.cpp:#include "llvm/IR/Module.h"
+ObjCARC/ProvenanceAnalysisEvaluator.cpp:#include "llvm/IR/Module.h"
+emitIRfiles/emitIRfiles.cpp:#include "llvm/IR/Module.h"
+IPO/MergeFunctions.cpp:#include "llvm/IR/Module.h"
+IPO/MergeFunctions.cpp:    cl::desc("How many functions in module could be used for "
+IPO/MergeFunctions.cpp:  bool runOnModule(Module &M);
+IPO/MergeFunctions.cpp:class MergeFunctionsLegacyPass : public ModulePass {
+IPO/MergeFunctions.cpp:  MergeFunctionsLegacyPass(): ModulePass(ID) {
+IPO/MergeFunctions.cpp:  bool runOnModule(Module &M) override {
+IPO/MergeFunctions.cpp:    if (skipModule(M))
+IPO/MergeFunctions.cpp:    return MF.runOnModule(M);
+IPO/MergeFunctions.cpp:ModulePass *llvm::createMergeFunctionsPass() {
+IPO/MergeFunctions.cpp:PreservedAnalyses MergeFunctionsPass::run(Module &M,
+IPO/MergeFunctions.cpp:                                          ModuleAnalysisManager &AM) {
+IPO/MergeFunctions.cpp:  if (!MF.runOnModule(M))
+IPO/MergeFunctions.cpp:bool MergeFunctions::runOnModule(Module &M) {
+IPO/MergeFunctions.cpp:  // All functions in the module, ordered by hash. Functions with a unique
+IPO/MergeFunctions.cpp:    LLVM_DEBUG(dbgs() << "size of module: " << M.size() << '\n');
+IPO/MergeFunctions.cpp:  // important when operating on more than one module independently to prevent
+IPO/MergeFunctions.cpp:  // cycles of thunks calling each other when the modules are linked together.
+IPO/FunctionAttrs.cpp:struct ReversePostOrderFunctionAttrsLegacyPass : public ModulePass {
+IPO/FunctionAttrs.cpp:  ReversePostOrderFunctionAttrsLegacyPass() : ModulePass(ID) {
+IPO/FunctionAttrs.cpp:  bool runOnModule(Module &M) override;
+IPO/FunctionAttrs.cpp:static bool deduceFunctionAttributeInRPO(Module &M, CallGraph &CG) {
+IPO/FunctionAttrs.cpp:bool ReversePostOrderFunctionAttrsLegacyPass::runOnModule(Module &M) {
+IPO/FunctionAttrs.cpp:  if (skipModule(M))
+IPO/FunctionAttrs.cpp:ReversePostOrderFunctionAttrsPass::run(Module &M, ModuleAnalysisManager &AM) {
+IPO/WholeProgramDevirt.cpp:// - Export phase: this is run during the thin link over a single merged module
+IPO/WholeProgramDevirt.cpp://   modules. The pass applies the resolutions previously computed during the
+IPO/WholeProgramDevirt.cpp:#include "llvm/IR/Module.h"
+IPO/WholeProgramDevirt.cpp:#include "llvm/IR/ModuleSummaryIndexYAML.h"
+IPO/WholeProgramDevirt.cpp:  // the DevirtModule::NumUnsafeUsesForTypeTest map below. See the description
+IPO/WholeProgramDevirt.cpp:  /// call sites that appear in the merged module itself); in each of these
+IPO/WholeProgramDevirt.cpp:struct DevirtModule {
+IPO/WholeProgramDevirt.cpp:  Module &M;
+IPO/WholeProgramDevirt.cpp:  ModuleSummaryIndex *ExportSummary;
+IPO/WholeProgramDevirt.cpp:  const ModuleSummaryIndex *ImportSummary;
+IPO/WholeProgramDevirt.cpp:  DevirtModule(Module &M, function_ref<AAResults &(Function &)> AARGetter,
+IPO/WholeProgramDevirt.cpp:               ModuleSummaryIndex *ExportSummary,
+IPO/WholeProgramDevirt.cpp:               const ModuleSummaryIndex *ImportSummary)
+IPO/WholeProgramDevirt.cpp:  bool trySingleImplDevirt(ModuleSummaryIndex *ExportSummary,
+IPO/WholeProgramDevirt.cpp:  // Lower the module using the action and summary passed as command line
+IPO/WholeProgramDevirt.cpp:  runForTesting(Module &M, function_ref<AAResults &(Function &)> AARGetter,
+IPO/WholeProgramDevirt.cpp:  ModuleSummaryIndex &ExportSummary;
+IPO/WholeProgramDevirt.cpp:  // The set in which to record GUIDs exported from their module by
+IPO/WholeProgramDevirt.cpp:  // resolution for local targets in case they are exported by cross module
+IPO/WholeProgramDevirt.cpp:      ModuleSummaryIndex &ExportSummary,
+IPO/WholeProgramDevirt.cpp:struct WholeProgramDevirt : public ModulePass {
+IPO/WholeProgramDevirt.cpp:  ModuleSummaryIndex *ExportSummary = nullptr;
+IPO/WholeProgramDevirt.cpp:  const ModuleSummaryIndex *ImportSummary = nullptr;
+IPO/WholeProgramDevirt.cpp:  WholeProgramDevirt() : ModulePass(ID), UseCommandLine(true) {
+IPO/WholeProgramDevirt.cpp:  WholeProgramDevirt(ModuleSummaryIndex *ExportSummary,
+IPO/WholeProgramDevirt.cpp:                     const ModuleSummaryIndex *ImportSummary)
+IPO/WholeProgramDevirt.cpp:      : ModulePass(ID), ExportSummary(ExportSummary),
+IPO/WholeProgramDevirt.cpp:  bool runOnModule(Module &M) override {
+IPO/WholeProgramDevirt.cpp:    if (skipModule(M))
+IPO/WholeProgramDevirt.cpp:      return DevirtModule::runForTesting(M, LegacyAARGetter(*this), OREGetter,
+IPO/WholeProgramDevirt.cpp:    return DevirtModule(M, LegacyAARGetter(*this), OREGetter, LookupDomTree,
+IPO/WholeProgramDevirt.cpp:ModulePass *
+IPO/WholeProgramDevirt.cpp:llvm::createWholeProgramDevirtPass(ModuleSummaryIndex *ExportSummary,
+IPO/WholeProgramDevirt.cpp:                                   const ModuleSummaryIndex *ImportSummary) {
+IPO/WholeProgramDevirt.cpp:PreservedAnalyses WholeProgramDevirtPass::run(Module &M,
+IPO/WholeProgramDevirt.cpp:                                              ModuleAnalysisManager &AM) {
+IPO/WholeProgramDevirt.cpp:  auto &FAM = AM.getResult<FunctionAnalysisManagerModuleProxy>(M).getManager();
+IPO/WholeProgramDevirt.cpp:    if (DevirtModule::runForTesting(M, AARGetter, OREGetter, LookupDomTree))
+IPO/WholeProgramDevirt.cpp:  if (!DevirtModule(M, AARGetter, OREGetter, LookupDomTree, ExportSummary,
+IPO/WholeProgramDevirt.cpp:/// Module IR (for regular or hybrid LTO).
+IPO/WholeProgramDevirt.cpp:void updateVCallVisibilityInModule(Module &M,
+IPO/WholeProgramDevirt.cpp:/// visibility in Module summary index (for ThinLTO).
+IPO/WholeProgramDevirt.cpp:void updateVCallVisibilityInIndex(ModuleSummaryIndex &Index,
+IPO/WholeProgramDevirt.cpp:    ModuleSummaryIndex &Summary, std::set<GlobalValue::GUID> &ExportedGUIDs,
+IPO/WholeProgramDevirt.cpp:    ModuleSummaryIndex &Summary,
+IPO/WholeProgramDevirt.cpp:    if (!isExported(S->modulePath(), VI))
+IPO/WholeProgramDevirt.cpp:    // It's been exported by a cross module import.
+IPO/WholeProgramDevirt.cpp:      WPDRes->second.SingleImplName = ModuleSummaryIndex::getGlobalNameForLocal(
+IPO/WholeProgramDevirt.cpp:          Summary.getModuleHash(S->modulePath()));
+IPO/WholeProgramDevirt.cpp:static Error checkCombinedSummaryForTesting(ModuleSummaryIndex *Summary) {
+IPO/WholeProgramDevirt.cpp:  // Check that summary index contains regular LTO module when performing
+IPO/WholeProgramDevirt.cpp:  // (-fno-split-lto-module). This kind of summary index is passed to
+IPO/WholeProgramDevirt.cpp:  // DevirtIndex::run, not to DevirtModule::run used by opt/runForTesting.
+IPO/WholeProgramDevirt.cpp:  const auto &ModPaths = Summary->modulePaths();
+IPO/WholeProgramDevirt.cpp:      ModPaths.find(ModuleSummaryIndex::getRegularLTOModuleName()) ==
+IPO/WholeProgramDevirt.cpp:        "combined summary should contain Regular LTO module");
+IPO/WholeProgramDevirt.cpp:bool DevirtModule::runForTesting(
+IPO/WholeProgramDevirt.cpp:    Module &M, function_ref<AAResults &(Function &)> AARGetter,
+IPO/WholeProgramDevirt.cpp:  std::unique_ptr<ModuleSummaryIndex> Summary =
+IPO/WholeProgramDevirt.cpp:      std::make_unique<ModuleSummaryIndex>(/*HaveGVs=*/false);
+IPO/WholeProgramDevirt.cpp:    if (Expected<std::unique_ptr<ModuleSummaryIndex>> SummaryOrErr =
+IPO/WholeProgramDevirt.cpp:            getModuleSummaryIndex(*ReadSummaryFile)) {
+IPO/WholeProgramDevirt.cpp:      DevirtModule(M, AARGetter, OREGetter, LookupDomTree,
+IPO/WholeProgramDevirt.cpp:void DevirtModule::buildTypeIdentifierMap(
+IPO/WholeProgramDevirt.cpp:bool DevirtModule::tryFindVirtualCallTargets(
+IPO/WholeProgramDevirt.cpp:void DevirtModule::applySingleImplDevirt(VTableSlotInfo &SlotInfo,
+IPO/WholeProgramDevirt.cpp:      IsExported |= S->modulePath() != FS->modulePath();
+IPO/WholeProgramDevirt.cpp:      IsExported |= S->modulePath() != FS->modulePath();
+IPO/WholeProgramDevirt.cpp:bool DevirtModule::trySingleImplDevirt(
+IPO/WholeProgramDevirt.cpp:    ModuleSummaryIndex *ExportSummary,
+IPO/WholeProgramDevirt.cpp:      // devirtualizing a call in another module, we need to record the
+IPO/WholeProgramDevirt.cpp:      Res->SingleImplName = ModuleSummaryIndex::getGlobalNameForLocal(
+IPO/WholeProgramDevirt.cpp:          TheFn.name(), ExportSummary.getModuleHash(S->modulePath()));
+IPO/WholeProgramDevirt.cpp:void DevirtModule::tryICallBranchFunnel(
+IPO/WholeProgramDevirt.cpp:void DevirtModule::applyICallBranchFunnel(VTableSlotInfo &SlotInfo,
+IPO/WholeProgramDevirt.cpp:bool DevirtModule::tryEvaluateFunctionsWithArgs(
+IPO/WholeProgramDevirt.cpp:void DevirtModule::applyUniformRetValOpt(CallSiteInfo &CSInfo, StringRef FnName,
+IPO/WholeProgramDevirt.cpp:bool DevirtModule::tryUniformRetValOpt(
+IPO/WholeProgramDevirt.cpp:std::string DevirtModule::getGlobalName(VTableSlot Slot,
+IPO/WholeProgramDevirt.cpp:bool DevirtModule::shouldExportConstantsAsAbsoluteSymbols() {
+IPO/WholeProgramDevirt.cpp:void DevirtModule::exportGlobal(VTableSlot Slot, ArrayRef<uint64_t> Args,
+IPO/WholeProgramDevirt.cpp:void DevirtModule::exportConstant(VTableSlot Slot, ArrayRef<uint64_t> Args,
+IPO/WholeProgramDevirt.cpp:Constant *DevirtModule::importGlobal(VTableSlot Slot, ArrayRef<uint64_t> Args,
+IPO/WholeProgramDevirt.cpp:Constant *DevirtModule::importConstant(VTableSlot Slot, ArrayRef<uint64_t> Args,
+IPO/WholeProgramDevirt.cpp:void DevirtModule::applyUniqueRetValOpt(CallSiteInfo &CSInfo, StringRef FnName,
+IPO/WholeProgramDevirt.cpp:Constant *DevirtModule::getMemberAddr(const TypeMemberInfo *M) {
+IPO/WholeProgramDevirt.cpp:bool DevirtModule::tryUniqueRetValOpt(
+IPO/WholeProgramDevirt.cpp:void DevirtModule::applyVirtualConstProp(CallSiteInfo &CSInfo, StringRef FnName,
+IPO/WholeProgramDevirt.cpp:bool DevirtModule::tryVirtualConstProp(
+IPO/WholeProgramDevirt.cpp:void DevirtModule::rebuildGlobal(VTableBits &B) {
+IPO/WholeProgramDevirt.cpp:bool DevirtModule::areRemarksEnabled() {
+IPO/WholeProgramDevirt.cpp:void DevirtModule::scanTypeTestUsers(
+IPO/WholeProgramDevirt.cpp:void DevirtModule::scanTypeCheckedLoadUsers(Function *TypeCheckedLoadFunc) {
+IPO/WholeProgramDevirt.cpp:void DevirtModule::importResolution(VTableSlot Slot, VTableSlotInfo &SlotInfo) {
+IPO/WholeProgramDevirt.cpp:void DevirtModule::removeRedundantTypeTests() {
+IPO/WholeProgramDevirt.cpp:bool DevirtModule::run() {
+IPO/WholeProgramDevirt.cpp:  // If only some of the modules were split, we cannot correctly perform
+IPO/WholeProgramDevirt.cpp:  // with partially split modules during the thin link, and would have emitted
+IPO/WholeProgramDevirt.cpp:  // module, this pass has nothing to do. But if we are exporting, we also need
+IPO/OpenMPOpt.cpp:  OMPInformationCache(Module &M, AnalysisGetter &AG,
+IPO/OpenMPOpt.cpp:        if (ModuleSlice.count(UserI->getFunction())) {
+IPO/OpenMPOpt.cpp:    Module &M = *((*ModuleSlice.begin())->getParent());
+IPO/OpenMPOpt.cpp:  /// Collection of known kernels (\see Kernel) in the module.
+IPO/OpenMPOpt.cpp:    const DataLayout &DL = Array.getModule()->getDataLayout();
+IPO/OpenMPOpt.cpp:  /// Run all OpenMP optimizations on the underlying SCC/ModuleSlice.
+IPO/OpenMPOpt.cpp:                      << OMPInfoCache.ModuleSlice.size() << " functions\n");
+IPO/OpenMPOpt.cpp:    for (Function *F : OMPInfoCache.ModuleSlice) {
+IPO/OpenMPOpt.cpp:      // The IRBuilder uses the insertion block to get to the module, this is
+IPO/OpenMPOpt.cpp:  /// The underlying module.
+IPO/OpenMPOpt.cpp:  Module &M;
+IPO/OpenMPOpt.cpp:  if (!OMPInfoCache.ModuleSlice.count(&F))
+IPO/OpenMPOpt.cpp:    Module &M = *F->getParent();
+IPO/OpenMPOpt.cpp:  if (!containsOpenMP(*C.begin()->getFunction().getParent(), OMPInModule))
+IPO/OpenMPOpt.cpp:  // If there are kernels in the module, we have to run on all SCC's.
+IPO/OpenMPOpt.cpp:  bool SCCIsInteresting = !OMPInModule.getKernels().empty();
+IPO/OpenMPOpt.cpp:    SCCIsInteresting |= OMPInModule.containsOMPRuntimeCalls(Fn);
+IPO/OpenMPOpt.cpp:                                /*CGSCC*/ Functions, OMPInModule.getKernels());
+IPO/OpenMPOpt.cpp:  OpenMPInModule OMPInModule;
+IPO/OpenMPOpt.cpp:    // Disable the pass if there is no OpenMP (runtime call) in the module.
+IPO/OpenMPOpt.cpp:    containsOpenMP(CG.getModule(), OMPInModule);
+IPO/OpenMPOpt.cpp:    if (!containsOpenMP(CGSCC.getCallGraph().getModule(), OMPInModule))
+IPO/OpenMPOpt.cpp:    // If there are kernels in the module, we have to run on all SCC's.
+IPO/OpenMPOpt.cpp:    bool SCCIsInteresting = !OMPInModule.getKernels().empty();
+IPO/OpenMPOpt.cpp:      SCCIsInteresting |= OMPInModule.containsOMPRuntimeCalls(Fn);
+IPO/OpenMPOpt.cpp:        /*CGSCC*/ Functions, OMPInModule.getKernels());
+IPO/OpenMPOpt.cpp:void OpenMPInModule::identifyKernels(Module &M) {
+IPO/OpenMPOpt.cpp:bool llvm::omp::containsOpenMP(Module &M, OpenMPInModule &OMPInModule) {
+IPO/OpenMPOpt.cpp:  if (OMPInModule.isKnown())
+IPO/OpenMPOpt.cpp:    return OMPInModule;
+IPO/OpenMPOpt.cpp:        OMPInModule.FuncsWithOMPRuntimeCalls.insert(I->getFunction());
+IPO/OpenMPOpt.cpp:    OMPInModule = true;                                                        \
+IPO/OpenMPOpt.cpp:  // module and an SCC part. The kernel information, among other things, could
+IPO/OpenMPOpt.cpp:  // go into the module part.
+IPO/OpenMPOpt.cpp:  if (OMPInModule.isKnown() && OMPInModule) {
+IPO/OpenMPOpt.cpp:    OMPInModule.identifyKernels(M);
+IPO/OpenMPOpt.cpp:  return OMPInModule = false;
+IPO/ThinLTOBitcodeWriter.cpp:#include "llvm/Analysis/ModuleSummaryAnalysis.h"
+IPO/ThinLTOBitcodeWriter.cpp:#include "llvm/IR/Module.h"
+IPO/ThinLTOBitcodeWriter.cpp:#include "llvm/Object/ModuleSymbolTable.h"
+IPO/ThinLTOBitcodeWriter.cpp:#include "llvm/Transforms/Utils/ModuleUtils.h"
+IPO/ThinLTOBitcodeWriter.cpp:// changing visibility and appending the given ModuleId.
+IPO/ThinLTOBitcodeWriter.cpp:void promoteInternals(Module &ExportM, Module &ImportM, StringRef ModuleId,
+IPO/ThinLTOBitcodeWriter.cpp:    std::string NewName = (Name + ModuleId).str();
+IPO/ThinLTOBitcodeWriter.cpp:// Promote all internal (i.e. distinct) type ids used by the module by replacing
+IPO/ThinLTOBitcodeWriter.cpp:// them with external type ids formed using the module id.
+IPO/ThinLTOBitcodeWriter.cpp:// Note that this needs to be done before we clone the module because each clone
+IPO/ThinLTOBitcodeWriter.cpp:void promoteTypeIds(Module &M, StringRef ModuleId) {
+IPO/ThinLTOBitcodeWriter.cpp:        std::string NewName = (Twine(LocalToGlobal.size()) + ModuleId).str();
+IPO/ThinLTOBitcodeWriter.cpp:void simplifyExternals(Module &M) {
+IPO/ThinLTOBitcodeWriter.cpp:filterModule(Module *M,
+IPO/ThinLTOBitcodeWriter.cpp:// a multi-module bitcode file with the two parts to OS. Otherwise, write only a
+IPO/ThinLTOBitcodeWriter.cpp:    function_ref<AAResults &(Function &)> AARGetter, Module &M) {
+IPO/ThinLTOBitcodeWriter.cpp:  std::string ModuleId = getUniqueModuleId(&M);
+IPO/ThinLTOBitcodeWriter.cpp:  if (ModuleId.empty()) {
+IPO/ThinLTOBitcodeWriter.cpp:    // We couldn't generate a module ID for this module, write it out as a
+IPO/ThinLTOBitcodeWriter.cpp:    // regular LTO module with an index for summary-based dead stripping.
+IPO/ThinLTOBitcodeWriter.cpp:    M.addModuleFlag(Module::Error, "ThinLTO", uint32_t(0));
+IPO/ThinLTOBitcodeWriter.cpp:    ModuleSummaryIndex Index = buildModuleSummaryIndex(M, nullptr, &PSI);
+IPO/ThinLTOBitcodeWriter.cpp:      // We don't have a ThinLTO part, but still write the module to the
+IPO/ThinLTOBitcodeWriter.cpp:  promoteTypeIds(M, ModuleId);
+IPO/ThinLTOBitcodeWriter.cpp:  // devirtualization, so they need to appear in the merged module instead of
+IPO/ThinLTOBitcodeWriter.cpp:  // the thin LTO module. Similarly, globals that are associated with globals
+IPO/ThinLTOBitcodeWriter.cpp:  // with type metadata need to appear in the merged module because they will
+IPO/ThinLTOBitcodeWriter.cpp:  std::unique_ptr<Module> MergedM(
+IPO/ThinLTOBitcodeWriter.cpp:      CloneModule(M, VMap, [&](const GlobalValue *GV) -> bool {
+IPO/ThinLTOBitcodeWriter.cpp:  MergedM->setModuleInlineAsm("");
+IPO/ThinLTOBitcodeWriter.cpp:      // propagation. The canonical definitions live in the thin LTO module so
+IPO/ThinLTOBitcodeWriter.cpp:  // MergedM, and aliases pointing to such globals from the thin LTO module.
+IPO/ThinLTOBitcodeWriter.cpp:  filterModule(&M, [&](const GlobalValue *GV) {
+IPO/ThinLTOBitcodeWriter.cpp:  promoteInternals(*MergedM, M, ModuleId, CfiFunctions);
+IPO/ThinLTOBitcodeWriter.cpp:  promoteInternals(M, *MergedM, ModuleId, CfiFunctions);
+IPO/ThinLTOBitcodeWriter.cpp:  ModuleSymbolTable::CollectAsmSymvers(M, [&](StringRef Name, StringRef Alias) {
+IPO/ThinLTOBitcodeWriter.cpp:  // FIXME: Try to re-use BSI and PFI from the original module here.
+IPO/ThinLTOBitcodeWriter.cpp:  ModuleSummaryIndex Index = buildModuleSummaryIndex(M, nullptr, &PSI);
+IPO/ThinLTOBitcodeWriter.cpp:  // Mark the merged module as requiring full LTO. We still want an index for
+IPO/ThinLTOBitcodeWriter.cpp:  MergedM->addModuleFlag(Module::Error, "ThinLTO", uint32_t(0));
+IPO/ThinLTOBitcodeWriter.cpp:  ModuleSummaryIndex MergedMIndex =
+IPO/ThinLTOBitcodeWriter.cpp:      buildModuleSummaryIndex(*MergedM, nullptr, &PSI);
+IPO/ThinLTOBitcodeWriter.cpp:  // Save the module hash produced for the full bitcode, which will
+IPO/ThinLTOBitcodeWriter.cpp:  ModuleHash ModHash = {{0}};
+IPO/ThinLTOBitcodeWriter.cpp:  W.writeModule(M, /*ShouldPreserveUseListOrder=*/false, &Index,
+IPO/ThinLTOBitcodeWriter.cpp:  W.writeModule(*MergedM, /*ShouldPreserveUseListOrder=*/false, &MergedMIndex);
+IPO/ThinLTOBitcodeWriter.cpp:  // If a minimized bitcode module was requested for the thin link, only
+IPO/ThinLTOBitcodeWriter.cpp:  // given OS (the merged module will be written as usual).
+IPO/ThinLTOBitcodeWriter.cpp:    W2.writeModule(*MergedM, /*ShouldPreserveUseListOrder=*/false,
+IPO/ThinLTOBitcodeWriter.cpp:bool enableSplitLTOUnit(Module &M) {
+IPO/ThinLTOBitcodeWriter.cpp:          M.getModuleFlag("EnableSplitLTOUnit")))
+IPO/ThinLTOBitcodeWriter.cpp:// Returns whether this module needs to be split because it uses type metadata.
+IPO/ThinLTOBitcodeWriter.cpp:bool hasTypeMetadata(Module &M) {
+IPO/ThinLTOBitcodeWriter.cpp:                         Module &M, const ModuleSummaryIndex *Index) {
+IPO/ThinLTOBitcodeWriter.cpp:  std::unique_ptr<ModuleSummaryIndex> NewIndex = nullptr;
+IPO/ThinLTOBitcodeWriter.cpp:  // See if this module has any type metadata. If so, we try to split it
+IPO/ThinLTOBitcodeWriter.cpp:    std::string ModuleId = getUniqueModuleId(&M);
+IPO/ThinLTOBitcodeWriter.cpp:    if (!ModuleId.empty()) {
+IPO/ThinLTOBitcodeWriter.cpp:      promoteTypeIds(M, ModuleId);
+IPO/ThinLTOBitcodeWriter.cpp:      // ModuleSummaryIndexAnalysis pass), since we have to rebuild it
+IPO/ThinLTOBitcodeWriter.cpp:      // buildModuleSummaryIndex when Module(s) are ready.
+IPO/ThinLTOBitcodeWriter.cpp:      NewIndex = std::make_unique<ModuleSummaryIndex>(
+IPO/ThinLTOBitcodeWriter.cpp:          buildModuleSummaryIndex(M, nullptr, &PSI));
+IPO/ThinLTOBitcodeWriter.cpp:  // Write it out as an unsplit ThinLTO module.
+IPO/ThinLTOBitcodeWriter.cpp:  // Save the module hash produced for the full bitcode, which will
+IPO/ThinLTOBitcodeWriter.cpp:  ModuleHash ModHash = {{0}};
+IPO/ThinLTOBitcodeWriter.cpp:  // If a minimized bitcode module was requested for the thin link, only
+IPO/ThinLTOBitcodeWriter.cpp:class WriteThinLTOBitcode : public ModulePass {
+IPO/ThinLTOBitcodeWriter.cpp:  // The output stream on which to emit a minimized module for use
+IPO/ThinLTOBitcodeWriter.cpp:  WriteThinLTOBitcode() : ModulePass(ID), OS(dbgs()), ThinLinkOS(nullptr) {
+IPO/ThinLTOBitcodeWriter.cpp:      : ModulePass(ID), OS(o), ThinLinkOS(ThinLinkOS) {
+IPO/ThinLTOBitcodeWriter.cpp:  bool runOnModule(Module &M) override {
+IPO/ThinLTOBitcodeWriter.cpp:    const ModuleSummaryIndex *Index =
+IPO/ThinLTOBitcodeWriter.cpp:        &(getAnalysis<ModuleSummaryIndexWrapperPass>().getIndex());
+IPO/ThinLTOBitcodeWriter.cpp:    AU.addRequired<ModuleSummaryIndexWrapperPass>();
+IPO/ThinLTOBitcodeWriter.cpp:INITIALIZE_PASS_DEPENDENCY(ModuleSummaryIndexWrapperPass)
+IPO/ThinLTOBitcodeWriter.cpp:ModulePass *llvm::createWriteThinLTOBitcodePass(raw_ostream &Str,
+IPO/ThinLTOBitcodeWriter.cpp:llvm::ThinLTOBitcodeWriterPass::run(Module &M, ModuleAnalysisManager &AM) {
+IPO/ThinLTOBitcodeWriter.cpp:      AM.getResult<FunctionAnalysisManagerModuleProxy>(M).getManager();
+IPO/ThinLTOBitcodeWriter.cpp:                      M, &AM.getResult<ModuleSummaryIndexAnalysis>(M));
+IPO/Attributor.cpp://===- Attributor.cpp - Module-wide attribute deduction -------------------===//
+IPO/Attributor.cpp:    assert(!verifyFunction(*F, &errs()) && "Module verification failed!");
+IPO/Attributor.cpp:  Module &M = *F.getParent();
+IPO/Attributor.cpp:  Module &M = *F.getParent();
+IPO/Attributor.cpp:  CloneFunctionInto(Copied, &F, VMap, /* ModuleLevelChanges */ false, Returns);
+IPO/Attributor.cpp:    // Create the new function body and insert it into the module.
+IPO/Attributor.cpp:  // In non-module runs we need to look at the call sites of a function to
+IPO/Attributor.cpp:  if (!isModulePass() && !FI.CalledViaMustTail) {
+IPO/Attributor.cpp:  LLVM_DEBUG(dbgs() << "[Attributor] Run on module with " << Functions.size()
+IPO/Attributor.cpp:PreservedAnalyses AttributorPass::run(Module &M, ModuleAnalysisManager &AM) {
+IPO/Attributor.cpp:      AM.getResult<FunctionAnalysisManagerModuleProxy>(M).getManager();
+IPO/Attributor.cpp:  Module &M = *Functions.back()->getParent();
+IPO/Attributor.cpp:struct AttributorLegacyPass : public ModulePass {
+IPO/Attributor.cpp:  AttributorLegacyPass() : ModulePass(ID) {
+IPO/Attributor.cpp:  bool runOnModule(Module &M) override {
+IPO/Attributor.cpp:    if (skipModule(M))
+IPO/Attributor.cpp:    Module &M = *Functions.back()->getParent();
+IPO/Internalize.cpp:// This pass loops over all of the functions and variables in the input module.
+IPO/Internalize.cpp:// told it is only used from within this module, it is safe to do it.
+IPO/Internalize.cpp:#include "llvm/IR/Module.h"
+IPO/Internalize.cpp:bool InternalizePass::internalizeModule(Module &M, CallGraph *CG) {
+IPO/Internalize.cpp:  // Collect comdat visiblity information for the module.
+IPO/Internalize.cpp:  // Never internalize anchors used by the machine module info, else the info
+IPO/Internalize.cpp:  // won't find them.  (see MachineModuleInfo.)
+IPO/Internalize.cpp:PreservedAnalyses InternalizePass::run(Module &M, ModuleAnalysisManager &AM) {
+IPO/Internalize.cpp:  if (!internalizeModule(M, AM.getCachedResult<CallGraphAnalysis>(M)))
+IPO/Internalize.cpp:class InternalizeLegacyPass : public ModulePass {
+IPO/Internalize.cpp:  InternalizeLegacyPass() : ModulePass(ID), MustPreserveGV(PreserveAPIList()) {}
+IPO/Internalize.cpp:      : ModulePass(ID), MustPreserveGV(std::move(MustPreserveGV)) {
+IPO/Internalize.cpp:  bool runOnModule(Module &M) override {
+IPO/Internalize.cpp:    if (skipModule(M))
+IPO/Internalize.cpp:    return internalizeModule(M, MustPreserveGV, CG);
+IPO/Internalize.cpp:ModulePass *llvm::createInternalizePass() {
+IPO/Internalize.cpp:ModulePass *llvm::createInternalizePass(
+IPO/Inliner.cpp:#include "llvm/IR/Module.h"
+IPO/Inliner.cpp:#include "llvm/Transforms/Utils/ModuleUtils.h"
+IPO/Inliner.cpp:    ImportedFunctionsStats.setModuleInfo(CG.getModule());
+IPO/Inliner.cpp:        delete CG.removeFunctionFromModule(CalleeNode);
+IPO/Inliner.cpp:    filterDeadComdatFunctions(CG.getModule(), DeadFunctionsInComdats);
+IPO/Inliner.cpp:    delete CG.removeFunctionFromModule(CGN);
+IPO/Inliner.cpp:InlinerPass::getAdvisor(const ModuleAnalysisManagerCGSCCProxy::Result &MAM,
+IPO/Inliner.cpp:                        FunctionAnalysisManager &FAM, Module &M) {
+IPO/Inliner.cpp:      AM.getResult<ModuleAnalysisManagerCGSCCProxy>(InitialC, CG);
+IPO/Inliner.cpp:  Module &M = *InitialC.begin()->getFunction().getParent();
+IPO/Inliner.cpp:    // And delete the actual function from the module.
+IPO/Inliner.cpp:ModuleInlinerWrapperPass::ModuleInlinerWrapperPass(InlineParams Params,
+IPO/Inliner.cpp:PreservedAnalyses ModuleInlinerWrapperPass::run(Module &M,
+IPO/Inliner.cpp:                                                ModuleAnalysisManager &MAM) {
+IPO/Inliner.cpp:  // opportunities. Then we add it to the module pipeline by walking the SCCs
+IPO/Inliner.cpp:    MPM.addPass(createModuleToPostOrderCGSCCPassAdaptor(std::move(PM)));
+IPO/Inliner.cpp:    MPM.addPass(createModuleToPostOrderCGSCCPassAdaptor(
+IPO/HotColdSplitting.cpp:#include "llvm/IR/Module.h"
+IPO/HotColdSplitting.cpp:/// module has profile data), set entry count to 0 to ensure treated as cold.
+IPO/HotColdSplitting.cpp:class HotColdSplittingLegacyPass : public ModulePass {
+IPO/HotColdSplitting.cpp:  HotColdSplittingLegacyPass() : ModulePass(ID) {
+IPO/HotColdSplitting.cpp:  bool runOnModule(Module &M) override;
+IPO/HotColdSplitting.cpp:bool HotColdSplitting::run(Module &M) {
+IPO/HotColdSplitting.cpp:bool HotColdSplittingLegacyPass::runOnModule(Module &M) {
+IPO/HotColdSplitting.cpp:  if (skipModule(M))
+IPO/HotColdSplitting.cpp:HotColdSplittingPass::run(Module &M, ModuleAnalysisManager &AM) {
+IPO/HotColdSplitting.cpp:  auto &FAM = AM.getResult<FunctionAnalysisManagerModuleProxy>(M).getManager();
+IPO/HotColdSplitting.cpp:ModulePass *llvm::createHotColdSplittingPass() {
+IPO/BarrierNoopPass.cpp:/// A nonce module pass used to place a barrier in a pass manager.
+IPO/BarrierNoopPass.cpp:/// when they are phrased as non-module passes.
+IPO/BarrierNoopPass.cpp:class BarrierNoop : public ModulePass {
+IPO/BarrierNoopPass.cpp:  BarrierNoop() : ModulePass(ID) {
+IPO/BarrierNoopPass.cpp:  bool runOnModule(Module &M) override { return false; }
+IPO/BarrierNoopPass.cpp:ModulePass *llvm::createBarrierNoopPass() { return new BarrierNoop(); }
+IPO/StripDeadPrototypes.cpp:// This pass loops over all of the functions in the input module, looking for
+IPO/StripDeadPrototypes.cpp:#include "llvm/IR/Module.h"
+IPO/StripDeadPrototypes.cpp:static bool stripDeadPrototypes(Module &M) {
+IPO/StripDeadPrototypes.cpp:  for (Module::iterator I = M.begin(), E = M.end(); I != E; ) {
+IPO/StripDeadPrototypes.cpp:  for (Module::global_iterator I = M.global_begin(), E = M.global_end();
+IPO/StripDeadPrototypes.cpp:PreservedAnalyses StripDeadPrototypesPass::run(Module &M,
+IPO/StripDeadPrototypes.cpp:                                               ModuleAnalysisManager &) {
+IPO/StripDeadPrototypes.cpp:class StripDeadPrototypesLegacyPass : public ModulePass {
+IPO/StripDeadPrototypes.cpp:  StripDeadPrototypesLegacyPass() : ModulePass(ID) {
+IPO/StripDeadPrototypes.cpp:  bool runOnModule(Module &M) override {
+IPO/StripDeadPrototypes.cpp:    if (skipModule(M))
+IPO/StripDeadPrototypes.cpp:ModulePass *llvm::createStripDeadPrototypesPass() {
+IPO/PartialInlining.cpp:#include "llvm/IR/Module.h"
+IPO/PartialInlining.cpp:// for the module. The default value of -1 means no limit.
+IPO/PartialInlining.cpp:  bool run(Module &M);
+IPO/PartialInlining.cpp:struct PartialInlinerLegacyPass : public ModulePass {
+IPO/PartialInlining.cpp:  PartialInlinerLegacyPass() : ModulePass(ID) {
+IPO/PartialInlining.cpp:  bool runOnModule(Module &M) override {
+IPO/PartialInlining.cpp:    if (skipModule(M))
+IPO/PartialInlining.cpp:bool PartialInlinerImpl::run(Module &M) {
+IPO/PartialInlining.cpp:ModulePass *llvm::createPartialInliningPass() {
+IPO/PartialInlining.cpp:PreservedAnalyses PartialInlinerPass::run(Module &M,
+IPO/PartialInlining.cpp:                                          ModuleAnalysisManager &AM) {
+IPO/PartialInlining.cpp:  auto &FAM = AM.getResult<FunctionAnalysisManagerModuleProxy>(M).getManager();
+IPO/SampleProfile.cpp:#include "llvm/IR/Module.h"
+IPO/SampleProfile.cpp:  GUIDToFuncNameMapper(Module &M, SampleProfileReader &Reader,
+IPO/SampleProfile.cpp:      : CurrentReader(Reader), CurrentModule(M),
+IPO/SampleProfile.cpp:    for (const auto &F : CurrentModule) {
+IPO/SampleProfile.cpp:  Module &CurrentModule;
+IPO/SampleProfile.cpp:  bool doInitialization(Module &M, FunctionAnalysisManager *FAM = nullptr);
+IPO/SampleProfile.cpp:  bool runOnModule(Module &M, ModuleAnalysisManager *AM,
+IPO/SampleProfile.cpp:  bool runOnFunction(Function &F, ModuleAnalysisManager *AM);
+IPO/SampleProfile.cpp:  std::vector<Function *> buildFunctionOrder(Module &M, CallGraph *CG);
+IPO/SampleProfile.cpp:  // all the function symbols defined or declared in current module.
+IPO/SampleProfile.cpp:class SampleProfileLoaderLegacyPass : public ModulePass {
+IPO/SampleProfile.cpp:      : ModulePass(ID), SampleLoader(
+IPO/SampleProfile.cpp:  bool doInitialization(Module &M) override {
+IPO/SampleProfile.cpp:  bool runOnModule(Module &M) override;
+IPO/SampleProfile.cpp:SampleProfileLoader::buildFunctionOrder(Module &M, CallGraph *CG) {
+IPO/SampleProfile.cpp:  assert(&CG->getModule() == &M);
+IPO/SampleProfile.cpp:bool SampleProfileLoader::doInitialization(Module &M,
+IPO/SampleProfile.cpp:    if (!ProbeManager->moduleIsProbed(M)) {
+IPO/SampleProfile.cpp:ModulePass *llvm::createSampleProfileLoaderPass() {
+IPO/SampleProfile.cpp:ModulePass *llvm::createSampleProfileLoaderPass(StringRef Name) {
+IPO/SampleProfile.cpp:bool SampleProfileLoader::runOnModule(Module &M, ModuleAnalysisManager *AM,
+IPO/SampleProfile.cpp:bool SampleProfileLoaderLegacyPass::runOnModule(Module &M) {
+IPO/SampleProfile.cpp:  return SampleLoader.runOnModule(M, nullptr, PSI, nullptr);
+IPO/SampleProfile.cpp:bool SampleProfileLoader::runOnFunction(Function &F, ModuleAnalysisManager *AM) {
+IPO/SampleProfile.cpp:        AM->getResult<FunctionAnalysisManagerModuleProxy>(*F.getParent())
+IPO/SampleProfile.cpp:PreservedAnalyses SampleProfileLoaderPass::run(Module &M,
+IPO/SampleProfile.cpp:                                               ModuleAnalysisManager &AM) {
+IPO/SampleProfile.cpp:      AM.getResult<FunctionAnalysisManagerModuleProxy>(M).getManager();
+IPO/SampleProfile.cpp:  if (!SampleLoader.runOnModule(M, &AM, PSI, &CG))
+IPO/StripSymbols.cpp://===- StripSymbols.cpp - Strip symbols and debug info from a module ------===//
+IPO/StripSymbols.cpp:#include "llvm/IR/Module.h"
+IPO/StripSymbols.cpp:  class StripSymbols : public ModulePass {
+IPO/StripSymbols.cpp:      : ModulePass(ID), OnlyDebugInfo(ODI) {
+IPO/StripSymbols.cpp:    bool runOnModule(Module &M) override;
+IPO/StripSymbols.cpp:  class StripNonDebugSymbols : public ModulePass {
+IPO/StripSymbols.cpp:      : ModulePass(ID) {
+IPO/StripSymbols.cpp:    bool runOnModule(Module &M) override;
+IPO/StripSymbols.cpp:  class StripDebugDeclare : public ModulePass {
+IPO/StripSymbols.cpp:      : ModulePass(ID) {
+IPO/StripSymbols.cpp:    bool runOnModule(Module &M) override;
+IPO/StripSymbols.cpp:  class StripDeadDebugInfo : public ModulePass {
+IPO/StripSymbols.cpp:      : ModulePass(ID) {
+IPO/StripSymbols.cpp:    bool runOnModule(Module &M) override;
+IPO/StripSymbols.cpp:                "Strip all symbols from a module", false, false)
+IPO/StripSymbols.cpp:ModulePass *llvm::createStripSymbolsPass(bool OnlyDebugInfo) {
+IPO/StripSymbols.cpp:                "Strip all symbols, except dbg symbols, from a module",
+IPO/StripSymbols.cpp:ModulePass *llvm::createStripNonDebugSymbolsPass() {
+IPO/StripSymbols.cpp:ModulePass *llvm::createStripDebugDeclarePass() {
+IPO/StripSymbols.cpp:ModulePass *llvm::createStripDeadDebugInfoPass() {
+IPO/StripSymbols.cpp:static void StripTypeNames(Module &M, bool PreserveDbgInfo) {
+IPO/StripSymbols.cpp:static bool StripSymbolNames(Module &M, bool PreserveDbgInfo) {
+IPO/StripSymbols.cpp:  for (Module::global_iterator I = M.global_begin(), E = M.global_end();
+IPO/StripSymbols.cpp:bool StripSymbols::runOnModule(Module &M) {
+IPO/StripSymbols.cpp:  if (skipModule(M))
+IPO/StripSymbols.cpp:bool StripNonDebugSymbols::runOnModule(Module &M) {
+IPO/StripSymbols.cpp:  if (skipModule(M))
+IPO/StripSymbols.cpp:static bool stripDebugDeclareImpl(Module &M) {
+IPO/StripSymbols.cpp:bool StripDebugDeclare::runOnModule(Module &M) {
+IPO/StripSymbols.cpp:  if (skipModule(M))
+IPO/StripSymbols.cpp:static bool stripDeadDebugInfoImpl(Module &M) {
+IPO/StripSymbols.cpp:  F.processModule(M);
+IPO/StripSymbols.cpp:/// Remove any debug info for global variables/functions in the given module for
+IPO/StripSymbols.cpp:bool StripDeadDebugInfo::runOnModule(Module &M) {
+IPO/StripSymbols.cpp:  if (skipModule(M))
+IPO/StripSymbols.cpp:PreservedAnalyses StripSymbolsPass::run(Module &M, ModuleAnalysisManager &AM) {
+IPO/StripSymbols.cpp:PreservedAnalyses StripNonDebugSymbolsPass::run(Module &M,
+IPO/StripSymbols.cpp:                                                ModuleAnalysisManager &AM) {
+IPO/StripSymbols.cpp:PreservedAnalyses StripDebugDeclarePass::run(Module &M,
+IPO/StripSymbols.cpp:                                             ModuleAnalysisManager &AM) {
+IPO/StripSymbols.cpp:PreservedAnalyses StripDeadDebugInfoPass::run(Module &M,
+IPO/StripSymbols.cpp:                                              ModuleAnalysisManager &AM) {
+IPO/GlobalDCE.cpp:#include "llvm/IR/Module.h"
+IPO/GlobalDCE.cpp:  class GlobalDCELegacyPass : public ModulePass {
+IPO/GlobalDCE.cpp:    GlobalDCELegacyPass() : ModulePass(ID) {
+IPO/GlobalDCE.cpp:    // run - Do the GlobalDCE pass on the specified module, optionally updating
+IPO/GlobalDCE.cpp:    bool runOnModule(Module &M) override {
+IPO/GlobalDCE.cpp:      if (skipModule(M))
+IPO/GlobalDCE.cpp:      // We need a minimally functional dummy module analysis manager. It needs
+IPO/GlobalDCE.cpp:      ModuleAnalysisManager DummyMAM;
+IPO/GlobalDCE.cpp:          [&] { return FunctionAnalysisManagerModuleProxy(DummyFAM); });
+IPO/GlobalDCE.cpp:ModulePass *llvm::createGlobalDCEPass() {
+IPO/GlobalDCE.cpp:void GlobalDCEPass::ScanVTables(Module &M) {
+IPO/GlobalDCE.cpp:      cast_or_null<ConstantAsMetadata>(M.getModuleFlag("LTOPostLink"));
+IPO/GlobalDCE.cpp:void GlobalDCEPass::ScanTypeCheckedLoadIntrinsics(Module &M) {
+IPO/GlobalDCE.cpp:void GlobalDCEPass::AddVirtualFunctionDependencies(Module &M) {
+IPO/GlobalDCE.cpp:  // If the Virtual Function Elim module flag is present and set to zero, then
+IPO/GlobalDCE.cpp:      M.getModuleFlag("Virtual Function Elim"));
+IPO/GlobalDCE.cpp:PreservedAnalyses GlobalDCEPass::run(Module &M, ModuleAnalysisManager &MAM) {
+IPO/GlobalDCE.cpp:  // Loop over the module, adding globals which are obviously necessary.
+IPO/ArgumentPromotion.cpp:#include "llvm/IR/Module.h"
+IPO/ArgumentPromotion.cpp:  // Create the new function body and insert it into the module.
+IPO/ArgumentPromotion.cpp:  // Make sure that it is local to this module.
+IPO/ArgumentPromotion.cpp:          delete CG.removeFunctionFromModule(OldNode);
+IPO/SyntheticCountsPropagation.cpp:#include "llvm/IR/Module.h"
+IPO/SyntheticCountsPropagation.cpp:initializeCounts(Module &M, function_ref<void(Function *, uint64_t)> SetCount) {
+IPO/SyntheticCountsPropagation.cpp:PreservedAnalyses SyntheticCountsPropagation::run(Module &M,
+IPO/SyntheticCountsPropagation.cpp:                                                  ModuleAnalysisManager &MAM) {
+IPO/SyntheticCountsPropagation.cpp:      MAM.getResult<FunctionAnalysisManagerModuleProxy>(M).getManager();
+IPO/ExtractGV.cpp:#include "llvm/IR/Module.h"
+IPO/ExtractGV.cpp:/// Make sure GV is visible from both modules. Delete is true if it is
+IPO/ExtractGV.cpp:/// being deleted from this module.
+IPO/ExtractGV.cpp:/// the split module remain valid.
+IPO/ExtractGV.cpp:  class GVExtractorPass : public ModulePass {
+IPO/ExtractGV.cpp:    /// Otherwise, it deletes as much of the module as possible, except for the
+IPO/ExtractGV.cpp:      : ModulePass(ID), Named(GVs.begin(), GVs.end()), deleteStuff(deleteS),
+IPO/ExtractGV.cpp:    bool runOnModule(Module &M) override {
+IPO/ExtractGV.cpp:      if (skipModule(M))
+IPO/ExtractGV.cpp:        M.setModuleInlineAsm("");
+IPO/ExtractGV.cpp:      // the module are referenced by the NamedSet, and get away with leaving
+IPO/ExtractGV.cpp:      for (Module::global_iterator I = M.global_begin(), E = M.global_end();
+IPO/ExtractGV.cpp:      for (Module::alias_iterator I = M.alias_begin(), E = M.alias_end();
+IPO/ExtractGV.cpp:        Module::alias_iterator CurI = I;
+IPO/ExtractGV.cpp:ModulePass *llvm::createGVExtractionPass(std::vector<GlobalValue *> &GVs,
+IPO/SampleProfileProbe.cpp:#include "llvm/Transforms/Utils/ModuleUtils.h"
+IPO/SampleProfileProbe.cpp:  if (any_isa<const Module *>(IR))
+IPO/SampleProfileProbe.cpp:    runAfterPass(any_cast<const Module *>(IR));
+IPO/SampleProfileProbe.cpp:void PseudoProbeVerifier::runAfterPass(const Module *M) {
+IPO/SampleProfileProbe.cpp:PseudoProbeManager::PseudoProbeManager(const Module &M) {
+IPO/SampleProfileProbe.cpp:bool PseudoProbeManager::moduleIsProbed(const Module &M) const {
+IPO/SampleProfileProbe.cpp:                                         const std::string &CurModuleUniqueId)
+IPO/SampleProfileProbe.cpp:    : F(&Func), CurModuleUniqueId(CurModuleUniqueId) {
+IPO/SampleProfileProbe.cpp:  Module *M = F.getParent();
+IPO/SampleProfileProbe.cpp:  // Create module-level metadata that contains function info necessary to
+IPO/SampleProfileProbe.cpp:  // Imported functions are defined in another module. They do not need
+IPO/SampleProfileProbe.cpp:  // original module. The pseudo probes inserted into an imported functions
+IPO/SampleProfileProbe.cpp:        GetOrCreateFunctionComdat(F, Triple, CurModuleUniqueId);
+IPO/SampleProfileProbe.cpp:PreservedAnalyses SampleProfileProbePass::run(Module &M,
+IPO/SampleProfileProbe.cpp:                                              ModuleAnalysisManager &AM) {
+IPO/SampleProfileProbe.cpp:  auto ModuleId = getUniqueModuleId(&M);
+IPO/SampleProfileProbe.cpp:  // Note that modules with only data but no functions will require this to
+IPO/SampleProfileProbe.cpp:    SampleProfileProber ProbeManager(F, ModuleId);
+IPO/SampleProfileProbe.cpp:PreservedAnalyses PseudoProbeUpdatePass::run(Module &M,
+IPO/SampleProfileProbe.cpp:                                             ModuleAnalysisManager &AM) {
+IPO/SampleProfileProbe.cpp:          AM.getResult<FunctionAnalysisManagerModuleProxy>(M).getManager();
+IPO/Annotation2Metadata.cpp:#include "llvm/IR/Module.h"
+IPO/Annotation2Metadata.cpp:static bool convertAnnotation2Metadata(Module &M) {
+IPO/Annotation2Metadata.cpp:struct Annotation2MetadataLegacy : public ModulePass {
+IPO/Annotation2Metadata.cpp:  Annotation2MetadataLegacy() : ModulePass(ID) {
+IPO/Annotation2Metadata.cpp:  bool runOnModule(Module &M) override { return convertAnnotation2Metadata(M); }
+IPO/Annotation2Metadata.cpp:ModulePass *llvm::createAnnotation2MetadataLegacyPass() {
+IPO/Annotation2Metadata.cpp:PreservedAnalyses Annotation2MetadataPass::run(Module &M,
+IPO/Annotation2Metadata.cpp:                                               ModuleAnalysisManager &AM) {
+IPO/CalledValuePropagation.cpp:/// bounded by Ch(F, M), where F is the number of functions in the module and M
+IPO/CalledValuePropagation.cpp:static bool runCVP(Module &M) {
+IPO/CalledValuePropagation.cpp:  // For each function in the module, if we can't track its arguments, let the
+IPO/CalledValuePropagation.cpp:PreservedAnalyses CalledValuePropagationPass::run(Module &M,
+IPO/CalledValuePropagation.cpp:                                                  ModuleAnalysisManager &) {
+IPO/CalledValuePropagation.cpp:class CalledValuePropagationLegacyPass : public ModulePass {
+IPO/CalledValuePropagation.cpp:  CalledValuePropagationLegacyPass() : ModulePass(ID) {
+IPO/CalledValuePropagation.cpp:  bool runOnModule(Module &M) override {
+IPO/CalledValuePropagation.cpp:    if (skipModule(M))
+IPO/CalledValuePropagation.cpp:ModulePass *llvm::createCalledValuePropagationPass() {
+IPO/GlobalOpt.cpp:#include "llvm/IR/Module.h"
+IPO/GlobalOpt.cpp:  Module::GlobalListType &Globals = GV->getParent()->getGlobalList();
+IPO/GlobalOpt.cpp:OptimizeFunctions(Module &M,
+IPO/GlobalOpt.cpp:  for (Module::iterator FI = M.begin(), E = M.end(); FI != E;) {
+IPO/GlobalOpt.cpp:  for (Module::iterator FI = M.begin(), E = M.end(); FI != E; ) {
+IPO/GlobalOpt.cpp:    // Functions without names cannot be referenced outside this module.
+IPO/GlobalOpt.cpp:OptimizeGlobalVars(Module &M,
+IPO/GlobalOpt.cpp:  for (Module::global_iterator GVI = M.global_begin(), E = M.global_end();
+IPO/GlobalOpt.cpp:    // Global variables without names cannot be referenced outside this module.
+IPO/GlobalOpt.cpp:  Module *M = V.getParent();
+IPO/GlobalOpt.cpp:  LLVMUsed(Module &M) {
+IPO/GlobalOpt.cpp:OptimizeGlobalAliases(Module &M,
+IPO/GlobalOpt.cpp:  for (Module::alias_iterator I = M.alias_begin(), E = M.alias_end();
+IPO/GlobalOpt.cpp:    // Aliases without names cannot be referenced outside this module.
+IPO/GlobalOpt.cpp:FindCXAAtExit(Module &M, function_ref<TargetLibraryInfo &(Function &)> GetTLI) {
+IPO/GlobalOpt.cpp:static bool optimizeGlobalsInModule(
+IPO/GlobalOpt.cpp:    Module &M, const DataLayout &DL,
+IPO/GlobalOpt.cpp:  // TODO: Move all global ctors functions to the end of the module for code
+IPO/GlobalOpt.cpp:PreservedAnalyses GlobalOptPass::run(Module &M, ModuleAnalysisManager &AM) {
+IPO/GlobalOpt.cpp:        AM.getResult<FunctionAnalysisManagerModuleProxy>(M).getManager();
+IPO/GlobalOpt.cpp:    if (!optimizeGlobalsInModule(M, DL, GetTLI, GetTTI, GetBFI, LookupDomTree))
+IPO/GlobalOpt.cpp:struct GlobalOptLegacyPass : public ModulePass {
+IPO/GlobalOpt.cpp:  GlobalOptLegacyPass() : ModulePass(ID) {
+IPO/GlobalOpt.cpp:  bool runOnModule(Module &M) override {
+IPO/GlobalOpt.cpp:    if (skipModule(M))
+IPO/GlobalOpt.cpp:    return optimizeGlobalsInModule(M, DL, GetTLI, GetTTI, GetBFI,
+IPO/GlobalOpt.cpp:ModulePass *llvm::createGlobalOptimizerPass() {
+IPO/PassManagerBuilder.cpp:               clEnumValN(AttributorRunOption::MODULE, "module",
+IPO/PassManagerBuilder.cpp:                          "enable module-wide attributor runs"),
+IPO/PassManagerBuilder.cpp:  // Indirect call promotion that promotes intra-module targets only.
+IPO/PassManagerBuilder.cpp:void PassManagerBuilder::populateModulePassManager(
+IPO/PassManagerBuilder.cpp:    // that pass manager. To prevent this we insert a no-op module pass to reset
+IPO/PassManagerBuilder.cpp:  // intra-module indirect call targets are promoted. The second is during
+IPO/PassManagerBuilder.cpp:  // inter-module indirect calls. For that we perform indirect call promotion
+IPO/PassManagerBuilder.cpp:  addExtensionsToPM(EP_ModuleOptimizerEarly, MPM);
+IPO/PassManagerBuilder.cpp:  // We add a module alias analysis pass here. In part due to bugs in the
+IPO/PassManagerBuilder.cpp:  // there are no OpenMP runtime calls present in the module.
+IPO/PassManagerBuilder.cpp:  // we must insert a no-op module pass to reset the pass manager.
+IPO/PassManagerBuilder.cpp:  // a module analysis into a function pass pipeline (and throughout it) so
+IPO/PassManagerBuilder.cpp:  // long as the first function pass doesn't invalidate the module analysis.
+IPO/PassManagerBuilder.cpp:  // this stage (\ref buildModuleSimplificationPipeline).
+IPO/PassManagerBuilder.cpp:  // Add Module flag "CG Profile" based on Branch Frequency Information.
+IPO/PassManagerBuilder.cpp:    // left by the earlier promotion pass that promotes intra-module targets.
+IPO/PassManagerBuilder.cpp:  // Linking modules together can lead to duplicated global constants, only
+IPO/PassManagerBuilder.cpp:  // there are no OpenMP runtime calls present in the module.
+IPO/PassManagerBuilder.cpp:  populateModulePassManager(PM);
+IPO/PassManagerBuilder.cpp:  // in the current module.
+IPO/PassManagerBuilder.cpp:LLVMPassManagerBuilderPopulateModulePassManager(LLVMPassManagerBuilderRef PMB,
+IPO/PassManagerBuilder.cpp:  Builder->populateModulePassManager(*MPM);
+IPO/IROutliner.cpp:// functions. Since the outliner is confined to a single module (modulo LTO),
+IPO/IROutliner.cpp:  /// \param [in] M - The module we are outlining from.
+IPO/IROutliner.cpp:  void collectGVNStoreSets(Module &M);
+IPO/IROutliner.cpp:void OutlinableGroup::collectGVNStoreSets(Module &M) {
+IPO/IROutliner.cpp:Function *IROutliner::createFunction(Module &M, OutlinableGroup &Group,
+IPO/IROutliner.cpp:  // These functions will only be called from within the same module, so
+IPO/IROutliner.cpp:void IROutliner::findAddInputsOutputs(Module &M, OutlinableRegion &Region,
+IPO/IROutliner.cpp:/// \param [in] M - The module to outline from.
+IPO/IROutliner.cpp:CallInst *replaceCalledFunction(Module &M, OutlinableRegion &Region) {
+IPO/IROutliner.cpp:/// \param [in] M - The module we are outlining from.
+IPO/IROutliner.cpp:void createSwitchStatement(Module &M, OutlinableGroup &OG, BasicBlock *EndBB,
+IPO/IROutliner.cpp:/// \param [in] M - The module we are outlining from.
+IPO/IROutliner.cpp:/// \param [in,out] FuncsToRemove - Extracted functions to erase from module
+IPO/IROutliner.cpp:static void fillOverallFunction(Module &M, OutlinableGroup &CurrentGroup,
+IPO/IROutliner.cpp:  // If the new basic block has no new stores, we can erase it from the module.
+IPO/IROutliner.cpp:    Module &M, OutlinableGroup &CurrentGroup,
+IPO/IROutliner.cpp:      // and the actual next instruction in the module.  If there is, it means
+IPO/IROutliner.cpp:/// \param [in] M - The Module to outline from.
+IPO/IROutliner.cpp:static InstructionCost findCostForOutputBlocks(Module &M,
+IPO/IROutliner.cpp:void IROutliner::findCostBenefit(Module &M, OutlinableGroup &CurrentGroup) {
+IPO/IROutliner.cpp:unsigned IROutliner::doOutline(Module &M) {
+IPO/IROutliner.cpp:bool IROutliner::run(Module &M) {
+IPO/IROutliner.cpp:class IROutlinerLegacyPass : public ModulePass {
+IPO/IROutliner.cpp:  IROutlinerLegacyPass() : ModulePass(ID) {
+IPO/IROutliner.cpp:  bool runOnModule(Module &M) override;
+IPO/IROutliner.cpp:bool IROutlinerLegacyPass::runOnModule(Module &M) {
+IPO/IROutliner.cpp:  if (skipModule(M))
+IPO/IROutliner.cpp:  auto GIRSI = [this](Module &) -> IRSimilarityIdentifier & {
+IPO/IROutliner.cpp:PreservedAnalyses IROutlinerPass::run(Module &M, ModuleAnalysisManager &AM) {
+IPO/IROutliner.cpp:  auto &FAM = AM.getResult<FunctionAnalysisManagerModuleProxy>(M).getManager();
+IPO/IROutliner.cpp:  std::function<IRSimilarityIdentifier &(Module &)> GIRSI =
+IPO/IROutliner.cpp:      [&AM](Module &M) -> IRSimilarityIdentifier & {
+IPO/IROutliner.cpp:ModulePass *llvm::createIROutlinerPass() { return new IROutlinerLegacyPass(); }
+IPO/CrossDSOCFI.cpp://===-- CrossDSOCFI.cpp - Externalize this module's CFI checks ------------===//
+IPO/CrossDSOCFI.cpp:// This pass exports all llvm.bitset's found in the module in the form of a
+IPO/CrossDSOCFI.cpp:#include "llvm/IR/Module.h"
+IPO/CrossDSOCFI.cpp:struct CrossDSOCFI : public ModulePass {
+IPO/CrossDSOCFI.cpp:  CrossDSOCFI() : ModulePass(ID) {
+IPO/CrossDSOCFI.cpp:  void buildCFICheck(Module &M);
+IPO/CrossDSOCFI.cpp:  bool runOnModule(Module &M) override;
+IPO/CrossDSOCFI.cpp:ModulePass *llvm::createCrossDSOCFIPass() { return new CrossDSOCFI; }
+IPO/CrossDSOCFI.cpp:/// buildCFICheck - emits __cfi_check for the current module.
+IPO/CrossDSOCFI.cpp:void CrossDSOCFI::buildCFICheck(Module &M) {
+IPO/CrossDSOCFI.cpp:bool CrossDSOCFI::runOnModule(Module &M) {
+IPO/CrossDSOCFI.cpp:  if (M.getModuleFlag("Cross-DSO CFI") == nullptr)
+IPO/CrossDSOCFI.cpp:PreservedAnalyses CrossDSOCFIPass::run(Module &M, ModuleAnalysisManager &AM) {
+IPO/CrossDSOCFI.cpp:  bool Changed = Impl.runOnModule(M);
+IPO/LoopExtractor.cpp:#include "llvm/IR/Module.h"
+IPO/LoopExtractor.cpp:struct LoopExtractorLegacyPass : public ModulePass {
+IPO/LoopExtractor.cpp:      : ModulePass(ID), NumLoops(NumLoops) {
+IPO/LoopExtractor.cpp:  bool runOnModule(Module &M) override;
+IPO/LoopExtractor.cpp:  bool runOnModule(Module &M);
+IPO/LoopExtractor.cpp:bool LoopExtractorLegacyPass::runOnModule(Module &M) {
+IPO/LoopExtractor.cpp:  if (skipModule(M))
+IPO/LoopExtractor.cpp:             .runOnModule(M) ||
+IPO/LoopExtractor.cpp:bool LoopExtractor::runOnModule(Module &M) {
+IPO/LoopExtractor.cpp:PreservedAnalyses LoopExtractorPass::run(Module &M, ModuleAnalysisManager &AM) {
+IPO/LoopExtractor.cpp:  auto &FAM = AM.getResult<FunctionAnalysisManagerModuleProxy>(M).getManager();
+IPO/LoopExtractor.cpp:           .runOnModule(M))
+IPO/SCCP.cpp:PreservedAnalyses IPSCCPPass::run(Module &M, ModuleAnalysisManager &AM) {
+IPO/SCCP.cpp:  auto &FAM = AM.getResult<FunctionAnalysisManagerModuleProxy>(M).getManager();
+IPO/SCCP.cpp:  PA.preserve<FunctionAnalysisManagerModuleProxy>();
+IPO/SCCP.cpp:class IPSCCPLegacyPass : public ModulePass {
+IPO/SCCP.cpp:  IPSCCPLegacyPass() : ModulePass(ID) {
+IPO/SCCP.cpp:  bool runOnModule(Module &M) override {
+IPO/SCCP.cpp:    if (skipModule(M))
+IPO/SCCP.cpp:ModulePass *llvm::createIPSCCPPass() { return new IPSCCPLegacyPass(); }
+IPO/GlobalSplit.cpp:#include "llvm/IR/Module.h"
+IPO/GlobalSplit.cpp:  // If the address of the global is taken outside of the module, we cannot
+IPO/GlobalSplit.cpp:static bool splitGlobals(Module &M) {
+IPO/GlobalSplit.cpp:  // First, see if the module uses either of the llvm.type.test or
+IPO/GlobalSplit.cpp:struct GlobalSplit : public ModulePass {
+IPO/GlobalSplit.cpp:  GlobalSplit() : ModulePass(ID) {
+IPO/GlobalSplit.cpp:  bool runOnModule(Module &M) override {
+IPO/GlobalSplit.cpp:    if (skipModule(M))
+IPO/GlobalSplit.cpp:ModulePass *llvm::createGlobalSplitPass() {
+IPO/GlobalSplit.cpp:PreservedAnalyses GlobalSplitPass::run(Module &M, ModuleAnalysisManager &AM) {
+IPO/ConstantMerge.cpp:#include "llvm/IR/Module.h"
+IPO/ConstantMerge.cpp:static void replace(Module &M, GlobalVariable *Old, GlobalVariable *New) {
+IPO/ConstantMerge.cpp:  // Delete the global value from the module.
+IPO/ConstantMerge.cpp:static bool mergeConstants(Module &M) {
+IPO/ConstantMerge.cpp:    for (Module::global_iterator GVI = M.global_begin(), E = M.global_end();
+IPO/ConstantMerge.cpp:    for (Module::global_iterator GVI = M.global_begin(), E = M.global_end();
+IPO/ConstantMerge.cpp:PreservedAnalyses ConstantMergePass::run(Module &M, ModuleAnalysisManager &) {
+IPO/ConstantMerge.cpp:struct ConstantMergeLegacyPass : public ModulePass {
+IPO/ConstantMerge.cpp:  ConstantMergeLegacyPass() : ModulePass(ID) {
+IPO/ConstantMerge.cpp:  // For this pass, process all of the globals in the module, eliminating
+IPO/ConstantMerge.cpp:  bool runOnModule(Module &M) override {
+IPO/ConstantMerge.cpp:    if (skipModule(M))
+IPO/ConstantMerge.cpp:ModulePass *llvm::createConstantMergePass() {
+IPO/BlockExtractor.cpp:// This pass extracts the specified basic blocks from the module into their
+IPO/BlockExtractor.cpp:#include "llvm/IR/Module.h"
+IPO/BlockExtractor.cpp:  bool runOnModule(Module &M);
+IPO/BlockExtractor.cpp:class BlockExtractorLegacyPass : public ModulePass {
+IPO/BlockExtractor.cpp:  bool runOnModule(Module &M) override;
+IPO/BlockExtractor.cpp:      : ModulePass(ID), BE(EraseFunctions) {
+IPO/BlockExtractor.cpp:      : ModulePass(ID), BE(EraseFunctions) {
+IPO/BlockExtractor.cpp:                "Extract basic blocks from module", false, false)
+IPO/BlockExtractor.cpp:ModulePass *llvm::createBlockExtractorPass() {
+IPO/BlockExtractor.cpp:ModulePass *llvm::createBlockExtractorPass(
+IPO/BlockExtractor.cpp:ModulePass *llvm::createBlockExtractorPass(
+IPO/BlockExtractor.cpp:bool BlockExtractor::runOnModule(Module &M) {
+IPO/BlockExtractor.cpp:      // Check if the module contains BB.
+IPO/BlockExtractor.cpp:bool BlockExtractorLegacyPass::runOnModule(Module &M) {
+IPO/BlockExtractor.cpp:  return BE.runOnModule(M);
+IPO/BlockExtractor.cpp:PreservedAnalyses BlockExtractorPass::run(Module &M,
+IPO/BlockExtractor.cpp:                                          ModuleAnalysisManager &AM) {
+IPO/BlockExtractor.cpp:  return BE.runOnModule(M) ? PreservedAnalyses::none()
+IPO/AttributorAttributes.cpp:        !A.isModulePass())
+IPO/AttributorAttributes.cpp:        Module *M = F->getParent();
+IPO/AttributorAttributes.cpp:    const DataLayout &DL = IP->getModule()->getDataLayout();
+IPO/InferFunctionAttrs.cpp:#include "llvm/IR/Module.h"
+IPO/InferFunctionAttrs.cpp:    Module &M, function_ref<TargetLibraryInfo &(Function &)> GetTLI) {
+IPO/InferFunctionAttrs.cpp:PreservedAnalyses InferFunctionAttrsPass::run(Module &M,
+IPO/InferFunctionAttrs.cpp:                                              ModuleAnalysisManager &AM) {
+IPO/InferFunctionAttrs.cpp:      AM.getResult<FunctionAnalysisManagerModuleProxy>(M).getManager();
+IPO/InferFunctionAttrs.cpp:struct InferFunctionAttrsLegacyPass : public ModulePass {
+IPO/InferFunctionAttrs.cpp:  InferFunctionAttrsLegacyPass() : ModulePass(ID) {
+IPO/InferFunctionAttrs.cpp:  bool runOnModule(Module &M) override {
+IPO/InferFunctionAttrs.cpp:    if (skipModule(M))
+IPO/LowerTypeTests.cpp:#include "llvm/IR/Module.h"
+IPO/LowerTypeTests.cpp:#include "llvm/IR/ModuleSummaryIndex.h"
+IPO/LowerTypeTests.cpp:#include "llvm/IR/ModuleSummaryIndexYAML.h"
+IPO/LowerTypeTests.cpp:#include "llvm/Transforms/Utils/ModuleUtils.h"
+IPO/LowerTypeTests.cpp:      F->getParent()->getModuleFlag("CFI Canonical Jump Tables"));
+IPO/LowerTypeTests.cpp:  // module and its jumptable entry needs to be exported to thinlto backends.
+IPO/LowerTypeTests.cpp:  Module &M;
+IPO/LowerTypeTests.cpp:  ScopedSaveAliaseesAndUsed(Module &M) : M(M) {
+IPO/LowerTypeTests.cpp:class LowerTypeTestsModule {
+IPO/LowerTypeTests.cpp:  Module &M;
+IPO/LowerTypeTests.cpp:  ModuleSummaryIndex *ExportSummary;
+IPO/LowerTypeTests.cpp:  const ModuleSummaryIndex *ImportSummary;
+IPO/LowerTypeTests.cpp:  void moveInitializerToModuleConstructor(GlobalVariable *GV);
+IPO/LowerTypeTests.cpp:  LowerTypeTestsModule(Module &M, ModuleSummaryIndex *ExportSummary,
+IPO/LowerTypeTests.cpp:                       const ModuleSummaryIndex *ImportSummary,
+IPO/LowerTypeTests.cpp:  // Lower the module using the action and summary passed as command line
+IPO/LowerTypeTests.cpp:  static bool runForTesting(Module &M);
+IPO/LowerTypeTests.cpp:struct LowerTypeTests : public ModulePass {
+IPO/LowerTypeTests.cpp:  ModuleSummaryIndex *ExportSummary;
+IPO/LowerTypeTests.cpp:  const ModuleSummaryIndex *ImportSummary;
+IPO/LowerTypeTests.cpp:  LowerTypeTests() : ModulePass(ID), UseCommandLine(true) {
+IPO/LowerTypeTests.cpp:  LowerTypeTests(ModuleSummaryIndex *ExportSummary,
+IPO/LowerTypeTests.cpp:                 const ModuleSummaryIndex *ImportSummary, bool DropTypeTests)
+IPO/LowerTypeTests.cpp:      : ModulePass(ID), ExportSummary(ExportSummary),
+IPO/LowerTypeTests.cpp:  bool runOnModule(Module &M) override {
+IPO/LowerTypeTests.cpp:      return LowerTypeTestsModule::runForTesting(M);
+IPO/LowerTypeTests.cpp:    return LowerTypeTestsModule(M, ExportSummary, ImportSummary, DropTypeTests)
+IPO/LowerTypeTests.cpp:ModulePass *
+IPO/LowerTypeTests.cpp:llvm::createLowerTypeTestsPass(ModuleSummaryIndex *ExportSummary,
+IPO/LowerTypeTests.cpp:                               const ModuleSummaryIndex *ImportSummary,
+IPO/LowerTypeTests.cpp:BitSetInfo LowerTypeTestsModule::buildBitSet(
+IPO/LowerTypeTests.cpp:ByteArrayInfo *LowerTypeTestsModule::createByteArray(BitSetInfo &BSI) {
+IPO/LowerTypeTests.cpp:void LowerTypeTestsModule::allocateByteArrays() {
+IPO/LowerTypeTests.cpp:Value *LowerTypeTestsModule::createBitSetTest(IRBuilder<> &B,
+IPO/LowerTypeTests.cpp:Value *LowerTypeTestsModule::lowerTypeTestCall(Metadata *TypeId, CallInst *CI,
+IPO/LowerTypeTests.cpp:void LowerTypeTestsModule::buildBitSetsFromGlobalVariables(
+IPO/LowerTypeTests.cpp:bool LowerTypeTestsModule::shouldExportConstantsAsAbsoluteSymbols() {
+IPO/LowerTypeTests.cpp:uint8_t *LowerTypeTestsModule::exportTypeId(StringRef TypeId,
+IPO/LowerTypeTests.cpp:LowerTypeTestsModule::TypeIdLowering
+IPO/LowerTypeTests.cpp:LowerTypeTestsModule::importTypeId(StringRef TypeId) {
+IPO/LowerTypeTests.cpp:void LowerTypeTestsModule::importTypeTest(CallInst *CI) {
+IPO/LowerTypeTests.cpp:// ThinLTO backend: the function F has a jump table entry; update this module
+IPO/LowerTypeTests.cpp:void LowerTypeTestsModule::importFunction(
+IPO/LowerTypeTests.cpp:void LowerTypeTestsModule::lowerTypeTestCalls(
+IPO/LowerTypeTests.cpp:void LowerTypeTestsModule::verifyTypeMDNode(GlobalObject *GO, MDNode *Type) {
+IPO/LowerTypeTests.cpp:unsigned LowerTypeTestsModule::getJumpTableEntrySize() {
+IPO/LowerTypeTests.cpp:            M.getModuleFlag("branch-target-enforcement")))
+IPO/LowerTypeTests.cpp:void LowerTypeTestsModule::createJumpTableEntry(
+IPO/LowerTypeTests.cpp:          Dest->getParent()->getModuleFlag("branch-target-enforcement")))
+IPO/LowerTypeTests.cpp:Type *LowerTypeTestsModule::getJumpTableEntryType() {
+IPO/LowerTypeTests.cpp:void LowerTypeTestsModule::buildBitSetsFromFunctions(
+IPO/LowerTypeTests.cpp:void LowerTypeTestsModule::moveInitializerToModuleConstructor(
+IPO/LowerTypeTests.cpp:void LowerTypeTestsModule::findGlobalVariableUsersOf(
+IPO/LowerTypeTests.cpp:void LowerTypeTestsModule::replaceWeakDeclarationWithJumpTablePtr(
+IPO/LowerTypeTests.cpp:    moveInitializerToModuleConstructor(GV);
+IPO/LowerTypeTests.cpp:static bool isThumbFunction(Function *F, Triple::ArchType ModuleArch) {
+IPO/LowerTypeTests.cpp:  return ModuleArch == Triple::thumb;
+IPO/LowerTypeTests.cpp:                           Triple::ArchType ModuleArch) {
+IPO/LowerTypeTests.cpp:  if (ModuleArch != Triple::arm && ModuleArch != Triple::thumb)
+IPO/LowerTypeTests.cpp:    return ModuleArch;
+IPO/LowerTypeTests.cpp:    ++(isThumbFunction(F, ModuleArch) ? ThumbCount : ArmCount);
+IPO/LowerTypeTests.cpp:void LowerTypeTestsModule::createJumpTable(
+IPO/LowerTypeTests.cpp:void LowerTypeTestsModule::buildBitSetsFromFunctionsNative(
+IPO/LowerTypeTests.cpp:  // table entries, so that addresses taken outside the module will pass any
+IPO/LowerTypeTests.cpp:  // verification done inside the module.
+IPO/LowerTypeTests.cpp:  // We output the jump table as module-level inline asm string. The end result
+IPO/LowerTypeTests.cpp:void LowerTypeTestsModule::buildBitSetsFromFunctionsWASM(
+IPO/LowerTypeTests.cpp:void LowerTypeTestsModule::buildBitSetsFromDisjointSet(
+IPO/LowerTypeTests.cpp:/// Lower all type tests in this module.
+IPO/LowerTypeTests.cpp:LowerTypeTestsModule::LowerTypeTestsModule(
+IPO/LowerTypeTests.cpp:    Module &M, ModuleSummaryIndex *ExportSummary,
+IPO/LowerTypeTests.cpp:    const ModuleSummaryIndex *ImportSummary, bool DropTypeTests)
+IPO/LowerTypeTests.cpp:bool LowerTypeTestsModule::runForTesting(Module &M) {
+IPO/LowerTypeTests.cpp:  ModuleSummaryIndex Summary(/*HaveGVs=*/false);
+IPO/LowerTypeTests.cpp:      LowerTypeTestsModule(
+IPO/LowerTypeTests.cpp:void LowerTypeTestsModule::replaceCfiUses(Function *Old, Value *New,
+IPO/LowerTypeTests.cpp:void LowerTypeTestsModule::replaceDirectCalls(Value *Old, Value *New) {
+IPO/LowerTypeTests.cpp:bool LowerTypeTestsModule::lower() {
+IPO/LowerTypeTests.cpp:  // If only some of the modules were split, we cannot correctly perform
+IPO/LowerTypeTests.cpp:  // with partially split modules during the thin link, and would have emitted
+IPO/LowerTypeTests.cpp:  // the module into disjoint sets.
+IPO/LowerTypeTests.cpp:  // address taken functions in case they are address taken in other modules.
+IPO/LowerTypeTests.cpp:  const bool CrossDsoCfi = M.getModuleFlag("Cross-DSO CFI") != nullptr;
+IPO/LowerTypeTests.cpp:          // function defined in a ThinLTO module. Rename it to move it out of
+IPO/LowerTypeTests.cpp:        // If the function in the full LTO module is a declaration, replace its
+IPO/LowerTypeTests.cpp:        M.appendModuleInlineAsm(
+IPO/LowerTypeTests.cpp:PreservedAnalyses LowerTypeTestsPass::run(Module &M,
+IPO/LowerTypeTests.cpp:                                          ModuleAnalysisManager &AM) {
+IPO/LowerTypeTests.cpp:    Changed = LowerTypeTestsModule::runForTesting(M);
+IPO/LowerTypeTests.cpp:        LowerTypeTestsModule(M, ExportSummary, ImportSummary, DropTypeTests)
+IPO/ForceFunctionAttrs.cpp:#include "llvm/IR/Module.h"
+IPO/ForceFunctionAttrs.cpp:PreservedAnalyses ForceFunctionAttrsPass::run(Module &M,
+IPO/ForceFunctionAttrs.cpp:                                              ModuleAnalysisManager &) {
+IPO/ForceFunctionAttrs.cpp:struct ForceFunctionAttrsLegacyPass : public ModulePass {
+IPO/ForceFunctionAttrs.cpp:  ForceFunctionAttrsLegacyPass() : ModulePass(ID) {
+IPO/ForceFunctionAttrs.cpp:  bool runOnModule(Module &M) override {
+IPO/DeadArgumentElimination.cpp:#include "llvm/IR/Module.h"
+IPO/DeadArgumentElimination.cpp:  class DAE : public ModulePass {
+IPO/DeadArgumentElimination.cpp:    explicit DAE(char &ID) : ModulePass(ID) {}
+IPO/DeadArgumentElimination.cpp:    DAE() : ModulePass(ID) {
+IPO/DeadArgumentElimination.cpp:    bool runOnModule(Module &M) override {
+IPO/DeadArgumentElimination.cpp:      if (skipModule(M))
+IPO/DeadArgumentElimination.cpp:      ModuleAnalysisManager DummyMAM;
+IPO/DeadArgumentElimination.cpp:ModulePass *llvm::createDeadArgEliminationPass() { return new DAE(); }
+IPO/DeadArgumentElimination.cpp:ModulePass *llvm::createDeadArgHackingPass() { return new DAH(); }
+IPO/DeadArgumentElimination.cpp:  // Create the new function body and insert it into the module...
+IPO/DeadArgumentElimination.cpp:  // Create the new function body and insert it into the module...
+IPO/DeadArgumentElimination.cpp:PreservedAnalyses DeadArgumentEliminationPass::run(Module &M,
+IPO/DeadArgumentElimination.cpp:                                                   ModuleAnalysisManager &) {
+IPO/DeadArgumentElimination.cpp:  for (Module::iterator I = M.begin(), E = M.end(); I != E; ) {
+IPO/DeadArgumentElimination.cpp:  // Second phase:loop through the module, determining which arguments are live.
+IPO/DeadArgumentElimination.cpp:  for (Module::iterator I = M.begin(), E = M.end(); I != E; ) {
+IPO/ElimAvailExtern.cpp:#include "llvm/IR/Module.h"
+IPO/ElimAvailExtern.cpp:static bool eliminateAvailableExternally(Module &M) {
+IPO/ElimAvailExtern.cpp:EliminateAvailableExternallyPass::run(Module &M, ModuleAnalysisManager &) {
+IPO/ElimAvailExtern.cpp:struct EliminateAvailableExternallyLegacyPass : public ModulePass {
+IPO/ElimAvailExtern.cpp:  EliminateAvailableExternallyLegacyPass() : ModulePass(ID) {
+IPO/ElimAvailExtern.cpp:  // run - Do the EliminateAvailableExternally pass on the specified module,
+IPO/ElimAvailExtern.cpp:  bool runOnModule(Module &M) override {
+IPO/ElimAvailExtern.cpp:    if (skipModule(M))
+IPO/ElimAvailExtern.cpp:ModulePass *llvm::createEliminateAvailableExternallyPass() {
+IPO/InlineSimple.cpp:#include "llvm/IR/Module.h"
+IPO/AlwaysInliner.cpp:#include "llvm/IR/Module.h"
+IPO/AlwaysInliner.cpp:#include "llvm/Transforms/Utils/ModuleUtils.h"
+IPO/AlwaysInliner.cpp:PreservedAnalyses AlwaysInlinerPass::run(Module &M,
+IPO/AlwaysInliner.cpp:                                         ModuleAnalysisManager &MAM) {
+IPO/AlwaysInliner.cpp:      MAM.getResult<FunctionAnalysisManagerModuleProxy>(M).getManager();
+IPO/AlwaysInliner.cpp:      // re-walking the rest of the module and avoids dealing with any iterator
+IPO/AlwaysInliner.cpp:  // Delete the non-comdat ones from the module and also from our vector.
+IPO/FunctionImport.cpp:#include "llvm/IR/Module.h"
+IPO/FunctionImport.cpp:#include "llvm/IR/ModuleSummaryIndex.h"
+IPO/FunctionImport.cpp:#include "llvm/Object/ModuleSymbolTable.h"
+IPO/FunctionImport.cpp:STATISTIC(NumImportedModules, "Number of modules imported from");
+IPO/FunctionImport.cpp:    cl::desc("Enable import metadata like 'thinlto_src_module'"));
+IPO/FunctionImport.cpp:// Load lazily a module from \p FileName in \p Context.
+IPO/FunctionImport.cpp:static std::unique_ptr<Module> loadFile(const std::string &FileName,
+IPO/FunctionImport.cpp:  std::unique_ptr<Module> Result =
+IPO/FunctionImport.cpp:      getLazyIRFileModule(FileName, Err, Context,
+IPO/FunctionImport.cpp:/// - One from a module already being imported from in order to reduce the
+IPO/FunctionImport.cpp:///   number of source modules parsed/linked.
+IPO/FunctionImport.cpp:selectCallee(const ModuleSummaryIndex &Index,
+IPO/FunctionImport.cpp:             unsigned Threshold, StringRef CallerModulePath,
+IPO/FunctionImport.cpp:        // in the caller's module. The only time a local function can
+IPO/FunctionImport.cpp:        // in another module that had the same source file name (in a different
+IPO/FunctionImport.cpp:        // However, do the import from another module if there is only one
+IPO/FunctionImport.cpp:        // a local in another module.
+IPO/FunctionImport.cpp:            Summary->modulePath() != CallerModulePath) {
+IPO/FunctionImport.cpp:              FunctionImporter::ImportFailureReason::LocalLinkageNotInModule;
+IPO/FunctionImport.cpp:updateValueInfoForIndirectCalls(const ModuleSummaryIndex &Index, ValueInfo VI) {
+IPO/FunctionImport.cpp:    const GlobalValueSummary &Summary, const ModuleSummaryIndex &Index,
+IPO/FunctionImport.cpp:          dbgs() << "Ref ignored! Target already in destination module.\n");
+IPO/FunctionImport.cpp:    // in the caller's module. The only time a local variable can
+IPO/FunctionImport.cpp:    // in another module that had the same source file name (in a different
+IPO/FunctionImport.cpp:    auto LocalNotInModule = [&](const GlobalValueSummary *RefSummary) -> bool {
+IPO/FunctionImport.cpp:             RefSummary->modulePath() != Summary.modulePath();
+IPO/FunctionImport.cpp:          !LocalNotInModule(RefSummary.get())) {
+IPO/FunctionImport.cpp:        auto ILI = ImportList[RefSummary->modulePath()].insert(VI.getGUID());
+IPO/FunctionImport.cpp:        // in ComputeCrossModuleImport, after import decisions are complete,
+IPO/FunctionImport.cpp:          (*ExportLists)[RefSummary->modulePath()].insert(VI);
+IPO/FunctionImport.cpp:  case FunctionImporter::ImportFailureReason::LocalLinkageNotInModule:
+IPO/FunctionImport.cpp:    return "LocalLinkageNotInModule";
+IPO/FunctionImport.cpp:/// imported functions and the symbols they reference in their source module as
+IPO/FunctionImport.cpp:/// exported from their source module.
+IPO/FunctionImport.cpp:    const FunctionSummary &Summary, const ModuleSummaryIndex &Index,
+IPO/FunctionImport.cpp:      LLVM_DEBUG(dbgs() << "ignored! Target already in destination module.\n");
+IPO/FunctionImport.cpp:                                   Summary.modulePath(), Reason, VI.getGUID());
+IPO/FunctionImport.cpp:      auto ExportModulePath = ResolvedCalleeSummary->modulePath();
+IPO/FunctionImport.cpp:      auto ILI = ImportList[ExportModulePath].insert(VI.getGUID());
+IPO/FunctionImport.cpp:      // inserted in the set of imports from the exporting module.
+IPO/FunctionImport.cpp:      // later, in ComputeCrossModuleImport, after import decisions are
+IPO/FunctionImport.cpp:        (*ExportLists)[ExportModulePath].insert(VI);
+IPO/FunctionImport.cpp:/// Given the list of globals defined in a module, compute the list of imports
+IPO/FunctionImport.cpp:/// another module (that may require promotion).
+IPO/FunctionImport.cpp:static void ComputeImportForModule(
+IPO/FunctionImport.cpp:    const GVSummaryMapTy &DefinedGVSummaries, const ModuleSummaryIndex &Index,
+IPO/FunctionImport.cpp:  // Worklist contains the list of function imported in this module, for which
+IPO/FunctionImport.cpp:  // module
+IPO/FunctionImport.cpp:    dbgs() << "Missed imports into module " << ModName << "\n";
+IPO/FunctionImport.cpp:static bool isGlobalVarSummary(const ModuleSummaryIndex &Index, ValueInfo VI) {
+IPO/FunctionImport.cpp:static bool isGlobalVarSummary(const ModuleSummaryIndex &Index,
+IPO/FunctionImport.cpp:static unsigned numGlobalVarSummaries(const ModuleSummaryIndex &Index,
+IPO/FunctionImport.cpp:checkVariableImport(const ModuleSummaryIndex &Index,
+IPO/FunctionImport.cpp:  for (auto &ImportPerModule : ImportLists)
+IPO/FunctionImport.cpp:    for (auto &ExportPerModule : ImportPerModule.second)
+IPO/FunctionImport.cpp:      FlattenedImports.insert(ExportPerModule.second.begin(),
+IPO/FunctionImport.cpp:                              ExportPerModule.second.end());
+IPO/FunctionImport.cpp:  // source modules.
+IPO/FunctionImport.cpp:  auto IsReadOrWriteOnlyVar = [&](StringRef ModulePath, const ValueInfo &VI) {
+IPO/FunctionImport.cpp:        Index.findSummaryInModule(VI, ModulePath));
+IPO/FunctionImport.cpp:  for (auto &ExportPerModule : ExportLists)
+IPO/FunctionImport.cpp:    for (auto &VI : ExportPerModule.second)
+IPO/FunctionImport.cpp:          IsReadOrWriteOnlyVar(ExportPerModule.first(), VI))
+IPO/FunctionImport.cpp:/// Compute all the import and export for every module using the Index.
+IPO/FunctionImport.cpp:void llvm::ComputeCrossModuleImport(
+IPO/FunctionImport.cpp:    const ModuleSummaryIndex &Index,
+IPO/FunctionImport.cpp:    const StringMap<GVSummaryMapTy> &ModuleToDefinedGVSummaries,
+IPO/FunctionImport.cpp:  // For each module that has function defined, compute the import/export lists.
+IPO/FunctionImport.cpp:  for (auto &DefinedGVSummaries : ModuleToDefinedGVSummaries) {
+IPO/FunctionImport.cpp:    LLVM_DEBUG(dbgs() << "Computing import for Module '"
+IPO/FunctionImport.cpp:    ComputeImportForModule(DefinedGVSummaries.second, Index,
+IPO/FunctionImport.cpp:  // since we may import the same values multiple times into different modules
+IPO/FunctionImport.cpp:        ModuleToDefinedGVSummaries.lookup(ELI.first());
+IPO/FunctionImport.cpp:      // Find the copy defined in the exporting module so that we can mark the
+IPO/FunctionImport.cpp:      // whether they are also defined in this module. We subsequently prune the
+IPO/FunctionImport.cpp:      // list to only include those defined in the exporting module, see comment
+IPO/FunctionImport.cpp:      // defined in the exporting module.
+IPO/FunctionImport.cpp:    // module. We do this after the above insertion since we may hit the same
+IPO/FunctionImport.cpp:                    << " modules:\n");
+IPO/FunctionImport.cpp:  for (auto &ModuleImports : ImportLists) {
+IPO/FunctionImport.cpp:    auto ModName = ModuleImports.first();
+IPO/FunctionImport.cpp:    LLVM_DEBUG(dbgs() << "* Module " << ModName << " exports "
+IPO/FunctionImport.cpp:                      << " vars. Imports from " << ModuleImports.second.size()
+IPO/FunctionImport.cpp:                      << " modules.\n");
+IPO/FunctionImport.cpp:    for (auto &Src : ModuleImports.second) {
+IPO/FunctionImport.cpp:static void dumpImportListForModule(const ModuleSummaryIndex &Index,
+IPO/FunctionImport.cpp:                                    StringRef ModulePath,
+IPO/FunctionImport.cpp:  LLVM_DEBUG(dbgs() << "* Module " << ModulePath << " imports from "
+IPO/FunctionImport.cpp:                    << ImportList.size() << " modules.\n");
+IPO/FunctionImport.cpp:/// Compute all the imports for the given module in the Index.
+IPO/FunctionImport.cpp:void llvm::ComputeCrossModuleImportForModule(
+IPO/FunctionImport.cpp:    StringRef ModulePath, const ModuleSummaryIndex &Index,
+IPO/FunctionImport.cpp:  // Collect the list of functions this module defines.
+IPO/FunctionImport.cpp:  Index.collectDefinedFunctionsForModule(ModulePath, FunctionSummaryMap);
+IPO/FunctionImport.cpp:  // Compute the import list for this module.
+IPO/FunctionImport.cpp:  LLVM_DEBUG(dbgs() << "Computing import for Module '" << ModulePath << "'\n");
+IPO/FunctionImport.cpp:  ComputeImportForModule(FunctionSummaryMap, Index, ModulePath, ImportList);
+IPO/FunctionImport.cpp:  dumpImportListForModule(Index, ModulePath, ImportList);
+IPO/FunctionImport.cpp:// Mark all external summaries in Index for import into the given module.
+IPO/FunctionImport.cpp:void llvm::ComputeCrossModuleImportForModuleFromIndex(
+IPO/FunctionImport.cpp:    StringRef ModulePath, const ModuleSummaryIndex &Index,
+IPO/FunctionImport.cpp:    // Skip the summaries for the importing module. These are included to
+IPO/FunctionImport.cpp:    if (Summary->modulePath() == ModulePath)
+IPO/FunctionImport.cpp:    ImportList[Summary->modulePath()].insert(GUID);
+IPO/FunctionImport.cpp:  dumpImportListForModule(Index, ModulePath, ImportList);
+IPO/FunctionImport.cpp:    ModuleSummaryIndex &Index,
+IPO/FunctionImport.cpp:    ModuleSummaryIndex &Index,
+IPO/FunctionImport.cpp:/// \p ModulePath.
+IPO/FunctionImport.cpp:void llvm::gatherImportedSummariesForModule(
+IPO/FunctionImport.cpp:    StringRef ModulePath,
+IPO/FunctionImport.cpp:    const StringMap<GVSummaryMapTy> &ModuleToDefinedGVSummaries,
+IPO/FunctionImport.cpp:    std::map<std::string, GVSummaryMapTy> &ModuleToSummariesForIndex) {
+IPO/FunctionImport.cpp:  // Include all summaries from the importing module.
+IPO/FunctionImport.cpp:  ModuleToSummariesForIndex[std::string(ModulePath)] =
+IPO/FunctionImport.cpp:      ModuleToDefinedGVSummaries.lookup(ModulePath);
+IPO/FunctionImport.cpp:        ModuleToSummariesForIndex[std::string(ILI.first())];
+IPO/FunctionImport.cpp:        ModuleToDefinedGVSummaries.lookup(ILI.first());
+IPO/FunctionImport.cpp:/// Emit the files \p ModulePath will import from into \p OutputFilename.
+IPO/FunctionImport.cpp:    StringRef ModulePath, StringRef OutputFilename,
+IPO/FunctionImport.cpp:    const std::map<std::string, GVSummaryMapTy> &ModuleToSummariesForIndex) {
+IPO/FunctionImport.cpp:  for (auto &ILI : ModuleToSummariesForIndex)
+IPO/FunctionImport.cpp:    // The ModuleToSummariesForIndex map includes an entry for the current
+IPO/FunctionImport.cpp:    // Module (needed for writing out the index files). We don't want to
+IPO/FunctionImport.cpp:    if (ILI.first != ModulePath)
+IPO/FunctionImport.cpp:/// Fixup prevailing symbol linkages in \p TheModule based on summary analysis.
+IPO/FunctionImport.cpp:void llvm::thinLTOResolvePrevailingInModule(
+IPO/FunctionImport.cpp:    Module &TheModule, const GVSummaryMapTy &DefinedGlobals) {
+IPO/FunctionImport.cpp:        // them from the parent module once thinLTOResolvePrevailingGUID is
+IPO/FunctionImport.cpp:  for (auto &GV : TheModule)
+IPO/FunctionImport.cpp:  for (auto &GV : TheModule.globals())
+IPO/FunctionImport.cpp:  for (auto &GV : TheModule.aliases())
+IPO/FunctionImport.cpp:/// Run internalization on \p TheModule based on symmary analysis.
+IPO/FunctionImport.cpp:void llvm::thinLTOInternalizeModule(Module &TheModule,
+IPO/FunctionImport.cpp:          ModuleSummaryIndex::getOriginalNameBeforePromote(GV.getName());
+IPO/FunctionImport.cpp:          TheModule.getSourceFileName());
+IPO/FunctionImport.cpp:  // based on the index, rather than invoking internalizeModule.
+IPO/FunctionImport.cpp:  internalizeModule(TheModule, MustPreserveGV);
+IPO/FunctionImport.cpp:static Function *replaceAliasWithAliasee(Module *SrcModule, GlobalAlias *GA) {
+IPO/FunctionImport.cpp:static void internalizeGVsAfterImport(Module &M) {
+IPO/FunctionImport.cpp:// Automatically import functions in Module \p DestModule based on the summaries
+IPO/FunctionImport.cpp:    Module &DestModule, const FunctionImporter::ImportMapTy &ImportList) {
+IPO/FunctionImport.cpp:  LLVM_DEBUG(dbgs() << "Starting import for Module "
+IPO/FunctionImport.cpp:                    << DestModule.getModuleIdentifier() << "\n");
+IPO/FunctionImport.cpp:  IRMover Mover(DestModule);
+IPO/FunctionImport.cpp:  // Do the actual import of functions now, one Module at a time
+IPO/FunctionImport.cpp:  std::set<StringRef> ModuleNameOrderedList;
+IPO/FunctionImport.cpp:  for (auto &FunctionsToImportPerModule : ImportList) {
+IPO/FunctionImport.cpp:    ModuleNameOrderedList.insert(FunctionsToImportPerModule.first());
+IPO/FunctionImport.cpp:  for (auto &Name : ModuleNameOrderedList) {
+IPO/FunctionImport.cpp:    // Get the module for the import
+IPO/FunctionImport.cpp:    const auto &FunctionsToImportPerModule = ImportList.find(Name);
+IPO/FunctionImport.cpp:    assert(FunctionsToImportPerModule != ImportList.end());
+IPO/FunctionImport.cpp:    Expected<std::unique_ptr<Module>> SrcModuleOrErr = ModuleLoader(Name);
+IPO/FunctionImport.cpp:    if (!SrcModuleOrErr)
+IPO/FunctionImport.cpp:      return SrcModuleOrErr.takeError();
+IPO/FunctionImport.cpp:    std::unique_ptr<Module> SrcModule = std::move(*SrcModuleOrErr);
+IPO/FunctionImport.cpp:    assert(&DestModule.getContext() == &SrcModule->getContext() &&
+IPO/FunctionImport.cpp:    // If modules were created with lazy metadata loading, materialize it
+IPO/FunctionImport.cpp:    if (Error Err = SrcModule->materializeMetadata())
+IPO/FunctionImport.cpp:    auto &ImportGUIDs = FunctionsToImportPerModule->second;
+IPO/FunctionImport.cpp:    for (Function &F : *SrcModule) {
+IPO/FunctionImport.cpp:                        << SrcModule->getSourceFileName() << "\n");
+IPO/FunctionImport.cpp:          // Add 'thinlto_src_module' metadata for statistics and debugging.
+IPO/FunctionImport.cpp:              "thinlto_src_module",
+IPO/FunctionImport.cpp:              MDNode::get(DestModule.getContext(),
+IPO/FunctionImport.cpp:                          {MDString::get(DestModule.getContext(),
+IPO/FunctionImport.cpp:                                         SrcModule->getSourceFileName())}));
+IPO/FunctionImport.cpp:    for (GlobalVariable &GV : SrcModule->globals()) {
+IPO/FunctionImport.cpp:                        << SrcModule->getSourceFileName() << "\n");
+IPO/FunctionImport.cpp:    for (GlobalAlias &GA : SrcModule->aliases()) {
+IPO/FunctionImport.cpp:                        << SrcModule->getSourceFileName() << "\n");
+IPO/FunctionImport.cpp:        auto *Fn = replaceAliasWithAliasee(SrcModule.get(), &GA);
+IPO/FunctionImport.cpp:                          << SrcModule->getSourceFileName() << "\n");
+IPO/FunctionImport.cpp:          // Add 'thinlto_src_module' metadata for statistics and debugging.
+IPO/FunctionImport.cpp:              "thinlto_src_module",
+IPO/FunctionImport.cpp:              MDNode::get(DestModule.getContext(),
+IPO/FunctionImport.cpp:                          {MDString::get(DestModule.getContext(),
+IPO/FunctionImport.cpp:                                         SrcModule->getSourceFileName())}));
+IPO/FunctionImport.cpp:    UpgradeDebugInfo(*SrcModule);
+IPO/FunctionImport.cpp:    // Set the partial sample profile ratio in the profile summary module flag
+IPO/FunctionImport.cpp:    // of the imported source module, if applicable, so that the profile summary
+IPO/FunctionImport.cpp:    // module flag will match with that of the destination module when it's
+IPO/FunctionImport.cpp:    SrcModule->setPartialSampleProfileRatio(Index);
+IPO/FunctionImport.cpp:    if (renameModuleForThinLTO(*SrcModule, Index, ClearDSOLocalOnDeclarations,
+IPO/FunctionImport.cpp:        dbgs() << DestModule.getSourceFileName() << ": Import " << GV->getName()
+IPO/FunctionImport.cpp:               << " from " << SrcModule->getSourceFileName() << "\n";
+IPO/FunctionImport.cpp:            std::move(SrcModule), GlobalsToImport.getArrayRef(),
+IPO/FunctionImport.cpp:    NumImportedModules++;
+IPO/FunctionImport.cpp:  internalizeGVsAfterImport(DestModule);
+IPO/FunctionImport.cpp:                    << " functions for Module "
+IPO/FunctionImport.cpp:                    << DestModule.getModuleIdentifier() << "\n");
+IPO/FunctionImport.cpp:                    << " global variables for Module "
+IPO/FunctionImport.cpp:                    << DestModule.getModuleIdentifier() << "\n");
+IPO/FunctionImport.cpp:static bool doImportingForModule(Module &M) {
+IPO/FunctionImport.cpp:  Expected<std::unique_ptr<ModuleSummaryIndex>> IndexPtrOrErr =
+IPO/FunctionImport.cpp:      getModuleSummaryIndexForFile(SummaryFile);
+IPO/FunctionImport.cpp:  std::unique_ptr<ModuleSummaryIndex> Index = std::move(*IndexPtrOrErr);
+IPO/FunctionImport.cpp:    ComputeCrossModuleImportForModuleFromIndex(M.getModuleIdentifier(), *Index,
+IPO/FunctionImport.cpp:    ComputeCrossModuleImportForModule(M.getModuleIdentifier(), *Index,
+IPO/FunctionImport.cpp:  // are potentially exported to other modules.
+IPO/FunctionImport.cpp:  if (renameModuleForThinLTO(M, *Index, /*ClearDSOLocalOnDeclarations=*/false,
+IPO/FunctionImport.cpp:    errs() << "Error renaming module\n";
+IPO/FunctionImport.cpp:  auto ModuleLoader = [&M](StringRef Identifier) {
+IPO/FunctionImport.cpp:  FunctionImporter Importer(*Index, ModuleLoader,
+IPO/FunctionImport.cpp:                          "Error importing module: ");
+IPO/FunctionImport.cpp:/// Pass that performs cross-module function import provided a summary file.
+IPO/FunctionImport.cpp:class FunctionImportLegacyPass : public ModulePass {
+IPO/FunctionImport.cpp:  explicit FunctionImportLegacyPass() : ModulePass(ID) {}
+IPO/FunctionImport.cpp:  bool runOnModule(Module &M) override {
+IPO/FunctionImport.cpp:    if (skipModule(M))
+IPO/FunctionImport.cpp:    return doImportingForModule(M);
+IPO/FunctionImport.cpp:PreservedAnalyses FunctionImportPass::run(Module &M,
+IPO/FunctionImport.cpp:                                          ModuleAnalysisManager &AM) {
+IPO/FunctionImport.cpp:  if (!doImportingForModule(M))
+CFGuard/CFGuard.cpp:  bool doInitialization(Module &M) override;
+CFGuard/CFGuard.cpp:  // Only add checks if the module has the cfguard=2 flag.
+CFGuard/CFGuard.cpp:  int cfguard_module_flag = 0;
+CFGuard/CFGuard.cpp:  assert(Triple(CB->getModule()->getTargetTriple()).isOSWindows() &&
+CFGuard/CFGuard.cpp:  assert(Triple(CB->getModule()->getTargetTriple()).isOSWindows() &&
+CFGuard/CFGuard.cpp:bool CFGuard::doInitialization(Module &M) {
+CFGuard/CFGuard.cpp:  // Check if this module has the cfguard flag and read its value.
+CFGuard/CFGuard.cpp:          mdconst::extract_or_null<ConstantInt>(M.getModuleFlag("cfguard")))
+CFGuard/CFGuard.cpp:    cfguard_module_flag = MD->getZExtValue();
+CFGuard/CFGuard.cpp:  // Skip modules for which CFGuard checks have been disabled.
+CFGuard/CFGuard.cpp:  if (cfguard_module_flag != 2)
+CFGuard/CFGuard.cpp:  // Skip modules for which CFGuard checks have been disabled.
+CFGuard/CFGuard.cpp:  if (cfguard_module_flag != 2)
+Vectorize/LoopVectorize.cpp:#include "llvm/IR/Module.h"
+Vectorize/LoopVectorize.cpp:      // Just print the module name.
+Vectorize/LoopVectorize.cpp:      OS << L->getHeader()->getParent()->getParent()->getModuleIdentifier();
+Vectorize/LoopVectorize.cpp:  auto &DL = OrigLoop->getHeader()->getModule()->getDataLayout();
+Vectorize/LoopVectorize.cpp:  const DataLayout &DL = Instr->getModule()->getDataLayout();
+Vectorize/LoopVectorize.cpp:  const DataLayout &DL = L->getHeader()->getModule()->getDataLayout();
+Vectorize/LoopVectorize.cpp:  SCEVExpander Exp(*PSE.getSE(), Bypass->getModule()->getDataLayout(),
+Vectorize/LoopVectorize.cpp:      const DataLayout &DL = LoopScalarBody->getModule()->getDataLayout();
+Vectorize/LoopVectorize.cpp:          OrigLoop->getHeader()->getModule()->getDataLayout();
+Vectorize/LoopVectorize.cpp:  const DataLayout &DL = OrigLoop->getHeader()->getModule()->getDataLayout();
+Vectorize/LoopVectorize.cpp:  Module *M = I.getParent()->getParent()->getParent();
+Vectorize/LoopVectorize.cpp:  auto &DL = I->getModule()->getDataLayout();
+Vectorize/LoopVectorize.cpp:  auto &DL = I->getModule()->getDataLayout();
+Vectorize/LoopVectorize.cpp:    auto &MAMProxy = AM.getResult<ModuleAnalysisManagerFunctionProxy>(F);
+Vectorize/VectorCombine.cpp:  const DataLayout &DL = I.getModule()->getDataLayout();
+Vectorize/SLPVectorizer.cpp:#include "llvm/IR/Module.h"
+Vectorize/SLPVectorizer.cpp:          // another function, or even another module that happens to be in
+Vectorize/SLPVectorizer.cpp:    const DataLayout &DL = E0->getModule()->getDataLayout();
+Vectorize/SLPVectorizer.cpp:  bool doInitialization(Module &M) override {
+Vectorize/SLPVectorizer.cpp:  const DataLayout &DL = BB->getModule()->getDataLayout();
+Vectorize/LoadStoreVectorizer.cpp:#include "llvm/IR/Module.h"
+Vectorize/LoopVectorizationLegality.cpp:  const DataLayout &DL = Phi->getModule()->getDataLayout();
+Vectorize/VPlanValue.h:/// ModuleSlotTracker for IR values.
+AggressiveInstCombine/AggressiveInstCombine.cpp:  Function *F = Intrinsic::getDeclaration(Phi.getModule(), IID, Phi.getType());
+AggressiveInstCombine/AggressiveInstCombine.cpp:              I.getModule(), Intrinsic::ctpop, I.getType());
