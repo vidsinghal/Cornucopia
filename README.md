@@ -26,7 +26,7 @@ To quit `psql` use `\q` and to quit `postgres` use `exit`.
 
 2.) Run the server
 Open a new screen to run the server in by typing `screen`. This will take you to a new screen. 
-Go the `fitness_wrapper` directory and type the following command in order to deploy the server.
+Go to the `fitness_wrapper` directory and type the following command in order to deploy the server.
 Note that we are using port 5001 here because that is the one that was exposed in the docker file.
 Also note that we are using the function hash uniform weight server but to use another server out of the many that run different fitness function just replace the server `.py` file and run it instead.
 ```
