@@ -2,7 +2,7 @@
 
 This is a docker image that will build Cornucopia with all the correct dependencies installed. 
 
-To build the image execute the following command in the main directory ("docker")
+To build the image execute the following command in the main directory
 ```
     docker image build -t cornucopia .
 ```
