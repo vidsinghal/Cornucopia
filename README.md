@@ -55,7 +55,7 @@ Paste this IP address in the `./automation_scripts/randollvm.config` file in the
     c.) arm 
     d.) mips
 
-4.) Run option parser to get the architecture specific optimization options 
+4.) Run option parser to get the architecture specific optimization options. 
 We need to run this to get the correct optimization flags for the architecture chosen. 
 If you choose `mips` for example run the following command in the `/root` directory where `optionParser.py` resides to get all the target specific options which will be outputted in the file `option_list.txt`.
 
