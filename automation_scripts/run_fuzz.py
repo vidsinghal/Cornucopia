@@ -184,7 +184,7 @@ def fuzz_bitcode_llvm(input_file, config, fuzzing_time, instance_time, use_itera
     environ["RLLVM_OUTDIR"] = output_path
 
     if str("function_hash") in config.fitness_function:
-        new_path = config.assembly_folder+"/"+prog_name+".s"
+        new_path = config.assembly_folder+"/"+prog_name+".bc"
     else:
         new_path = config.assembly_folder + "/binaries/" + prog_name
 
@@ -236,10 +236,10 @@ def compile_bc(input_file, config):
     start = time.time()
     # TODO: replace llc-12 with environment var or use a config file?
     try:
-        subprocess.check_call([config.llvm_path+"/llc", "-O3", "-march=" + config.arch , input_file, "-o", config.assembly_folder+"/"
-                    +prog_name+".s"])
+        subprocess.check_call([config.llvm_path+"/opt", "--O3", "--march=" + config.arch , input_file, "-o", config.assembly_folder+"/"
+                    +prog_name+".bc"])
     except:
-        print("llc failed for " + input_file )
+        print("opt failed for " + input_file )
     end = time.time()
     return end - start
 
@@ -251,9 +251,9 @@ def compile_bc_parallel(isSlave, input_file, config):
         assembly_folder = config.assembly_folder+"/"+str(isSlave)+"/"
         if not os.path.isdir(assembly_folder):
             os.mkdir(assembly_folder)
-        subprocess.check_call([config.llvm_path+"/llc", "-O3", "-march=" + config.arch , input_file, "-o", config.assembly_folder+"/"+str(isSlave)+"/"+prog_name+".s"])
+        subprocess.check_call([config.llvm_path+"/opt", "--O3", "--march=" + config.arch , input_file, "-o", config.assembly_folder+"/"+str(isSlave)+"/"+prog_name+".bc"])
     except:
-        print("llc failed for " + input_file )
+        print("opt failed for " + input_file )
     end = time.time()
     return end - start
 
@@ -263,10 +263,10 @@ def compile_O0(input_file, config):
         start = time.time()
         # TODO: replace llc-12 with environment var or use a config file?
         try:
-            subprocess.check_call([config.llvm_path+"/llc", "-march=" + config.arch ,"-O0", input_file, "-o", config.original_sources +"/"
-                    +prog_name+".s"])
+            subprocess.check_call([config.llvm_path+"/opt", "--march=" + config.arch ,"--O0", input_file, "-o", config.original_sources +"/"
+                    +prog_name+".bc"])
         except:
-            print("llc failed for " + input_file)
+            print("opt failed for " + input_file)
         end = time.time()
     #else:
        # start = time.time()
@@ -388,7 +388,7 @@ def run_llvm_fuzz(config):
         while(True):
 
             if( (time.time() - fuzzing_time) > total_fuzz_time):
-                subprocess.call("killall -9 afl-fuzz clang-12 clang llc llc-12", shell=True)
+                subprocess.call("killall -9 afl-fuzz clang-12 clang opt opt-12", shell=True)
                 subprocess.call("ipcrm -a", shell=True)
                 batches_done = batches_done + 1
                 break
@@ -429,7 +429,7 @@ def fuzz_bitcode_llvm_parallel(isSlave, input_file, config, fuzzing_time, instan
             new_path = config.assembly_folder+"/"+ str(isSlave) + "/"
             if not os.path.isdir(new_path):
                 os.mkdir(new_path)
-            new_path = new_path + prog_name+".s"
+            new_path = new_path + prog_name+".bc"
         else:
             #binary file case            
             new_path = config.assembly_folder + "/binaries" + "/" 
@@ -452,7 +452,7 @@ def fuzz_bitcode_llvm_parallel(isSlave, input_file, config, fuzzing_time, instan
             new_path = config.assembly_folder+"/"+ "master" + "/"
             if not os.path.isdir(new_path):
                 os.mkdir(new_path)            
-            new_path = new_path + prog_name+".s"
+            new_path = new_path + prog_name+".bc"
         else:
             #binary file case
             new_path = config.assembly_folder + "/binaries/"            

@@ -122,7 +122,7 @@ extern "C" size_t afl_custom_post_process(Config *config, unsigned char *buf, si
     unsigned int i;
     unsigned int intVal;
     std::string command("timeout " + config->cc_time + " ");
-    command += (config->llvm_directory + "/llc -march ");
+    command += (config->llvm_directory + "/opt --march ");
     command += config->arch + " ";
     
     for(i=0; i<buf_size; i++){
@@ -188,7 +188,7 @@ extern "C" size_t afl_custom_post_process(Config *config, unsigned char *buf, si
     command += ".bc ";
     command += "-o ";
     command += config->assembly_folder;
-    command += config->pname + ".s";
+    command += config->pname + ".bc";
     
     //print statements for degugging
     // std::cout << std::endl;
@@ -213,7 +213,7 @@ extern "C" size_t afl_custom_post_process(Config *config, unsigned char *buf, si
     
     //compiled file
     std::string compiledFile(config->assembly_folder + config->pname);
-    compiledFile += ".s";
+    compiledFile += ".bc";
     
     if (compile_status_llc < 0){
         std::cout << "llc crashed, hence compiling the original file with -O0 " << compile_status_llc << std::endl;
@@ -233,13 +233,13 @@ extern "C" size_t afl_custom_post_process(Config *config, unsigned char *buf, si
         Crash_Data.close();
 
         //since we crashed compile just with the default command, that is no optimizations
-        std::string execption_command(config->llvm_directory + "/llc -O0 -march ");
+        std::string execption_command(config->llvm_directory + "/opt --O0 --march ");
         execption_command += config->arch + " ";
         execption_command += config->program;
         execption_command += ".bc ";
         execption_command += "-o ";
         execption_command += config->assembly_folder;
-        execption_command += config->pname + ".s";
+        execption_command += config->pname + ".bc";
         compile_status_llc = std::system(execption_command.c_str());
 
     }
@@ -285,13 +285,13 @@ extern "C" size_t afl_custom_post_process(Config *config, unsigned char *buf, si
                 Crash_Data.close();
 
                 //since we crashed compile just with the default command, that is no optimizations
-                std::string execption_command(config->llvm_directory + "/llc -O0 -march ");
+                std::string execption_command(config->llvm_directory + "/opt --O0 --march ");
                 execption_command += config->arch + " ";
                 execption_command += config->program;
                 execption_command += ".bc ";
                 execption_command += "-o ";
                 execption_command += config->assembly_folder;
-                execption_command += config->pname + ".s";
+                execption_command += config->pname + ".bc";
 
                 // std::cout << execption_command.c_str() << std::endl;
                 compile_status_llc = std::system(execption_command.c_str());
@@ -316,13 +316,13 @@ extern "C" size_t afl_custom_post_process(Config *config, unsigned char *buf, si
                 Crash_Data.close();
 
                 //since we crashed compile just with the default command, that is no optimizations
-                std::string execption_command(config->llvm_directory + "/llc -O0 -march ");
+                std::string execption_command(config->llvm_directory + "/opt --O0 --march ");
                 execption_command += config->arch + " ";
                 execption_command += config->program;
                 execption_command += ".bc ";
                 execption_command += "-o ";
                 execption_command += config->assembly_folder;
-                execption_command += config->pname + ".s";
+                execption_command += config->pname + ".bc";
 
                 // std::cout << execption_command.c_str() << std::endl;
                 compile_status_llc = std::system(execption_command.c_str());
@@ -349,13 +349,13 @@ extern "C" size_t afl_custom_post_process(Config *config, unsigned char *buf, si
         Crash_Data.close();
 
         //since we crashed compile just with the default command, that is no optimizations
-        std::string execption_command(config->llvm_directory + "/llc -O0 -march ");
+        std::string execption_command(config->llvm_directory + "/opt --O0 --march ");
         execption_command += config->arch + " ";
         execption_command += config->program;
         execption_command += ".bc ";
         execption_command += "-o ";
         execption_command += config->assembly_folder;
-        execption_command += config->pname + ".s";
+        execption_command += config->pname + ".bc";
 
         // std::cout << execption_command.c_str() << std::endl;
         compile_status_llc = std::system(execption_command.c_str());
@@ -472,13 +472,13 @@ extern "C" size_t afl_custom_post_process(Config *config, unsigned char *buf, si
     //std::string compiledBin;
     if (WEXITSTATUS(compile_status_clang) != 0){
         
-        std::string execption_command(config->llvm_directory + "/llc -O0 -march ");
+        std::string execption_command(config->llvm_directory + "/opt --O0 --march ");
         execption_command += config->arch + " ";
         execption_command += config->program;
         execption_command += ".bc ";
         execption_command += "-o ";
         execption_command += config->assembly_folder;
-        execption_command += config->pname + ".s";
+        execption_command += config->pname + ".bc";
         compile_status_llc = std::system(execption_command.c_str());
 
         //std::string compiledFile(config->assembly_folder + config->pname);
