@@ -14,7 +14,7 @@ compile_all :
 
 
 get_options : 
-	$(rootFolder)/HashEnabledLLVM/build/bin/llc --help-list-hidden > options_list.txt
+	$(rootFolder)/HashEnabledLLVM/build/bin/opt --help-list-hidden > options_list.txt
 
 clean :
 	rm fitness_wrapper/main
