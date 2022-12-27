@@ -3,9 +3,11 @@
 This is a docker image that will build Cornucopia with all the correct dependencies installed. 
 
 To build the image execute the following command in the main directory
+
 ```
     docker image build -t cornucopia .
 ```
+
 The above command will build the cornucopia docker image. We can then access it and play around inside the environment. 
 To run the docker image we just built, run the following command
 ```
@@ -27,6 +29,7 @@ To quit `psql` use `\q` and to quit `postgres` use `exit`.
 2.) Run the server
 Open a new screen to run the server in by typing `screen`. This will take you to a new screen. 
 Go to the `fitness_wrapper` directory and type the following command in order to deploy the server.
+
 Note that we are using port 5001 here because that is the one that was exposed in the docker file.
 Also note that we are using the function hash uniform weight server but to use another server out of the many that run different fitness functions just replace the server `.py` file and run it instead.
 ```
