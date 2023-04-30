@@ -189,8 +189,8 @@ def home():
 
 
 if __name__ == '__main__':    
-    
-    #initialize the sql-alchemy data, 
-    db.create_all()
-    #run the app
-    app.run(host=os.getenv('IP', '0.0.0.0'), port=int(os.getenv('PORT', PORT)), debug=False, threaded=True)
+    with app.app_context():
+        #initialize the sql-alchemy data, 
+        db.create_all()
+        #run the app
+        app.run(host=os.getenv('IP', '0.0.0.0'), port=int(os.getenv('PORT', PORT)), debug=False, threaded=True)
