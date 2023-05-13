@@ -160,7 +160,4 @@ EXPOSE 5001
 RUN python3 optionMap.py
 RUN make
 
-#just incase this wasn't activated before of while rebuilding docker old images are used
-RUN service postgresql start
-
 CMD ["bash"]

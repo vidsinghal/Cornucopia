@@ -14,9 +14,22 @@ Once we have run this command we will enter a `bash` terminal where all the file
 
 Once we have run this command we will enter a bash terminal where all the files and folders will reside in /root. 
 
-2.) Run the server
-Open a new screen to run the server in by typing `screen`. This will take you to a new screen. 
-Go to the `fitness_wrapper` directory and type the following command in order to deploy the server.
+Once this is done, follow the steps below to successfully run cornucopia
+
+1.) Make the post-gres database, run all the command below sequentially to create the database.
+
+    a.) service postgresql start
+    b.) su postgres
+    c.) psql
+    d.) create database db;
+    e.) create user anon with encrypted password 'admin';
+    f.) grant all privileges on database db to anon;
+    
+to quit psql use \q and to quit postgres use exit.
+
+1.) Run the server
+Open a new screen to run the server in by typing "screen". This will take you to a new screen. 
+Go the the fitness_wrapper directory and type the following command in order to deply the server.
 Note that we are using port 5001 here because that is the one that was exposed in the docker file.
 Also note that we are using the function hash uniform weight server but to use another server out of the many that run different fitness functions just replace the server `.py` file and run it instead.
 ```
