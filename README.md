@@ -3,7 +3,6 @@
 This is a docker image that will build Cornucopia with all the correct dependencies installed. 
 
 To build the image execute the following command in the main directory
-```
     docker image build -t cornucopia .
 ```
 The above command will build the cornucopia docker image. We can then access it and play around inside the environment. 
@@ -13,16 +12,7 @@ To run the docker image we just built, run the following command
 ```
 Once we have run this command we will enter a `bash` terminal where all the files and folders will reside in `/root`. Now follow the steps below to successfully run cornucopia.
 
-1.) Make the `post-gres database`, run all the command below sequentially to create the database.
-```
-    service postgresql start
-    su postgres
-    psql
-    create database db;
-    create user anon with encrypted password 'admin';
-    grant all privileges on database db to anon;
-```  
-To quit `psql` use `\q` and to quit `postgres` use `exit`.
+Once we have run this command we will enter a bash terminal where all the files and folders will reside in /root. 
 
 2.) Run the server
 Open a new screen to run the server in by typing `screen`. This will take you to a new screen. 
