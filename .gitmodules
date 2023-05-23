@@ -1,0 +1,3 @@
+[submodule "BinBench"]
+	path = BinBench
+	url = git@github.com:purs3lab/BinBench.git
