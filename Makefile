@@ -1,5 +1,5 @@
-rootFolder=$(shell pwd)
-CC_main=afl-gcc-fast
+ROOT="$(shell pwd)"
+CC_main="$(ROOT)/AFLplusplus/afl-gcc-fast"
 CXX_postprocessor=g++
 
 all : compile_all get_options
@@ -14,7 +14,7 @@ compile_all :
 
 
 get_options : 
-	$(rootFolder)/HashEnabledLLVM/build/bin/opt --help-list-hidden > options_list.txt
+	$(ROOT)//BinBench/binbench-llvm/build/bin/opt --help-list-hidden > options_list.txt
 
 clean :
 	rm fitness_wrapper/main

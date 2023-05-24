@@ -201,7 +201,7 @@ extern "C" size_t afl_custom_post_process(Config *config, unsigned char *buf, si
     command += "-o ";
     command += config->assembly_folder;
     command += config->pname;
-    command += ".s";
+    command += ".bc";
     
     //std::cout << "the command given to llc is " << command << "\n";
     
@@ -255,7 +255,7 @@ extern "C" size_t afl_custom_post_process(Config *config, unsigned char *buf, si
         execption_command += "-o ";
         execption_command += config->assembly_folder;
         execption_command += config->pname;
-        execption_command += ".s";
+        execption_command += ".bc";
         compile_status_llc = std::system(execption_command.c_str());
 
     }
@@ -307,7 +307,7 @@ extern "C" size_t afl_custom_post_process(Config *config, unsigned char *buf, si
                 execption_command += "-o ";
                 execption_command += config->assembly_folder;
                 execption_command += config->pname;
-                execption_command += ".s";
+                execption_command += ".bc";
 
                 // std::cout << execption_command.c_str() << std::endl;
                 compile_status_llc = std::system(execption_command.c_str());
@@ -338,7 +338,7 @@ extern "C" size_t afl_custom_post_process(Config *config, unsigned char *buf, si
                 execption_command += "-o ";
                 execption_command += config->assembly_folder;
                 execption_command += config->pname;
-                execption_command += ".s";
+                execption_command += ".bc";
 
                 // std::cout << execption_command.c_str() << std::endl;
                 compile_status_llc = std::system(execption_command.c_str());
@@ -371,7 +371,7 @@ extern "C" size_t afl_custom_post_process(Config *config, unsigned char *buf, si
         execption_command += "-o ";
         execption_command += config->assembly_folder;
         execption_command += config->pname;
-        execption_command += ".s";
+        execption_command += ".bc";
 
         // std::cout << execption_command.c_str() << std::endl;
         compile_status_llc = std::system(execption_command.c_str());
@@ -381,7 +381,7 @@ extern "C" size_t afl_custom_post_process(Config *config, unsigned char *buf, si
     
     //compiled file
     std::string compiledFile(config->assembly_folder + config->pname);
-    compiledFile += ".s";
+    compiledFile += ".bc";
     std::string compiledBin(config->assembly_folder + "/binaries/" + config->pname);
 
     std::string clang_command("ulimit -f 10000000; " + config->llvm_directory + "clang -Wl,--unresolved-symbols=ignore-in-object-files " + compiledFile + " -o " + config->assembly_folder + "/binaries/" + config->pname);  
@@ -498,11 +498,11 @@ extern "C" size_t afl_custom_post_process(Config *config, unsigned char *buf, si
         execption_command += "-o ";
         execption_command += config->assembly_folder;
         execption_command += config->pname ;
-        execption_command += ".s";
+        execption_command += ".bc";
         compile_status_llc = std::system(execption_command.c_str());
 
         std::string compiledFile(config->assembly_folder + config->pname);
-        compiledFile += ".s";
+        compiledFile += ".bc";
         //compiledBin = config->assembly_folder + "/binaries/" + config->pname;
         std::string clang_command("ulimit -f 10000000; " + config->llvm_directory + "clang -Wl,--unresolved-symbols=ignore-in-object-files " + compiledFile + " -o " + config->assembly_folder + "/binaries/" + config->pname);
         const char *exec_clang = clang_command.c_str();

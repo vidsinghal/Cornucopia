@@ -39,7 +39,7 @@ app = Flask(__name__)
 #then in the pgAdmin application create a database for for the server
 #set the variable as "postgresql://<username>:<password>@<server>:5432/<db_name>"
 #here username for me is "anon", password is "admin", database name is db
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://anon:admin@localhost/db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://anon:admin@localhost:5433/db'
 app.config['SECRET_KEY'] = "admin"
 app.config['SQLALCHEMY_POOL_SIZE'] =  100
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -269,9 +269,16 @@ def home():
 #    return "", 201
 
 
-if __name__ == '__main__':    
-    
-    #initialize the sql-alchemy data, 
-    db.create_all()
-    #run the app
-    app.run(host=os.getenv('IP', '0.0.0.0'), port=int(os.getenv('PORT', PORT)), debug=False, threaded=True)
+#if __name__ == '__main__':    
+#    
+#    #initialize the sql-alchemy data, 
+#    db.create_all()
+#    #run the app
+#    app.run(host=os.getenv('IP', '0.0.0.0'), port=int(os.getenv('PORT', PORT)), debug=False, threaded=True)
+
+if __name__ == '__main__':
+    with app.app_context():
+        #initialize the sql-alchemy data,
+        db.create_all()
+        #run the app
+        app.run(host=os.getenv('IP', '0.0.0.0'), port=int(os.getenv('PORT', PORT)), debug=False, threaded=True)
