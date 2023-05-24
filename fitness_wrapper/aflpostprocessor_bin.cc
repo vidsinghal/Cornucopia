@@ -19,6 +19,7 @@ struct Config {
   std::string assembly_folder;
   std::string program;
   std::string pname;
+  std::string arch;
   unsigned char *outBuffer;
   size_t file_size;
 };
@@ -53,19 +54,20 @@ extern "C" Config *afl_custom_init(void *afl, unsigned int seed) {
     config->program = config->directory;
     config->pname = getEnvVar("RLLVM_PNAME");
     config->program += config->pname;
+    config->arch = getEnvVar("RLLVM_ARCH");
     config->file_size = UINT_MAX;
     config->outBuffer = new unsigned char[config->file_size * sizeof (unsigned char)];
 
     struct stat buffer;
     
-    std::string command(config->output_directory + "/LLC_ERROR/");
+    std::string command(config->output_directory + "/opt_ERROR/");
     if (stat(command.c_str(), &buffer) != 0){
 
         std::string makeDir("mkdir " + command);
         std::system(makeDir.c_str());
     }
 
-    std::string command1(config->output_directory + "/LLC_SUCCESS/");
+    std::string command1(config->output_directory + "/opt_SUCCESS/");
     if (stat(command1.c_str(), &buffer) != 0){
 
         std::string makeDir("mkdir " + command1);
@@ -86,7 +88,7 @@ extern "C" Config *afl_custom_init(void *afl, unsigned int seed) {
         std::system(makeDir.c_str());
     }
 
-    std::string command4(config->output_directory + "/LLC_FILE_SIZE/");
+    std::string command4(config->output_directory + "/opt_FILE_SIZE/");
     if (stat(command4.c_str(), &buffer) != 0){
 
         std::string makeDir("mkdir " + command4);
@@ -135,8 +137,9 @@ extern "C" size_t afl_custom_post_process(Config *config, unsigned char *buf, si
     unsigned int i;
     unsigned int intVal;
     std::string command("timeout " + config->cc_time + " ");
-    command += (config->llvm_directory + "/llc ");
-    
+    command += (config->llvm_directory + "/opt --march ");
+    command += config->arch + " ";
+
     for(i=0; i<buf_size; i++){
         intVal = (uint) buf[i];
         
@@ -203,7 +206,7 @@ extern "C" size_t afl_custom_post_process(Config *config, unsigned char *buf, si
     command += config->pname;
     command += ".bc";
     
-    //std::cout << "the command given to llc is " << command << "\n";
+    //std::cout << "the command given to opt is " << command << "\n";
     
     //print statements for degugging
     // std::cout << std::endl;
@@ -217,12 +220,12 @@ extern "C" size_t afl_custom_post_process(Config *config, unsigned char *buf, si
     //get the commmand that needs to be executed on the shell as a char*
     const char *exec_command = command.c_str();
     // std::cout << command.c_str() << std::endl;
-    int compile_status_llc;    
+    int compile_status_opt;    
     //execute the compilation command on the system
     std::cout << "Compilation started with timeout " << config->cc_time << std::endl;
 
     try{
-	    compile_status_llc = std::system(exec_command);
+	    compile_status_opt = std::system(exec_command);
     } catch (int i){
 
 	    std::cout << "catch block caught an err, with value:" << i << "\n";
@@ -231,15 +234,15 @@ extern "C" size_t afl_custom_post_process(Config *config, unsigned char *buf, si
     }
 
     //error
-    if (compile_status_llc < 0){
-        std::cout << "llc crashed, hence compiling the original file with -O0 " << compile_status_llc << std::endl;
+    if (compile_status_opt < 0){
+        std::cout << "opt crashed, hence compiling the original file with -O0 " << compile_status_opt << std::endl;
         std::hash<std::string> hash_string;
         ulong command_hash = hash_string(command);
         std::string file_name = std::to_string(command_hash);
 
         //create the filename
         std::string file_path = config->output_directory;
-        file_path += "/LLC_ERROR/";
+        file_path += "/opt_ERROR/";
         file_path += file_name;
         file_path += ".txt";
         std::ofstream Crash_Data(file_path);
@@ -249,23 +252,24 @@ extern "C" size_t afl_custom_post_process(Config *config, unsigned char *buf, si
         Crash_Data.close();
 
         //since we crashed compile just with the default command, that is no optimizations
-        std::string execption_command(config->llvm_directory + "/llc -O0 ");
+        std::string execption_command(config->llvm_directory + "/opt --O0 --march ");
+        execption_command += config->arch + " ";
         execption_command += config->program;
         execption_command += ".bc ";
         execption_command += "-o ";
         execption_command += config->assembly_folder;
         execption_command += config->pname;
         execption_command += ".bc";
-        compile_status_llc = std::system(execption_command.c_str());
+        compile_status_opt = std::system(execption_command.c_str());
 
     }
     else{
         //returned normally
-        if(WIFEXITED(compile_status_llc)){
+        if(WIFEXITED(compile_status_opt)){
 
-            if(WEXITSTATUS(compile_status_llc) == 0){
-                std::cout << "llc compiled properly, return code was:\n";
-                std::cout << WEXITSTATUS(compile_status_llc) << std::endl;
+            if(WEXITSTATUS(compile_status_opt) == 0){
+                std::cout << "opt compiled properly, return code was:\n";
+                std::cout << WEXITSTATUS(compile_status_opt) << std::endl;
             
                 std::hash<std::string> hash_string;
                 ulong command_hash = hash_string(command);
@@ -273,7 +277,7 @@ extern "C" size_t afl_custom_post_process(Config *config, unsigned char *buf, si
 
                 //create the filename
                 std::string file_path = config->output_directory;
-                file_path += "/LLC_SUCCESS/";
+                file_path += "/opt_SUCCESS/";
                 file_path += file_name;
                 file_path += ".txt";
                 std::ofstream Success_Data(file_path);
@@ -282,16 +286,16 @@ extern "C" size_t afl_custom_post_process(Config *config, unsigned char *buf, si
                 Success_Data << command;
                 Success_Data.close();
             }
-            else if(WEXITSTATUS(compile_status_llc) == 254){
+            else if(WEXITSTATUS(compile_status_opt) == 254){
 
-                //std::cout << "llc crashed potential file size error " << WEXITSTATUS(compile_status_llc) << std::endl;
+                //std::cout << "opt crashed potential file size error " << WEXITSTATUS(compile_status_opt) << std::endl;
                 std::hash<std::string> hash_string;
                 ulong command_hash = hash_string(command);
                 std::string file_name = std::to_string(command_hash);
 
                 //create the filename
                 std::string file_path = config->output_directory;
-                file_path += "/LLC_FILE_SIZE/";
+                file_path += "/opt_FILE_SIZE/";
                 file_path += file_name;
                 file_path += ".txt";
                 std::ofstream Crash_Data(file_path);
@@ -301,7 +305,8 @@ extern "C" size_t afl_custom_post_process(Config *config, unsigned char *buf, si
                 Crash_Data.close();
 
                 //since we crashed compile just with the default command, that is no optimizations
-                std::string execption_command(config->llvm_directory + "/llc -O0 ");
+                std::string execption_command(config->llvm_directory + "/opt --O0 --march ");
+                execption_command += config->arch + " ";
                 execption_command += config->program;
                 execption_command += ".bc ";
                 execption_command += "-o ";
@@ -310,19 +315,19 @@ extern "C" size_t afl_custom_post_process(Config *config, unsigned char *buf, si
                 execption_command += ".bc";
 
                 // std::cout << execption_command.c_str() << std::endl;
-                compile_status_llc = std::system(execption_command.c_str());
+                compile_status_opt = std::system(execption_command.c_str());
 
             }
             else{
                 
-                //std::cout << "llc crashed, hence compiling the original file with -O0 " << WEXITSTATUS(compile_status_llc) << std::endl;
+                //std::cout << "opt crashed, hence compiling the original file with -O0 " << WEXITSTATUS(compile_status_opt) << std::endl;
                 std::hash<std::string> hash_string;
                 ulong command_hash = hash_string(command);
                 std::string file_name = std::to_string(command_hash);
 
                 //create the filename
                 std::string file_path = config->output_directory;
-                file_path += "/LLC_ERROR/";
+                file_path += "/opt_ERROR/";
                 file_path += file_name;
                 file_path += ".txt";
                 std::ofstream Crash_Data(file_path);
@@ -332,7 +337,8 @@ extern "C" size_t afl_custom_post_process(Config *config, unsigned char *buf, si
                 Crash_Data.close();
 
                 //since we crashed compile just with the default command, that is no optimizations
-                std::string execption_command(config->llvm_directory + "/llc -O0 ");
+                std::string execption_command(config->llvm_directory + "/opt --O0 --march ");
+                execption_command += config->arch + " ";
                 execption_command += config->program;
                 execption_command += ".bc ";
                 execption_command += "-o ";
@@ -341,21 +347,21 @@ extern "C" size_t afl_custom_post_process(Config *config, unsigned char *buf, si
                 execption_command += ".bc";
 
                 // std::cout << execption_command.c_str() << std::endl;
-                compile_status_llc = std::system(execption_command.c_str());
+                compile_status_opt = std::system(execption_command.c_str());
             }
 
         }
         //exited abmornally
         else{
 
-        //std::cout << "llc crashed, hence compiling the original file with -O0 " << compile_status_llc << std::endl;
+        //std::cout << "opt crashed, hence compiling the original file with -O0 " << compile_status_opt << std::endl;
         std::hash<std::string> hash_string;
         ulong command_hash = hash_string(command);
         std::string file_name = std::to_string(command_hash);
 
         //create the filename
         std::string file_path = config->output_directory;
-        file_path += "/LLC_ERROR/";
+        file_path += "/opt_ERROR/";
         file_path += file_name;
         file_path += ".txt";
         std::ofstream Crash_Data(file_path);
@@ -365,7 +371,8 @@ extern "C" size_t afl_custom_post_process(Config *config, unsigned char *buf, si
         Crash_Data.close();
 
         //since we crashed compile just with the default command, that is no optimizations
-        std::string execption_command(config->llvm_directory + "/llc -O0 ");
+        std::string execption_command(config->llvm_directory + "/opt --O0 --march ");
+        execption_command += config->arch + " ";
         execption_command += config->program;
         execption_command += ".bc ";
         execption_command += "-o ";
@@ -374,7 +381,7 @@ extern "C" size_t afl_custom_post_process(Config *config, unsigned char *buf, si
         execption_command += ".bc";
 
         // std::cout << execption_command.c_str() << std::endl;
-        compile_status_llc = std::system(execption_command.c_str());
+        compile_status_opt = std::system(execption_command.c_str());
 
         }
     }
@@ -384,7 +391,34 @@ extern "C" size_t afl_custom_post_process(Config *config, unsigned char *buf, si
     compiledFile += ".bc";
     std::string compiledBin(config->assembly_folder + "/binaries/" + config->pname);
 
-    std::string clang_command("ulimit -f 10000000; " + config->llvm_directory + "clang -Wl,--unresolved-symbols=ignore-in-object-files " + compiledFile + " -o " + config->assembly_folder + "/binaries/" + config->pname);  
+    //std::string clang_command("ulimit -f 10000000; " + config->llvm_directory + "clang -Wl,--unresolved-symbols=ignore-in-object-files " + compiledFile + " -o " + config->assembly_folder + "/binaries/" + config->pname);  
+
+    // command copied from here: https://github.com/purs3lab/BinBench#readme
+    std::string clang_command;
+    if ((config->arch).compare("mips") == 0){
+        //./binbench-llvm/build/bin/clang -fstack-size-section -target mips-pc-linux -Wl,--hash-style=sysv -Wl,--unresolved-symbols=ignore-in-object-files  -B./executable_binutils -mllvm -debug-only=binbench tests/simple.c -v
+        clang_command = std::string("ulimit -f 10000000; " + config->llvm_directory + "clang -fstack-size-section -target mips-pc-linux -Wl,--hash-style=sysv -Wl,--unresolved-symbols=ignore-in-object-files  -B./executable_binutils -mllvm -debug-only=binbench -v " + compiledFile + " -o " + config->assembly_folder + "/binaries/" + config->pname);
+    }
+    else if ((config->arch).compare("x86-64") == 0){
+        //./binbench-llvm/build/bin/clang -fstack-size-section -gdwarf-3 -B./executable_binutils -mllvm -debug-only=binbench tests/test.c
+        clang_command = std::string("ulimit -f 10000000; " + config->llvm_directory + "clang -Wl,--unresolved-symbols=ignore-in-object-files -fstack-size-section -gdwarf-3 -B./executable_binutils -mllvm -debug-only=binbench " + compiledFile + " -o " + config->assembly_folder + "/binaries/" + config->pname);
+    }
+    else if ((config->arch).compare("x86") == 0){
+        //./binbench-llvm/build/bin/clang -fstack-size-section -m32 -B./executable_binutils -mllvm -debug-only=binbench tests/test.c
+        clang_command = std::string("ulimit -f 10000000; " + config->llvm_directory + "clang -m32 -Wl,--unresolved-symbols=ignore-in-object-files -fstack-size-section -m32 -B./executable_binutils -mllvm -debug-only=binbench " + compiledFile + " -o " + config->assembly_folder + "/binaries/" + config->pname);
+    }
+    else if ((config->arch).compare("arm") == 0){
+        //./binbench-llvm/build/bin/clang -fstack-size-section --target=armv7-pc-linux -mfloat-abi=soft -Wl,--unresolved-symbols=ignore-in-object-files  -B./executable_binutils -mllvm -debug-only=binbench tests/simple.c
+        clang_command = std::string("ulimit -f 10000000; " + config->llvm_directory + "clang -fstack-size-section --target=armv7-pc-linux -mfloat-abi=soft -Wl,--unresolved-symbols=ignore-in-object-files  -B./executable_binutils -mllvm -debug-only=binbench " + compiledFile + " -o " + config->assembly_folder + "/binaries/" + config->pname);
+    }
+    else if ((config->arch).compare("mips64") == 0){
+        //./binbench-llvm/build/bin/clang -fstack-size-section -target mips64-pc-linux -Wl,--hash-style=sysv -Wl,--unresolved-symbols=ignore-in-object-files  -B./executable_binutils -mllvm -debug-only=binbench tests/simple.c
+        clang_command = std::string("ulimit -f 10000000; " + config->llvm_directory + "clang -fstack-size-section -target mips64-pc-linux -Wl,--hash-style=sysv -Wl,--unresolved-symbols=ignore-in-object-files  -B./executable_binutils -mllvm -debug-only=binbench " + compiledFile + " -o " + config->assembly_folder + "/binaries/" + config->pname);
+    }
+    else if ((config->arch).compare("aarch64") == 0){
+        //./binbench-llvm/build/bin/clang -o./test_outputs/sol_aarch64-pc-linux_O0 -O0 --target=aarch64-pc-linux -gdwarf-3 -Wl,--unresolved-symbols=ignore-in-object-files -fstack-size-section -B./executable_binutils -mllvm -debug-only=binbench test_bitcodes/sol.bc
+        clang_command = std::string("ulimit -f 10000000; " + config->llvm_directory + "clang -o./test_outputs/sol_aarch64-pc-linux_O0 -O0 --target=aarch64-pc-linux -gdwarf-3 -Wl,--unresolved-symbols=ignore-in-object-files -fstack-size-section -B./executable_binutils -mllvm -debug-only=binbench " + compiledFile + " -o " + config->assembly_folder + "/binaries/" + config->pname);
+    }
     
     
     const char *exec_clang = clang_command.c_str();
@@ -399,7 +433,7 @@ extern "C" size_t afl_custom_post_process(Config *config, unsigned char *buf, si
     } catch (int i){
 
 	    std::cout << "the catch block caught integer value of " << i << " for clang compilation" << "\n";
-	    std::cout << "corresponding llc command was: " << "\n";
+	    std::cout << "corresponding opt command was: " << "\n";
 	    std::cout << command << "\n";
     
     }   
@@ -492,19 +526,44 @@ extern "C" size_t afl_custom_post_process(Config *config, unsigned char *buf, si
     //std::string compiledBin;
     if (WEXITSTATUS(compile_status_clang) != 0){
 
-        std::string execption_command(config->llvm_directory + "/llc -O0 ");
+        std::string execption_command(config->llvm_directory + "/opt --O0 --march ");
+        execption_command += config->arch + " ";
         execption_command += config->program;
         execption_command += ".bc ";
         execption_command += "-o ";
         execption_command += config->assembly_folder;
         execption_command += config->pname ;
         execption_command += ".bc";
-        compile_status_llc = std::system(execption_command.c_str());
+        compile_status_opt = std::system(execption_command.c_str());
 
         std::string compiledFile(config->assembly_folder + config->pname);
         compiledFile += ".bc";
         //compiledBin = config->assembly_folder + "/binaries/" + config->pname;
-        std::string clang_command("ulimit -f 10000000; " + config->llvm_directory + "clang -Wl,--unresolved-symbols=ignore-in-object-files " + compiledFile + " -o " + config->assembly_folder + "/binaries/" + config->pname);
+        std::string clang_command;
+        if ((config->arch).compare("mips") == 0){
+            //./binbench-llvm/build/bin/clang -fstack-size-section -target mips-pc-linux -Wl,--hash-style=sysv -Wl,--unresolved-symbols=ignore-in-object-files  -B./executable_binutils -mllvm -debug-only=binbench tests/simple.c -v
+            clang_command = std::string("ulimit -f 10000000; " + config->llvm_directory + "clang -fstack-size-section -target mips-pc-linux -Wl,--hash-style=sysv -Wl,--unresolved-symbols=ignore-in-object-files  -B./executable_binutils -mllvm -debug-only=binbench -v " + compiledFile + " -o " + config->assembly_folder + "/binaries/" + config->pname);
+        }
+        else if ((config->arch).compare("x86-64") == 0){
+            //./binbench-llvm/build/bin/clang -fstack-size-section -gdwarf-3 -B./executable_binutils -mllvm -debug-only=binbench tests/test.c
+            clang_command = std::string("ulimit -f 10000000; " + config->llvm_directory + "clang -Wl,--unresolved-symbols=ignore-in-object-files -fstack-size-section -gdwarf-3 -B./executable_binutils -mllvm -debug-only=binbench " + compiledFile + " -o " + config->assembly_folder + "/binaries/" + config->pname);
+        }
+        else if ((config->arch).compare("x86") == 0){
+            //./binbench-llvm/build/bin/clang -fstack-size-section -m32 -B./executable_binutils -mllvm -debug-only=binbench tests/test.c
+            clang_command = std::string("ulimit -f 10000000; " + config->llvm_directory + "clang -m32 -Wl,--unresolved-symbols=ignore-in-object-files -fstack-size-section -m32 -B./executable_binutils -mllvm -debug-only=binbench " + compiledFile + " -o " + config->assembly_folder + "/binaries/" + config->pname);
+        }
+        else if ((config->arch).compare("arm") == 0){
+            //./binbench-llvm/build/bin/clang -fstack-size-section --target=armv7-pc-linux -mfloat-abi=soft -Wl,--unresolved-symbols=ignore-in-object-files  -B./executable_binutils -mllvm -debug-only=binbench tests/simple.c
+            clang_command = std::string("ulimit -f 10000000; " + config->llvm_directory + "clang -fstack-size-section --target=armv7-pc-linux -mfloat-abi=soft -Wl,--unresolved-symbols=ignore-in-object-files  -B./executable_binutils -mllvm -debug-only=binbench " + compiledFile + " -o " + config->assembly_folder + "/binaries/" + config->pname);
+        }
+        else if ((config->arch).compare("mips64") == 0){
+            //./binbench-llvm/build/bin/clang -fstack-size-section -target mips64-pc-linux -Wl,--hash-style=sysv -Wl,--unresolved-symbols=ignore-in-object-files  -B./executable_binutils -mllvm -debug-only=binbench tests/simple.c
+            clang_command = std::string("ulimit -f 10000000; " + config->llvm_directory + "clang -fstack-size-section -target mips64-pc-linux -Wl,--hash-style=sysv -Wl,--unresolved-symbols=ignore-in-object-files  -B./executable_binutils -mllvm -debug-only=binbench " + compiledFile + " -o " + config->assembly_folder + "/binaries/" + config->pname);
+        }
+        else if ((config->arch).compare("aarch64") == 0){
+            //./binbench-llvm/build/bin/clang -o./test_outputs/sol_aarch64-pc-linux_O0 -O0 --target=aarch64-pc-linux -gdwarf-3 -Wl,--unresolved-symbols=ignore-in-object-files -fstack-size-section -B./executable_binutils -mllvm -debug-only=binbench test_bitcodes/sol.bc
+            clang_command = std::string("ulimit -f 10000000; " + config->llvm_directory + "clang -o./test_outputs/sol_aarch64-pc-linux_O0 -O0 --target=aarch64-pc-linux -gdwarf-3 -Wl,--unresolved-symbols=ignore-in-object-files -fstack-size-section -B./executable_binutils -mllvm -debug-only=binbench " + compiledFile + " -o " + config->assembly_folder + "/binaries/" + config->pname);
+        }
         const char *exec_clang = clang_command.c_str();
         
         //std::cout << "clang Command was: " << "\n";

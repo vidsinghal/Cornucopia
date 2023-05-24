@@ -49,6 +49,8 @@ class Config(object):
     def get_environ_llvm(self):
         environ_copy = os.environ.copy()
         environ_copy["AFL_CUSTOM_MUTATOR_LIBRARY"] = self.post_processor
+        #set this environment variable 
+        environ_copy["AFL_I_DONT_CARE_ABOUT_MISSING_CRASHES"] = "1"
         environ_copy["RLLVM_INDIR"] = self.input_bitcodes
         environ_copy["RLLVM_OPTIONS_LIST"] = self.options_list
         environ_copy["RLLVM_LLVMBIN"] = self.llvm_path
@@ -68,7 +70,7 @@ class Config(object):
 
     def set_vars_llvm(self):
         self.fitness_wrapper = self.randollvm_root + "/fitness_wrapper/"
-        self.llvm_path = self.randollvm_root + "/HashEnabledLLVM/build/bin/"
+        self.llvm_path = self.randollvm_root + "/BinBench/binbench-llvm/build/bin/"
         self.afl_path = self.randollvm_root + "/AFLplusplus/"
         self.input_bitcodes = self.randollvm_root + "/afl_sources/"
         self.input_optionmaps = self.randollvm_root + "/inputs/"
